@@ -1,0 +1,49 @@
+<?php
+/**
+ * Blog available for import template
+ *
+ * @var $block \Magento\Backend\Block\Template
+ */
+$key = $this->getLayout()->createBlock('Magento\Framework\View\Element\FormKey')->toHtml();
+?>
+<div id="import-form" style="display: none;">
+    <?php echo $this->getChildHtml('import.wordpress'); ?>
+    <fieldset class="fieldset admin__fieldset ">
+        <div class="admin__field field " data-ui-id="import-wordress-form-fieldset-element-form-field-import-categories">
+            <label class="label admin__field-label" for="blogimport_import_categories" data-ui-id="import-wordress-form-fieldset-element-select-import-categories-label"><span></span></label>
+            <div class="admin__field-control control">
+                <button class="btn-import"><?php echo __('Import'); ?></button>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="ves-import row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 import-item">
+        <div class="import-wordpress">
+            <div class="icon">
+                <i class="fa fa-wordpress" aria-hidden="true"></i>
+            </div>
+            <p><?php echo __('Import from Wordpress'); ?></p>
+        </div>
+    </div>
+</div>
+<script>
+    require(['jquery','Magento_Ui/js/modal/modal'], function($, modal) {
+        $(function() {
+            $('.btn-import').click(function(){
+                $('#edit_form').submit();
+            });
+            var options = {
+                type: 'popup',
+                modalClass: 'vesmodal',
+                responsive: true,
+                innerScroll: true,
+                title: ''
+            };
+            $('.import-wordpress').click(function(event) {
+                var popup = modal(options, $('#import-form'));
+                $('#import-form').modal('openModal');
+            });
+        });
+    });
+</script>

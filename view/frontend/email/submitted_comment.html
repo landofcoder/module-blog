@@ -1,0 +1,24 @@
+<!--
+/**
+ * Copyright © 2017 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject New comment on blog post@-->
+<!--@vars {
+"var store_name":"Current Store Name",
+"var data.user_name":"User Name",
+"var data.user_email":"User Email",
+"var data.content":"Comment Content",
+"var data.post_title":"Post title",
+"var data.post_id":"Post Id",
+"var data.comment_parent":"Comment Parent Id",
+"var data.parent_user_name":"Parent user name",
+"var data.parent_user_email":"Parent user email",
+"var data.parent_content":"Parent comment content",
+"var data.parent_creation_time":"Parent comment creation time",
+} @-->
+
+{{trans "Name: %name" name=$data.user_name}}
+{{trans "Email: %email" email=$data.user_email}}
+{{trans "Comment: %content" content=$data.content}}

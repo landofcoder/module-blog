@@ -1,0 +1,203 @@
+<?php
+$collection  = $this->getCollection();
+$helper      = $this->helper("Ves\Blog\Helper\Data");
+$imageHelper = $this->helper("Ves\Blog\Helper\Image");
+
+/** General Settings **/
+$dateFormat         = $helper->getConfig("general_settings/dateformat");
+$twitterUsername    = $helper->getConfig("general_settings/twitter_username");
+$enableNetworks     = $helper->getConfig("general_settings/enable_networks");
+$networks           = array_flip(explode(",", $helper->getConfig("general_settings/networks")));
+$layout             = $this->getConfig("layout_type");
+$show_toolbartop    = $this->getConfig("show_toolbartop");
+$show_toolbarbottom = $this->getConfig("show_toolbarbottom");
+
+$itemsperpage       = (int)$this->getConfig('item_per_page',20);
+$itemsperpage 		= $itemsperpage?$itemsperpage:8;
+$lg_column_item     = (int)$this->getConfig('lg_column_item',6);
+$lg_column_item 	= $lg_column_item?$lg_column_item:4;
+$md_column_item     = (int)$this->getConfig('md_column_item',6);
+$md_column_item 	= $md_column_item?$md_column_item:4;
+$sm_column_item     = (int)$this->getConfig('sm_column_item',6);
+$sm_column_item 	= $sm_column_item?$sm_column_item:2;
+$xs_column_item     = (int)$this->getConfig('xs_column_item',6);
+$xs_column_item 	= $xs_column_item?$xs_column_item:1;
+$lg_column          = 12/$lg_column_item;
+$md_column          = 12/$md_column_item;
+$sm_column          = 12/$sm_column_item;
+$xs_column          = 12/$xs_column_item;
+
+/** POST Settings **/
+$show_image             = $this->getConfig("show_image");
+$image_width            = (int)$this->getConfig("image_width", 800);
+$image_height           = (int)$this->getConfig("image_height");
+$keep_ratio             = $this->getConfig("keep_ratio");
+$keep_frame             = $this->getConfig("keep_frame");
+$show_title             = $this->getConfig("show_title");
+$show_shortdescription  = $this->getConfig("show_shortdescription");
+$shortdescription_count = $this->getConfig("shortdescription_count");
+$show_readmorelink      = $this->getConfig("show_readmorelink");
+$show_categories        = $this->getConfig("show_categories");
+$show_author            = $this->getConfig("show_author");
+$show_commentcount      = $this->getConfig("show_commentcount");
+$disable_comment 		= $helper->getConfig('general_settings/disable_comment');
+if($disable_comment) {
+	$show_commentcount = false;
+}
+$show_updatedtime       = $this->getConfig("show_updatedtime");
+$show_createdtime       = $this->getConfig("show_createdtime");
+$show_hits              = $this->getConfig("show_hits");
+$show_tags              = $this->getConfig("show_tags");
+$show_socialnetworks    = $this->getConfig("show_socialnetworks");
+
+$i = 1;
+$x = 0;
+$total = $collection->count();
+?>
+<?php foreach ($collection as $_post) { ?>
+<?php $postUrl = $helper->getPostUrl($_post); ?>
+<?php $postLinkAttr = $helper->getPostUrlLinkAttr($_post); ?>
+<?php if($layout == 'grid'){ ?>
+<?php if( $lg_column_item == 1 || $x%$lg_column_item == 0){ ?>
+<div class="row">
+	<?php } ?>
+	<div class="col-lg-<?php echo $lg_column ?> col-md-<?php echo $md_column ?> col-sm-<?php echo $sm_column ?> col-xs-<?php echo $xs_column ?>">
+		<?php } ?>
+		<div class="ves-post post-item">
+			<div class="post-wrapper">
+			<?php // IMAGE ?>
+			<?php if($show_image){ ?>
+				<?php $imageClass = ''; ?>
+				<?php if($_post->getImageType() == 2 && $_post->getImageVideoId()!=''){
+					$imageClass = ' post-video';
+				} ?>
+			<div class="post-image <?php echo $imageClass ?>">
+				<a href="<?php echo $postUrl ?>" <?php echo $postLinkAttr; ?> title="<?php echo $_post->getTitle(); ?>">
+					<?php if( $_post->getThumbnailType() == 1 && $_post->getPostThumbnail()!=''){ ?>
+						<?php if($_post->getImageType() == 2 && $_post->getImageVideoId()!=''){ ?>
+						<span class="fa overlay-icon"></span>
+					<?php }else{ ?>
+						<span class="fa overlay-icon"></span>
+					<?php } ?>
+					<?php if($image_width>0){ ?>
+					<img src="<?php echo $imageHelper->resizeImage($_post->getPostThumbnail(), $image_width, $image_height, 100, $keep_ratio, $keep_frame) ?>" height="<?php echo $image_height ?>" width="<?php echo $image_width ?>" alt="<?php echo $_post->getTitle(); ?>"/>
+					<?php }else{ ?>
+					<img src="<?php echo $helper->getMediaUrl($_post->getPostThumbnail()) ?>" alt="<?php echo $_post->getTitle(); ?>"/>
+					<?php } ?>
+					<?php }else if($_post->getThumbnailType() == 2){ ?>
+					<?php if($_post->getThumbnailVideoType()==1 && $_post->getThumbnailVideoId()!=''){ ?>
+					<iframe width="<?php echo $image_width ?>" height="<?php echo $image_height ?>" src="https://www.youtube.com/embed/<?php echo $_post->getThumbnailVideoId() ?>" frameborder="0" allowfullscreen></iframe>
+					<?php }else if($_post->getThumbnailVideoType()==2 && $_post->getThumbnailVideoId()!=''){ ?>
+					<iframe src="https://player.vimeo.com/video/<?php echo $_post->getThumbnailVideoId() ?>?color=3498DB&title=0&byline=0&portrait=0" width="<?php echo $image_width ?>" height="<?php echo $image_height ?>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+					<?php } ?>
+					<?php } ?>
+				</a>
+
+
+
+			</div>
+			<?php } ?>
+			<?php // TITLE ?>
+			<?php if($show_title){ ?>
+					<h3 class="post-title"><a href="<?php echo $postUrl ?>" <?php echo $postLinkAttr; ?> title="<?php echo $_post->getTitle(); ?>"><?php echo $_post->getTitle(); ?></a></h3>
+				<?php if($show_socialnetworks){ ?>
+				<div class="addthis_toolbox addthis_default_style" data-title="<?php echo $_post->getTitle(); ?>" addthis:url="<?php echo $postUrl ?>">
+					<a class="addthis_button_facebook"></a>
+					<a class="addthis_button_twitter"></a>
+					<a class="addthis_button_google"></a>
+					<a class="addthis_button_email"></a>
+					<a class="addthis_button_pinterest_share"></a>
+					<a class="addthis_button_compact"></a>
+				</div>
+				<?php } ?>
+				<?php } ?>
+				
+				<div class="post-meta">
+				<?php if($show_author){ ?>
+				<div class="post-author">
+					<?php $author = $helper->getPostAuthor($_post);?>
+					<?php if($author) { ?>
+					<i class="fa fa-user"></i> <a href="<?php echo $helper->getAuthorUrl($author); ?>" title="<?php echo $author->getNickName() ?>"><?php echo $author->getNickName() ?></a>
+					<?php } ?>
+				</div>
+				<?php } ?>
+				<?php if($show_createdtime || $show_updatedtime){ ?>
+				<div class="post-date">
+					<?php if($show_createdtime){ ?>
+					<?php $createdTime = $helper->getFormatDate($_post->getCreationTime(), $dateFormat); ?>
+					<i class="fa fa-clock-o"></i> <span><?php echo $createdTime; ?></span>
+					<?php } ?>
+					<?php if($show_updatedtime){ ?>
+					<?php $updateTime = $helper->getFormatDate($_post->getUpdateTime(), $dateFormat); ?>
+					<i class="fa fa-clock-o"></i> <span><?php echo __('Updated on %1', $updateTime); ?></span>
+					<?php } ?>
+				</div>
+				<?php } ?>
+				<?php if($show_categories){ ?>
+				<div class="post-categories">
+					<?php
+					$categories = $_post->getData('categories');
+					$count = count($categories);
+					?>
+					<i class="fa fa-folder"></i>
+					<?php foreach ($categories as $k => $v) { ?>
+					<a href="<?php echo $helper->getCategoryUrl($v['identifier'])  ?>" title="<?php echo $v['name'] ?>"><?php echo $v['name'] ?></a>
+					<?php if(isset($categories[$k+1])) echo __(', '); ?>
+					<?php } ?>
+				</div>
+				<?php } ?>
+				<?php if($show_hits){ ?>
+				<div class="post-hits"><i class="fa fa-eye"></i> <span><?php echo (int)$_post->getHits(); ?></span></div>
+				<?php } ?>
+				<?php if($show_commentcount){ ?>
+				<div class="post-comment">
+					<i class="fa fa-comments"></i>
+					<a href="<?php echo $postUrl ?>#comments" <?php echo $postLinkAttr; ?>><?php echo $_post->getCommentCount(); ?></a>
+				</div>
+				<?php } ?>				
+			</div>
+
+				<?php if($show_tags){ ?>
+				<?php $tags = $_post->getTag(); ?>
+				<?php if(!empty($tags)){ ?>
+				<div class="post-tag">
+					<span><?php echo __('Tags:'); ?></span>
+					<?php foreach ($tags as $k => $v) { ?>
+					<a href="<?php echo $helper->getTagUrl($v['alias']) ?>"><?php echo trim($v['name']) ?></a>
+					<?php if(isset($tags[$k+1])) echo __(', '); ?>
+					<?php } ?>
+				</div>
+				<?php } ?>
+				<?php } ?>
+
+				<?php if($show_categories){ ?>
+				<div class="post-categories">
+					<?php
+					$categories = $_post->getData('categories');
+					$count = count($categories);
+					?>
+					<?php foreach ($categories as $k => $v) { ?>
+					<a href="<?php echo $helper->getCategoryUrl($v['identifier'])  ?>" title="<?php echo $v['name'] ?>"><?php echo $v['name'] ?></a>
+					<?php } ?>
+				</div>
+				<?php } ?>
+
+				<?php if($show_shortdescription){ ?>
+				<div class="post-summary">
+					<?php $shortContent = $_post->getShortContent(); ?>
+					<?php echo $helper->subString($shortContent, (int)$shortdescription_count); ?>
+				</div>
+				<?php if($show_readmorelink){ ?>
+					<div class="post-readmore"><a href="<?php echo $postUrl ?>" <?php echo $postLinkAttr; ?> title="<?php echo $_post->getTitle(); ?>"><?php echo __('Read more') ?></a></div>
+					<?php } ?>	
+				<?php } ?>
+		</div>
+		</div>
+		<?php if($layout == 'grid'){ ?>
+	</div>	
+	<?php if( $lg_column_item == 1 || ($x+1)%$lg_column_item == 0 || $i == $total ) {  ?>
+</div>
+<?php } ?>
+<?php $i++; $x++; ?>
+<?php } ?>
+<?php } ?>

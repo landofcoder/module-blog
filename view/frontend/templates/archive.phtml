@@ -1,0 +1,31 @@
+<?php
+$_months           = $block->getMonths();
+$helper            = $this->helper("Ves\Blog\Helper\Data");
+$showArchiveblock  = $helper->getConfig("sidebar/show_archiveblock");
+$archiveblockTitle = $helper->getConfig('sidebar/archiveblock_title');
+?>
+<?php if (count($_months) && $showArchiveblock) { ?>
+    <div class="ves-block block blog-archive">
+        <?php if($archiveblockTitle){ ?>
+            <div class="block-title">
+                <strong><?php echo __($archiveblockTitle) ?></strong>
+            </div>
+            <?php } ?>
+            <div class="block-content blog-widget-content">
+                <?php foreach ($_months as $time) { ?>
+                    <?php
+                    $month_name = $block->getMonth($time['time']);
+                    $month_name = __($month_name);
+                    $title = $month_name.' '.$block->getYear($time['time']);
+                    $title = $block->escapeHtml($title, null, true);
+                    ?>
+                    <div class="item">
+                        <a title="<?php echo __('Archive ') . $title ?>" class="archive-item-link" href="<?php echo $block->getTimeUrl($time['time']) ?>">
+                            <i class="fa fa-angle-right"></i> <?php echo $title; ?>
+                        </a>
+                        <span>(<?php echo $time['count']; ?>)</span>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <?php } ?>

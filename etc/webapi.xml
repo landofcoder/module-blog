@@ -1,0 +1,343 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Venustheme
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Venustheme.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.venustheme.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Venustheme
+ * @package    Ves_Blog
+ * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
+ * @license    http://www.venustheme.com/LICENSE-1.0.html
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+
+    <!-- Login Example to get Bearer: curl -X POST "http://mystore.com/index.php/rest/V1/integration/admin/token" \
+     -H "Content-Type:application/json" \
+     -d '{"username":"username", "password":"userpassword"}' 
+     Example Result for admin@123 = 69f9i7vq6zectn9wx5m6i3yu4guyr5fr -->
+
+    <!-- OK: Example: curl -X POST "http://mystore.com/index.php/rest/V1/vesblog/post" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"title\":\"value_1\",\"content\":"Test",\"is_active\":1,\"store_ids\":\"0\"}"}' -->
+    <route url="/V1/vesblog/post" method="POST">
+        <service class="Ves\Blog\Api\PostRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::post_save"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl -X PUT "http://mystore.com/index.php/rest/V1/vesblog/post/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"title\":\"value_1\",\"content\":"Test2",\"is_active\":1,\"store_ids\":\"0\"}"}' -->
+    <route url="/V1/vesblog/post" method="PUT">
+        <service class="Ves\Blog\Api\PostRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::post_save"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl -X DELETE "http://mystore.com/index.php/rest/V1/vesblog/post/:postId" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/post/:postId" method="DELETE">
+        <service class="Ves\Blog\Api\PostRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Ves_Blog::post_delete"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/post/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/post/:id" method="GET">
+        <service class="Ves\Blog\Api\PostRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Ves_Blog::post"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/post/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/posts" method="GET">
+        <service class="Ves\Blog\Api\PostRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Ves_Blog::post"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/post/view/:id/:store_id" -->
+    <route url="/V1/vesblog/post/view/:id/:store_id" method="GET">
+        <service class="Ves\Blog\Api\PostRepositoryInterface" method="view"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/post/list/:type/:term/:store_id/:page/:limit" -->
+    <route url="/V1/vesblog/post/list" method="GET">
+        <service class="Ves\Blog\Api\PostRepositoryInterface" method="getPublishList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/post/list/:type/:term/:store_id/:page/:limit" -->
+    <route url="/V1/vesblog/post/relatedPosts/:postId" method="GET">
+        <service class="Ves\Blog\Api\PostRepositoryInterface" method="getRelatedPosts"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/post/list/:type/:term/:store_id/:page/:limit" -->
+    <route url="/V1/vesblog/post/relatedProducts/:postId" method="GET">
+        <service class="Ves\Blog\Api\PostRepositoryInterface" method="getRelatedProducts"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- OK: Example: curl -X POST "http://mystore.com/index.php/rest/V1/vesblog/category" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"param_1\":\"value_1\",\"param_2\":\"value_2\",\"param_n\":\"value_n\"}"}' -->
+    <route url="/V1/vesblog/category" method="POST">
+        <service class="Ves\Blog\Api\CategoryRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::category_save"/>
+        </resources>
+    </route>
+    <!-- Example: curl -X PUT "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"param_1\":\"new_value_1\",\"param_2\":\"new_value_2\",\"param_n\":\"new_value_n\"}"}' -->
+    <route url="/V1/vesblog/category" method="PUT">
+        <service class="Ves\Blog\Api\CategoryRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::category_save"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl -X DELETE "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/category/:categoryId" method="DELETE">
+        <service class="Ves\Blog\Api\CategoryRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Ves_Blog::category_delete"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/category/:categoryId" method="GET">
+        <service class="Ves\Blog\Api\CategoryRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Ves_Blog::category"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/categories" method="GET">
+        <service class="Ves\Blog\Api\CategoryRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Ves_Blog::category"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/view/:id/:store_id" -->
+    <route url="/V1/vesblog/category/view/:categoryId/:store_id" method="GET">
+        <service class="Ves\Blog\Api\CategoryRepositoryInterface" method="view"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+       <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/list/:type/:term/:store_id/:page/:limit" -->
+    <route url="/V1/vesblog/category/list" method="GET">
+        <service class="Ves\Blog\Api\CategoryRepositoryInterface" method="getPublishList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- OK: Example: curl -X POST "http://mystore.com/index.php/rest/V1/vesblog/category" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"param_1\":\"value_1\",\"param_2\":\"value_2\",\"param_n\":\"value_n\"}"}' -->
+    <route url="/V1/vesblog/tag" method="POST">
+        <service class="Ves\Blog\Api\TagRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::tag_save"/>
+        </resources>
+    </route>
+    <!-- Example: curl -X PUT "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"param_1\":\"new_value_1\",\"param_2\":\"new_value_2\",\"param_n\":\"new_value_n\"}"}' -->
+    <route url="/V1/vesblog/tag" method="PUT">
+        <service class="Ves\Blog\Api\TagRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::tag_save"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl -X DELETE "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/tag/:tagId" method="DELETE">
+        <service class="Ves\Blog\Api\TagRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Ves_Blog::tag_delete"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/tag/:tagId" method="GET">
+        <service class="Ves\Blog\Api\TagRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Ves_Blog::tag"/>
+        </resources>
+    </route>
+
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/tags" method="GET">
+        <service class="Ves\Blog\Api\TagRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Ves_Blog::tag"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/view/:id/:store_id" -->
+    <route url="/V1/vesblog/tag/view/:tagAlias" method="GET">
+        <service class="Ves\Blog\Api\TagRepositoryInterface" method="view"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+       <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/list/:type/:term/:store_id/:page/:limit" -->
+    <route url="/V1/vesblog/tag/list" method="GET">
+        <service class="Ves\Blog\Api\TagRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- OK: Example: curl -X POST "http://mystore.com/index.php/rest/V1/vesblog/category" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"param_1\":\"value_1\",\"param_2\":\"value_2\",\"param_n\":\"value_n\"}"}' -->
+    <route url="/V1/vesblog/comment" method="POST">
+        <service class="Ves\Blog\Api\CommentRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::comment_save"/>
+        </resources>
+    </route>
+    <!-- Example: curl -X PUT "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"param_1\":\"new_value_1\",\"param_2\":\"new_value_2\",\"param_n\":\"new_value_n\"}"}' -->
+    <route url="/V1/vesblog/comment" method="PUT">
+        <service class="Ves\Blog\Api\CommentRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::comment_save"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl -X DELETE "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/comment/:commentId" method="DELETE">
+        <service class="Ves\Blog\Api\CommentRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Ves_Blog::comment_delete"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/comment/:commentId" method="GET">
+        <service class="Ves\Blog\Api\CommentRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Ves_Blog::comment"/>
+        </resources>
+    </route>
+
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/comments" method="GET">
+        <service class="Ves\Blog\Api\CommentRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Ves_Blog::comment"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/list/:type/:term/:store_id/:page/:limit" -->
+    <route url="/V1/vesblog/comment/list" method="GET">
+        <service class="Ves\Blog\Api\CommentRepositoryInterface" method="getPublishList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/list/:type/:term/:store_id/:page/:limit" -->
+    <route url="/V1/vesblog/postcomments/:postId" method="GET">
+        <service class="Ves\Blog\Api\CommentRepositoryInterface" method="getPostCommentList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- OK: Example: curl -X POST "http://mystore.com/index.php/rest/V1/vesblog/category" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"param_1\":\"value_1\",\"param_2\":\"value_2\",\"param_n\":\"value_n\"}"}' -->
+    <route url="/V1/vesblog/author" method="POST">
+        <service class="Ves\Blog\Api\AuthorRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::author_save"/>
+        </resources>
+    </route>
+    <!-- Example: curl -X PUT "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+      -H "Content-Type:application/json" \
+      -d '{"data":"{\"param_1\":\"new_value_1\",\"param_2\":\"new_value_2\",\"param_n\":\"new_value_n\"}"}' -->
+    <route url="/V1/vesblog/author/:id" method="PUT">
+        <service class="Ves\Blog\Api\AuthorRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Ves_Blog::author_save"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl -X DELETE "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/author/:authorId" method="DELETE">
+        <service class="Ves\Blog\Api\AuthorRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Ves_Blog::author_delete"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/author/:authorId" method="GET">
+        <service class="Ves\Blog\Api\AuthorRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Ves_Blog::author"/>
+        </resources>
+    </route>
+
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/:id" \
+      -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -->
+    <route url="/V1/vesblog/authors" method="GET">
+        <service class="Ves\Blog\Api\AuthorRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Ves_Blog::author"/>
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/list/:type/:term/:store_id/:page/:limit" -->
+    <route url="/V1/vesblog/author/list" method="GET">
+        <service class="Ves\Blog\Api\AuthorRepositoryInterface" method="getPublishList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <!-- OK: Example: curl "http://mystore.com/index.php/rest/V1/vesblog/category/list/:type/:term/:store_id/:page/:limit" -->
+    <route url="/V1/vesblog/author/view/:authorId" method="GET">
+        <service class="Ves\Blog\Api\AuthorRepositoryInterface" method="view"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes>

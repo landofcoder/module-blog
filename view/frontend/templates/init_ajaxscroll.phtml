@@ -1,0 +1,155 @@
+<?php  
+$helper = $this->helper('Ves\Blog\Helper\Data'); 
+$limit_chars 		   = $helper->getConfig("post_page/limit_chars");
+$limit_chars 		   = $limit_chars?(int)$limit_chars:10;
+$enable = $block->isEnable();
+if($enable) { ?>  
+<script>
+	require(['jquery',
+		'Ves_Blog/js/ajaxscroll'	
+		], function ($) {
+
+			$('<?php echo $helper->getConfig('ajaxscroll_selectors/toolbar') ?>').<?php echo $helper->getConfig('ajaxscroll_selectors/hide_toolbar') ? 'hide' : 'show' ?>();
+			windowLoadedFlag = false;
+			window.onload = function () {
+				windowLoadedFlag = true;
+			};   
+			var jQueryWaiter = function () {
+				var functions = [];
+				var timer = function() {
+					if( typeof window.jQuery != 'undefined') {
+						while (functions.length) {
+							functions.shift()(window.jQuery);
+						}
+					} else {
+						window.setTimeout(timer, 100);
+					}
+				};
+				timer();
+				return {
+					execute: function(onJQueryReady) {
+						if (window.jQuery) {
+							onJQueryReady(window.jQuery);
+						} else {
+							functions.push(onJQueryReady);
+						}
+					}
+				};
+			}();
+
+			window.SgyIAS = {
+				debug: false,
+				_log: function(object) { 
+					//console.log(object); 
+				},
+				init: function(){ 
+					jQuery(function($) {
+						var config = {
+							item: '<?php echo $helper->getConfig('ajaxscroll_selectors/grid_mode') ?>',
+							container : '<?php echo $helper->getConfig('ajaxscroll_selectors/content'); ?>',
+							next: '<?php echo $helper->getConfig('ajaxscroll_selectors/next') ?>',
+							pagination: '<?php echo $helper->getConfig('ajaxscroll_selectors/pagination') ?>',
+							parameter: '<?php echo $helper->getConfig('ajaxscroll_selectors/enable_parameter') ?>',
+							delay: 600,
+							negativeMargin: <?php echo (int) $helper->getConfig('ajaxscroll_selectors/buffer') ?>,
+							history: {
+								prev: '.prev'
+							},
+							noneleft: {
+								text: '<?php echo $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/done_text'))) ?>',
+								html: '<div class="ias-noneleft" style="text-align: center;">{text}</div>'
+							},
+							spinner: {
+								<?php if($block->getLoaderImage() !== false): ?>
+								src: '<?php echo $block->getLoaderImage(); ?>',
+							<?php endif; ?>
+							html: '<div class="ias-spinner" style="text-align: center;"><img style="display:inline" src="{src}"/> <?php echo $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/loading_text'))); ?></div>'
+						},  
+						trigger: {
+							text: '<?php echo $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/load_more_text'))) ?>',
+							html: '<div class="ias-trigger ias-trigger-next" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
+							textPrev: '<?php echo $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/load_more_text'))) ?>',
+							htmlPrev: '<div class="ias-trigger ias-trigger-prev" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
+							offset: <?php echo (int) $helper->getConfig('ajaxscroll_selectors/load_more') ?>
+						}
+
+					};
+
+
+					if (window.ias_config){
+						$.extend(config, window.ias_config);
+					}
+
+
+					SgyIAS._log({extension: 'ias', config: config});
+					window.ias = $.ias(config);
+
+					SgyIAS._log({extension: 'paging'});
+					window.ias.extension(new IASPagingExtension());
+
+					SgyIAS._log({extension: 'spinner'});
+					window.ias.extension(new IASSpinnerExtension(config.spinner));
+
+					SgyIAS._log({extension: 'noneleft'});
+					window.ias.extension(new IASNoneLeftExtension(config.noneleft));
+
+					SgyIAS._log({extension: 'trigger'});
+					window.ias.extension(new IASTriggerExtension(config.trigger)); 	
+
+						// debug events
+						window.ias.on('scroll', function(scrollOffset, scrollThreshold){
+							SgyIAS._log({eventName: 'scroll', scrollOffset: scrollOffset, scrollThreshold: scrollThreshold});
+						});
+						window.ias.on('load', function(event){
+							SgyIAS._log({eventName:'load', event: event});
+						});
+						window.ias.on('loaded', function(data, items){
+							SgyIAS._log({eventName: 'loaded', data: data, items: items});
+						});
+						window.ias.on('rendered', function(items){
+							SgyIAS._log({eventName: 'rendered', items: items});
+							if (typeof($(items).find('.lof-lazy').lazy) === 'function') {
+								$(items).find('.lof-lazy').lazy({
+									bind: "event",
+									delay: 0
+								});
+							}
+							if($(".blog-masonry").length > 0 && typeof(initBlogMasonryLayout) != "undefined") {
+								require([
+									'jquery',
+									'Ves_Blog/js/masonry.pkgd.min'
+									], function($, Masonry){
+									initBlogMasonryLayout($, Masonry);
+								});
+							}
+							
+						}); 
+						window.ias.on('noneLeft', function(){
+							SgyIAS._log({eventName: 'noneLeft'});
+						});
+						window.ias.on('next', function(url){
+							SgyIAS._log({eventName: 'next', url: url});
+						});
+						window.ias.on('ready', function(){
+							SgyIAS._log({eventName: 'ready'});
+						});
+						if(windowLoadedFlag){
+							$(window).load();
+						}
+
+						SgyIAS._log('Done loading IAS.');
+
+					});
+
+				}
+			};
+			jQueryWaiter.execute(function(){
+				SgyIAS.init();
+
+			});
+		});
+
+
+//]]>
+</script>
+<?php } ?>

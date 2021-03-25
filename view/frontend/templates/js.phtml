@@ -1,0 +1,136 @@
+<script type="text/javascript">
+	require([
+		'jquery',
+		<?php if($this->helper("Ves\All\Helper\Data")->getConfig("enable_owlcarousel")): ?>
+		"Ves_All/lib/owl.carousel/owl.carousel.min",
+	<?php endif; ?>
+	], function ($) {
+		jQuery(document).ready(function($) {
+			jQuery(".blog-widget .owl-carousel").each( function(){
+				owlInt(this);
+			});
+			jQuery(document).on('click', '.blog-widget .nav-tabs a', function(){
+				var tabId = jQuery(this).attr('href');
+				var tab = jQuery(tabId).find('.owl-carousel').eq(0);
+				owlInt(tab);
+			});
+			function owlInt(owlCarousel){
+				var config = [];
+				if(typeof(jQuery(owlCarousel).data('nav'))!='underfined'){
+					config['nav'] = jQuery(owlCarousel).data('nav');
+				}
+				if(typeof(jQuery(owlCarousel).data('dots'))!='underfined'){
+					config['dots'] = jQuery(owlCarousel).data('dots');
+				}
+				if(jQuery(owlCarousel).data('responsive-refresh-rate')){
+					config['responsiveRefreshRate'] = jQuery(owlCarousel).data('responsive-refresh-rate');
+				}
+				if(typeof(jQuery(owlCarousel).data('autoplay'))!='underfined'){
+					config['autoplay'] = jQuery(owlCarousel).data('autoplay');
+				}
+				if(jQuery(owlCarousel).data('autoplay-timeout')){
+					config['autoplayTimeout'] = jQuery(owlCarousel).data('autoplay-timeout');
+				}
+				if(typeof(jQuery(owlCarousel).data('autoplay-pauonhover'))!='underfined'){
+					config['autoplayHoverPause'] = jQuery(owlCarousel).data('autoplay-pauonhover');
+				}
+				if(typeof(jQuery(owlCarousel).data('rtl'))!='underfined'){
+					config['rtl'] = jQuery(owlCarousel).data('rtl');
+				}
+				if(typeof(jQuery(owlCarousel).data('loop'))!='underfined'){
+					config['loop'] = jQuery(owlCarousel).data('loop');
+				}
+				if(typeof(jQuery(owlCarousel).data('mousedrag'))!='underfined'){
+					config['mouseDrag'] = jQuery(owlCarousel).data('mousedrag');
+				}
+				if(typeof(jQuery(owlCarousel).data('pulldrag'))!='underfined'){
+					config['pullDrag'] = jQuery(owlCarousel).data('pulldrag');
+				}
+				if(typeof(jQuery(owlCarousel).data('freedrag'))!='underfined'){
+					config['freeDrag'] = jQuery(owlCarousel).data('freedrag');
+				}
+				if(typeof(jQuery(owlCarousel).data('stagepadding'))!='underfined'){
+					config['stagePadding'] = jQuery(owlCarousel).data('stagepadding');
+				}
+				if(typeof(jQuery(owlCarousel).data('lazyload'))!='underfined'){
+					config['lazyLoad'] = jQuery(owlCarousel).data('lazyload');
+				}
+				if(jQuery(owlCarousel).data('margin')){
+					config['margin'] = jQuery(owlCarousel).data('margin');
+				}
+				var mobile_items = 1;
+				if(jQuery(owlCarousel).data('mobile-items')){
+					mobile_items = jQuery(owlCarousel).data('mobile-items');
+				}
+				var tablet_small_items = 3;
+				if(jQuery(owlCarousel).data('tablet-small-items')){
+					tablet_small_items = jQuery(owlCarousel).data('tablet-small-items');
+				}
+				var tablet_items = 3;
+				if(jQuery(owlCarousel).data('tablet-items')){
+					tablet_items = jQuery(owlCarousel).data('tablet-items');
+				}
+				var portrait_items = 4;
+				if(jQuery(owlCarousel).data('portrait-items')){
+					portrait_items = jQuery(owlCarousel).data('portrait-items');
+				}
+				var large_items = 5;
+				if(jQuery(owlCarousel).data('large-items')){
+					large_items = jQuery(owlCarousel).data('large-items');
+				}
+				var large_max_items = 6;
+				if(jQuery(owlCarousel).data('large-max-items')){
+					large_max_items = jQuery(owlCarousel).data('large-max-items');
+				}
+				config['navText'] = [ 'prev', 'next' ];
+				if(jQuery(owlCarousel).data("nav-text-owlpre")){
+					config['navText'] = [ jQuery(owlCarousel).data("nav-text-owlpre"), 'next' ];
+				}
+				if(jQuery(owlCarousel).data("nav-text-owlnext")){
+					config['navText'] = [ 'pre', jQuery(owlCarousel).data("nav-text-owlnext") ];
+				}
+				if(jQuery(owlCarousel).data("nav-text-owlpre") && jQuery(owlCarousel).data("nav-text-owlnext")){
+					config['navText'] = [ jQuery(owlCarousel).data("nav-text-owlpre"), jQuery(owlCarousel).data("nav-text-owlnext") ];   
+				}
+				config['responsive'] = {
+					0 : {items: mobile_items},
+					480 : {items: tablet_small_items},
+					640 : {items: tablet_items},
+					768 : {items: portrait_items},
+					980 : {items: large_items},
+					1200 : {items: large_max_items}
+				};
+				jQuery(owlCarousel).owlCarousel(config);
+				if(jQuery(".owl-left").length > 0) {
+					jQuery(".owl-left").click(function(){
+						var owlCarousel = jQuery("#"+jQuery(this).data("owlid"));
+						owlCarousel.trigger('prev.owl.carousel');
+						return false;
+					});
+				}
+				if(jQuery(".owl-right").length > 0) {
+					jQuery(".owl-right").click(function(){
+						var owlCarousel = jQuery("#"+jQuery(this).data("owlid"));
+						owlCarousel.trigger('next.owl.carousel');
+						return false;
+					});
+				}
+				if(jQuery(".owl-prev").length > 0) {
+					jQuery(".owl-prev").click(function(){
+						var owlCarousel = jQuery("#"+jQuery(this).data("owlid"));
+						owlCarousel.trigger('prev.owl.carousel');
+						return false;
+					});
+				}
+				if(jQuery(".owl-next").length > 0) {
+					jQuery(".owl-next").click(function(){
+						var owlCarousel = jQuery("#"+jQuery(this).data("owlid"));
+						owlCarousel.trigger('next.owl.carousel');
+						return false;
+					});
+				}
+
+			}
+		});
+});
+</script>

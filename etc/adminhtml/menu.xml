@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Venustheme
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Venustheme.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.venustheme.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Venustheme
+ * @package    Ves_Blog
+ * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
+ * @license    http://www.venustheme.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+	<menu>
+		<add id="Ves_Blog::blog" title="Blog" module="Ves_Blog" resource="Ves_Blog::post" parent="Ves_All::ves_all"/>
+		<add id="Ves_Blog::post_new" title="Add New Post" module="Ves_Blog" sortOrder="10" parent="Ves_Blog::blog" action="vesblog/post/new" resource="Ves_Blog::post"/>
+		<add id="Ves_Blog::post_manage" title="Manage Posts" module="Ves_Blog" sortOrder="20" parent="Ves_Blog::blog" action="vesblog/post/index" resource="Ves_Blog::post"/>
+		<add id="Ves_Blog::post_group_manage" title="Manage Categories" module="Ves_Blog" sortOrder="40" parent="Ves_Blog::blog" action="vesblog/category/index" resource="Ves_Blog::category"/>
+		<add id="Ves_Blog::comment_manage" title="Manage Comments" module="Ves_Blog" sortOrder="50" parent="Ves_Blog::blog" action="vesblog/comment/index" resource="Ves_Blog::comment"/>
+		<add id="Ves_Blog::author_manage" title="Manage Authors" module="Ves_Blog" sortOrder="60" parent="Ves_Blog::blog" action="vesblog/author/index" resource="Ves_Blog::author"/>
+		<add id="Ves_Blog::importer" title="Mirgrate Posts From DB" module="Ves_Blog" sortOrder="65" parent="Ves_Blog::blog" action="vesblog/importer/index" resource="Ves_Blog::importer"/>
+		<add id="Ves_Blog::import" title="Wordpress Impoter" module="Ves_Blog" sortOrder="70" parent="Ves_Blog::blog" action="vesblog/import/index" resource="Ves_Blog::import"/>
+		<add id="Ves_Blog::configuration" title="Settings" module="Ves_Blog" sortOrder="80" parent="Ves_Blog::blog" action="adminhtml/system_config/edit/section/vesblog" resource="Ves_Blog::config_blog"/>
+	</menu>
+</config>

@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Venustheme
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Venustheme.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.venustheme.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Venustheme
+ * @package    Ves_Blog
+ * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
+ * @license    http://www.venustheme.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<vesblog>
+			<general_settings>
+				<enable>1</enable>
+				<url_prefix>blog</url_prefix>
+				<url_suffix>.html</url_suffix>
+				<categories_urls>1</categories_urls>
+				<dateformat>medium</dateformat>
+				<twitter_username></twitter_username>
+				<menu_title>Blog</menu_title>
+				<enable_networks>1</enable_networks>
+				<networks>twitter,facebook,googleplus,email,compact,pinterest</networks>
+				<addthis_pubid>ra-56ceab198f4f2e81</addthis_pubid>
+				<disable_comment>0</disable_comment>
+				<enable_rss>1</enable_rss>
+				<rssposts_show>12</rssposts_show>
+				<latestpagerss>1</latestpagerss>
+				<categoryrss>1</categoryrss>
+				<tagrss>1</tagrss>
+				<authorrss>1</authorrss>
+				<commentrss>1</commentrss>
+				<maincontainer_selector>.column.main</maincontainer_selector>
+			</general_settings>
+			<blog_latest_page>
+				<route>latest</route>
+				<page_title>Blog</page_title>
+				<meta_description>Blog</meta_description>
+				<meta_keywords>Blog</meta_keywords>
+			</blog_latest_page>
+			<product_page>
+				<enable_related_posts>1</enable_related_posts>
+				<show_image>1</show_image>
+				<image_width>150</image_width>
+				<image_height>150</image_height>
+				<show_title>1</show_title>
+				<show_readmorelink>1</show_readmorelink>
+				<show_author>1</show_author>
+				<show_commentcount>1</show_commentcount>
+				<show_createdtime>1</show_createdtime>
+				<show_hits>1</show_hits>
+				<show_socialnetwork>1</show_socialnetwork>
+				<number_item_percolumn>1</number_item_percolumn>
+				<large_max_items>4</large_max_items>
+				<large_items>4</large_items>
+				<portrait_items>3</portrait_items>
+				<tablet_items>2</tablet_items>
+				<tablet_small_items>2</tablet_small_items>
+				<mobile_items>1</mobile_items>
+				<autoplay_hoverpause>1</autoplay_hoverpause>
+				<autoplay_timeout>3000</autoplay_timeout>
+				<dots>1</dots>
+				<nav>1</nav>
+				<nav_prev>Prev</nav_prev>
+				<nav_next>Next</nav_next>
+			</product_page>
+			<category_page>
+				<show_breadcrumbs>1</show_breadcrumbs>
+				<show_toolbartop>1</show_toolbartop>
+				<show_toolbarbottom>1</show_toolbarbottom>
+				<show_image>1</show_image>
+				<image_width>800</image_width>
+				<image_height>500</image_height>
+				<show_title>1</show_title>
+				<show_shortdescription>1</show_shortdescription>
+				<shortdescription_count>100</shortdescription_count>
+				<show_readmorelink>1</show_readmorelink>
+				<show_categories>1</show_categories>
+				<show_author>1</show_author>
+				<show_commentcount>1</show_commentcount>
+				<show_updatedtime>1</show_updatedtime>
+				<show_createdtime>1</show_createdtime>
+				<show_hits>1</show_hits>
+				<show_tags>1</show_tags>
+			</category_page>
+			<post_page>
+				<show_likedisklike>1</show_likedisklike>
+				<show_authorprofile>1</show_authorprofile>
+				<show_breadcrumbs>1</show_breadcrumbs>
+				<show_image>1</show_image>
+				<show_title>1</show_title>
+				<show_description>1</show_description>
+				<show_categories>1</show_categories>
+				<show_author>1</show_author>
+				<show_commentcount>1</show_commentcount>
+				<show_updatedtime>1</show_updatedtime>
+				<show_createdtime>1</show_createdtime>
+				<show_socialblock>1</show_socialblock>
+				<show_hits>1</show_hits>
+				<show_tags>1</show_tags>
+				<limit_chars>0</limit_chars>
+				<enable_send_email>1</enable_send_email>
+				<enable_comment_reply>0</enable_comment_reply>
+				<enable_commentblock>1</enable_commentblock>
+				<comment_type>default</comment_type>
+				<auto_public>0</auto_public>
+				<numbercomment_perpage>5</numbercomment_perpage>
+				<allowable_tags><![CDATA[<strong><em><ul><li><ol><h3><h4><h4><h6><code><a><img><blockquote><p><br><i><span>]]></allowable_tags>
+				<show_captcha>0</show_captcha>
+				<captcha_publickey>6LegxuISAAAAALhQG7fwq9nhbx497-IvCjqcwiMF</captcha_publickey>
+				<captcha_privatekey>6LegxuISAAAAAPgzed0RLVBCqPEP9tLqznn435pS</captcha_privatekey>
+				<enable_nextprev>0</enable_nextprev>
+				<show_nextprev_title>1</show_nextprev_title>
+				<show_nextprev_label>1</show_nextprev_label>
+				<show_nextprev_image>1</show_nextprev_image>
+				<nextprev_imagewidth>60</nextprev_imagewidth>
+				<nextprev_imageheight>60</nextprev_imageheight>
+				<show_nextprev_icon>1</show_nextprev_icon>
+				<enable_related>1</enable_related>
+				<related_carousel_layout>owl_carousel</related_carousel_layout>
+				<mobile_items>1</mobile_items>
+				<tablet_small_items>3</tablet_small_items>
+				<tablet_items>4</tablet_items>
+				<portrait_items>4</portrait_items>
+				<default_items>5</default_items>
+				<large_items>6</large_items>
+				<autoplay>1</autoplay>
+				<autoplay_timeout>3000</autoplay_timeout>
+				<dots>1</dots>
+				<nav>1</nav>
+				<enable_related_products>1</enable_related_products>
+				<related_products_carousel_layout>owl_carousel</related_products_carousel_layout>
+				<mobile_items_products>1</mobile_items_products>
+				<tablet_small_items_products>3</tablet_small_items_products>
+				<tablet_items_products>4</tablet_items_products>
+				<portrait_items_products>4</portrait_items_products>
+				<default_items_products>5</default_items_products>
+				<large_items_products>6</large_items_products>
+				<autoplay_products>1</autoplay_products>
+				<autoplay_timeout_products>3000</autoplay_timeout_products>
+				<dots_products>1</dots_products>
+				<nav_products>1</nav_products>
+			</post_page>
+			<sidebar>
+				<show_searchform>1</show_searchform>
+				<searchform_title>Search</searchform_title>
+				<show_recentpostsblock>1</show_recentpostsblock>
+				<recentpostsblock_title>Recent Posts</recentpostsblock_title>
+				<posts_per_page>5</posts_per_page>
+				<show_categoriesblock>Categories</show_categoriesblock>
+				<show_recentcommentsblock>1</show_recentcommentsblock>
+				<recentcommentsblock_title>Recent Comments</recentcommentsblock_title>
+				<comments_per_page>5</comments_per_page>
+				<show_archiveblock>1</show_archiveblock>
+				<show_tagblock>1</show_tagblock>
+				<tagblock_title>Tags</tagblock_title>
+				<show_tagcountdown>1</show_tagcountdown>
+				<tag_cloud>0</tag_cloud>
+			</sidebar>
+			<blog_page>
+				<layout_type>list</layout_type>
+				<page_layout>2columns-left</page_layout>
+				<orderby>ASC</orderby>
+				<show_breadcrumbs>1</show_breadcrumbs>
+				<item_per_page>16</item_per_page>
+				<show_toolbartop>1</show_toolbartop>
+				<show_toolbarbottom>1</show_toolbarbottom>
+				<lg_column_item>4</lg_column_item>
+				<md_column_item>4</md_column_item>
+				<sm_column_item>2</sm_column_item>
+				<xs_column_item>1</xs_column_item>
+				<show_image>1</show_image>
+				<image_width>800</image_width>
+				<image_height>500</image_height>
+				<show_title>1</show_title>
+				<show_shortdescription>1</show_shortdescription>
+				<shortdescription_count>100</shortdescription_count>
+				<show_readmorelink>1</show_readmorelink>
+				<show_categories>1</show_categories>
+				<show_author>1</show_author>
+				<show_commentcount>0</show_commentcount>
+				<show_updatedtime>0</show_updatedtime>
+				<show_createdtime>0</show_createdtime>
+				<show_hits>0</show_hits>
+				<show_tags>0</show_tags>
+				<show_socialnetworks>0</show_socialnetworks>
+			</blog_page>
+			<ajaxscroll_selectors>
+			    <enable_ajaxscroll>0</enable_ajaxscroll>
+			    <enable_latest>1</enable_latest>
+			    <enable_category>1</enable_category>
+			    <enable_search>1</enable_search>
+			    <enable_archive>1</enable_archive>
+			    <enable_tag>1</enable_tag>
+			    <enable_author>1</enable_author>
+			    <enable_comment>1</enable_comment>
+			    <content>.main</content>
+			    <pagination>.blog-toolbar .pages</pagination>
+			    <toolbar>.blog-toolbar</toolbar> 
+			    <next>.next</next>
+			    <grid_mode>.blog-posts</grid_mode>
+			    <loading_image></loading_image>
+			    <loading_text><![CDATA[<em>Loading - please wait...</em>]]></loading_text>
+			    <done_text><![CDATA[<em>Congratulations, you've reached the end of the internet.</em>]]></done_text>
+			    <hide_toolbar>1</hide_toolbar> 
+			    <buffer>150</buffer>
+			    <load_more>5</load_more>
+			    <load_more_text>Load more items</load_more_text>
+			    <local_mode>0</local_mode> 
+			</ajaxscroll_selectors> 
+			<other_settings>
+				<enable_authors_list>1</enable_authors_list>
+				<authors_url>authors</authors_url>
+				<show_posts_count>1</show_posts_count>
+				<show_author_info>1</show_author_info>
+				<use_custom_post_link>1</use_custom_post_link>
+				<link_follow></link_follow>
+				<use_custom_post_img>1</use_custom_post_img>
+			</other_settings>
+			<importer_settings>
+				<enable_cron>1</enable_cron>
+			</importer_settings>
+		</vesblog>
+	</default>
+</config>

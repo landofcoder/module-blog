@@ -1,0 +1,234 @@
+<?php
+$helper                = $this->helper("Ves\Blog\Helper\Data");
+$dateFormat            = $helper->getConfig("general_settings/dateformat");
+$comment_type          = $this->getConfig("post_page/comment_type");
+$auto_public           = $this->getConfig("post_page/auto_public");
+$comment_type          = $this->getConfig("post_page/comment_type");
+$numbercomment_perpage = (int)$this->getConfig("post_page/numbercomment_perpage");
+$facebookcomment_width = $this->getConfig("post_page/facebookcomment_width");
+$show_captcha          = $this->getConfig("post_page/show_captcha");
+$captcha_privatekey    = $this->getConfig("post_page/captcha_privatekey");
+$comment_type          = $this->getConfig("post_page/comment_type");
+$captcha_publickey     = $this->getConfig("post_page/captcha_publickey");
+$disqus_shortname      = $this->getConfig("post_page/disqus_shortname");
+$enable_comment_reply  = $this->getConfig("post_page/enable_comment_reply");
+$enable_comment_reply  = $enable_comment_reply?$enable_comment_reply:1;
+$limit_level 		   = $this->getConfig("post_page/limit_level");
+$limit_level 		   = $limit_level?(int)$limit_level:4;
+$limit_chars 		   = $this->getConfig("post_page/limit_chars");
+$limit_chars 		   = $limit_chars?(int)$limit_chars:10;
+$_post                 = $this->getPost();
+$_post->setData('categories', $_post->getPostCategories());
+$postUrl               = $helper->getPostUrl($_post);
+$replytocom			   = $block->getRequest()->getParam('replytocom');
+$replytocom			   = $replytocom?(int)$replytocom:0;
+$urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+$current_url = $urlInterface->getCurrentUrl();
+?>
+<div class="blog-comments" id="comments">
+	<?php if( $comment_type == "disqus" ){ ?>
+		<div id="disqus_thread"></div>
+		<script>
+			var disqus_config = function () {
+				this.page.url = '<?php echo $postUrl ?>';
+				this.page.identifier = '<?php echo $_post->getIdenfitier() ?>';
+			};
+			(function() {  // DON'T EDIT BELOW THIS LINE
+				var d = document, s = d.createElement('script');
+				
+				s.src = '//<?php echo $disqus_shortname; ?>.disqus.com/embed.js';
+				
+				s.setAttribute('data-timestamp', +new Date());
+				(d.head || d.body).appendChild(s);
+			})();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+		<?php }elseif(  $comment_type == "facebook" ){ ?>
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+			<div class="fb-comments" data-href="<?php echo $postUrl ?>" data-width="<?php echo $facebookcomment_width ?>" data-numposts="<?php echo $numbercomment_perpage ?>"></div>
+			<?php }else{ ?>
+
+				<?php
+				$comments = $this->getCollection();
+				$customer = $this->getCustomer();
+				$customerName = '';
+				?>
+				<h3 class="comment-counter">
+					<span><?php echo $this->getPost()->getCommentCount(); ?></span>
+					<?php echo __( "Comments" ); ?>
+				</h3>
+				<?php echo $this->getChildHtml("rsslink"); ?>
+				<?php if( $comments ) : ?>
+				<div class="comments-list">
+					<?php 
+					function vesBlogGenerateComments($comment, $level = 1, $level_max = 4, $i = 0, $helper=null, $block=null, $current_url = "") {
+						$dateFormat            = $helper->getConfig("general_settings/dateformat");
+						$enable_comment_reply  = $helper->getConfig("post_page/enable_comment_reply");
+						$enable_comment_reply  = $enable_comment_reply?$enable_comment_reply:1;
+						$comment_id = $comment->getData('comment_id');
+						$email = $comment->getData('user_email');
+						$email = trim($email);
+						  // Make all Lower Case
+						$email = strtolower($email);
+						  // Generating Hash
+						$email_hash = md5($email);
+						$creation_time = $comment->getData('creation_time');
+						$user_name = $comment->getData('user_name');
+						$comment_content = $comment->getData('content');
+						?>
+						<li class="<?php echo ( $i%2==0?"even":"odd") ; ?>" id="comment<?php echo $comment_id; ?>">
+							<div class="avatar"><img src="https://www.gravatar.com/avatar/<?php echo $email_hash?>?d=&s=60"></div>
+							<?php $createdTime = $helper->getFormatDate($creation_time, $dateFormat); ?>
+							<span class="comment-author"><?php echo $user_name; ?></span><br/>
+							<span class="comment-date"><?php echo $createdTime ?></span>
+							<div class="comment-content"><?php echo $comment_content; ?></div>
+							<?php if($enable_comment_reply && $level < $level_max) { ?>
+							<div class="reply">
+								<a href="<?php echo $current_url; ?>?replytocom=<?php echo $comment_id; ?>#form-comment" data-coment="<?php echo $comment_id; ?>" class="comment-reply-link"><?php echo __("Reply");?></a>
+							</div>
+							<?php } ?>
+						<?php
+						if($level < $level_max) {
+							$level++;
+							$child_comments = $block->getCommentsByParentId($comment_id);
+							if($child_comments->getSize()){
+								echo '<ul class="comment-level-'.$level.' comment-multi-level children-level">';
+								$k = 0;
+								foreach($child_comments as $child_comment) {
+									vesBlogGenerateComments($child_comment, $level, $level_max, $k, $helper, $block, $current_url);
+									$k++;
+								}
+								
+								echo '</ul>';
+							}
+						}
+						?>
+						</li>
+						<?php
+					}
+					?>
+					<ul>
+						<?php 
+						$i=0; $level=1;
+						foreach( $comments as $comment ){
+							vesBlogGenerateComments($comment, $level, $limit_level, $i, $helper, $block, $current_url);
+							$i++; 
+						} 
+						?>
+					</ul>
+		</div>
+		<div class="blog-toolbar">
+		<?php echo $this->getChildHtml('toolbar') ?>
+		</div>
+		<div class="comment-form">
+			<h2><strong><?php echo __('Leave a Comment') ?></strong></h2>
+			<form method="post" action="<?php echo $this->getCommentFormUrl() ?>" id="form-comment">
+				<div class="comment-notes"><?php echo __('Make sure you enter the (*) required information where indicated. HTML code is not allowed.');?></div>
+				<div class="above-inputs vesclear">
+					<ul class="form-list">
+						<li class="fields user-name">
+							<?php if($customer): ?>
+							<?php $customerName = $customer->getFirstName();
+							if($customer->getMiddlename()) $customerName .= ' ' .$customer->getMiddlename();
+							$customerName .= ' ' . $this->getLastname();
+							?>
+							<input type="hidden" name="user_name" value="<?php echo $customerName ?>" />
+						<?php else: ?>
+						<div class="field">
+							<label class="required" for="user_name"><em>*</em><?php echo __('Name') ?></label>
+						</div>
+						<div class="input-box">
+							<input id="user_name" name="user_name" title="<?php echo __('Name') ?>" class="input-text required-entry" />
+						</div>
+					<?php endif; ?>
+				</li>
+				<li class="fields user-email">
+					<?php if($customer): ?>
+					<input type="hidden" name="user_email" value="<?php echo $customer->getEmail() ?>" />
+				<?php else: ?>
+				<div class="field">
+					<label class="required" for="user_email"><em>*</em><?php echo __('Email') ?></label>
+				</div>
+				<div class="input-box">
+					<input id="user_email" name="user_email" title="<?php echo __('Email') ?>" class="input-text required-entry validate-email" />
+				</div>
+			<?php endif; ?>
+		</li>
+	</ul>
+	<input type="hidden" name="post_id" value="<?php echo $_post->getPostId(); ?>"/>
+	<input type="hidden" name="post_title" value="<?php echo $_post->getTitle(); ?>"/>
+	<input type="hidden" name="comment_parent" id="comment_parent" value="<?php echo $replytocom; ?>"/>
+</div>
+<div class="mid-inputs">
+	<label class="required" for="content"><em>*</em><?php echo __('Comment') ?></label>
+	<div class="input-box">
+		<textarea id="content" name="content" title="<?php echo __('Comment') ?>" class="input-text required-entry"></textarea>
+	</div>
+</div>
+<?php if( $show_captcha ): ?>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<div class="g-recaptcha" data-sitekey="<?php echo $captcha_publickey ?>"></div>
+<?php endif; ?>
+<div class="below-inputs">
+	<button class="button" type="submit" title="<?php echo __('Post Comment') ?>">
+		<span>
+			<span><?php echo __('Post Comment') ?></span>
+		</span>
+	</button>
+</div>
+</form>
+</div>
+
+<script>
+	function initReplyComment($) {
+		<?php if($enable_comment_reply) { ?>
+			$(".comment-reply-link").on('click', function(e) {
+		        e.preventDefault();
+		        $('html, body').animate({
+		            scrollTop: $(this.hash).offset().top
+		        }, 300, function(){});
+		        $('#comment_parent').attr('value', $(this).attr('data-coment'))
+		    });
+		<?php } ?>
+	}
+	require([
+		'jquery',
+		'mage/mage'
+		], function($){
+			var dataForm = $('#form-comment');
+			var ignore = null;
+			dataForm.mage('validation', {
+				ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+			}).find('input:text').attr('autocomplete', 'off');
+
+			initReplyComment($);
+		});
+</script>
+
+<?php if($limit_chars && (int)$limit_chars > 0) { ?>
+<script>
+	function shortComments($) {
+		$(".comment-content").shorten({showChars: <?php echo (int)$limit_chars; ?>, moreText: '<?php echo __("read more");?>',lessText: '<?php echo __("read less"); ?>', force: true});
+	}
+	require([
+		'jquery',
+		'Ves_Blog/js/jquery.shorten.min'
+		], function($){
+			shortComments($);
+		});
+</script>
+
+<?php } ?>
+<?php endif; ?>
+
+<?php } ?>
+</div>

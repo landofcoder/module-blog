@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Venustheme
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Venustheme.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.venustheme.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Venustheme
+ * @package    Ves_Blog
+ * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
+ * @license    http://www.venustheme.com/LICENSE-1.0.html
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+	<widget id="ves_blog_posts" class="Ves\Blog\Block\Widget\Posts">
+		<label translate="true">Ves Blog</label>
+		<description translate="true">Show Recent Posts as List layout or Carousel layout</description>
+		<parameters>
+			<parameter name="widget_title" xsi:type="text" visible="true">
+				<label translate="true">Title</label>
+			</parameter>
+			<parameter name="title_color" xsi:type="text" visible="true">
+				<label translate="true">Title Color</label>
+			</parameter>
+			<parameter name="border_color" xsi:type="text" visible="true">
+				<label translate="true">Border Bottom Color</label>
+				<description translate="true"><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></description>
+			</parameter>
+			<parameter name="cmsblock" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\Staticblock">
+				<label translate="true">Select Static Block</label>
+			</parameter>
+			<parameter name="pretext_html" xsi:type="conditions" visible="true" class="Ves\Blog\Block\Adminhtml\Widget\Form\Field\WysiwygEditor">
+				<label translate="true">Pretext HTML</label>
+			</parameter>
+			<parameter name="addition_class" xsi:type="text" visible="true">
+				<label translate="true">Addition Class</label>
+			</parameter>
+			<parameter name="layout_type" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\LayoutType">
+				<label translate="true">Layout Type</label>
+			</parameter>
+			<parameter name="widget_style" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\WidgetStyle">
+				<label translate="true">Style</label>
+			</parameter>
+			<parameter name="tab" xsi:type="multiselect" visible="true" source_model="Ves\Blog\Model\Config\Source\Tab">
+				<label translate="true">Tab</label>
+				<depends><parameter name="widget_style" value="tab" /></depends>
+			</parameter>
+			<parameter name="types" xsi:type="multiselect" visible="true" source_model="Ves\Blog\Model\Config\Source\Types">
+				<label translate="true">Blog Types</label>
+				<depends><parameter name="widget_style" value="tab" /></depends>
+			</parameter>
+			<parameter name="categories" xsi:type="multiselect" visible="true" source_model="Ves\Blog\Model\Config\Source\Categories">
+				<label translate="true">Categories</label>
+			</parameter>
+			<parameter name="orderby" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\WidgetOrderBy">
+				<label translate="true">Order By</label>
+			</parameter>
+			<parameter name="number_post" xsi:type="text" visible="true">
+				<label translate="true">Number Post</label>
+				<value>6</value>
+			</parameter>
+			<parameter name="block_template" xsi:type="text" visible="true">
+				<label translate="true">Module Template</label>
+				<description translate="true"><![CDATA[Input custom module template file path. For example: <b>widget/posts.phtml</b>. Empty for default]]></description>
+			</parameter>
+			<parameter name="owlsettings_heading" xsi:type="conditions" visible="true" class="Ves\Blog\Block\Adminhtml\System\Config\Form\Field\WidgetHeading">
+				<label translate="true">OWL Carousel Settings</label>
+			</parameter>
+			<parameter name="item_height" xsi:type="text" visible="true">
+				<label translate="true">Item Height</label>
+				<description translate="true"><![CDATA[Unit: pixel. Empty to set auto height]]></description>
+			</parameter>
+			<parameter name="number_item_percolumn" xsi:type="text" visible="true">
+				<label translate="true">Number of Item per Column</label>
+				<description translate="true"><![CDATA[Multiple Row]]></description>
+				<value>1</value>
+			</parameter>
+			<parameter name="large_max_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Large display)</label>
+				<description translate="true"><![CDATA[Show number items when screen size 1200px and up]]></description>
+				<value>5</value>
+			</parameter>
+			<parameter name="large_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page</label>
+				<description translate="true"><![CDATA[Show number items when screen size between 1199px and 980px]]></description>
+				<value>4</value>
+			</parameter>
+			<parameter name="portrait_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Portrait tablets)</label>
+				<description translate="true"><![CDATA[Show number items when screen size between 979px and 769px]]></description>
+				<value>4</value>
+			</parameter>
+			<parameter name="tablet_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Phones to tablets)</label>
+				<description translate="true"><![CDATA[Show number items when screen size between 768px and 641px]]></description>
+				<value>3</value>
+			</parameter>
+			<parameter name="tablet_small_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Phones to Small tablets)</label>
+				<description translate="true"><![CDATA[Show number items when screen size between 640px and 480px]]></description>
+				<value>3</value>
+			</parameter>
+			<parameter name="mobile_items" xsi:type="text"  visible="true">
+				<label translate="true">Number Columns On Page (Phones)</label>
+				<description translate="true"><![CDATA[Show number items when screen size bellow 480px]]></description>
+				<value>1</value>
+			</parameter>
+			<parameter name="rtl" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Right to Left</label>
+			</parameter>
+			<parameter name="autoplay" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Autoplay</label>
+			</parameter>
+			<parameter name="autoplay_timeout" xsi:type="text" visible="true" >
+				<label translate="true">Autoplay Timeout</label>
+				<depends><parameter name="autoplay" value="1" /></depends>
+				<value>3000</value>
+			</parameter>
+			<parameter name="autoplay_hoverpause" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Autoplay HoverPause</label>
+				<depends><parameter name="autoplay" value="1" /></depends>
+			</parameter>
+			<parameter name="dots" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show dots navigations</label>
+			</parameter>
+			<parameter name="nav" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show next/prev buttons.</label>
+			</parameter>
+			<parameter name="nav_prev" xsi:type="text" visible="true">
+				<label translate="true">Prev Button Text</label>
+				<depends><parameter name="nav" value="1" /></depends>
+				<value>Prev</value>
+			</parameter>
+			<parameter name="nav_next" xsi:type="text" visible="true">
+				<label translate="true">Next Button Text</label>
+				<depends><parameter name="nav" value="1" /></depends>
+				<value>Next</value>
+			</parameter>
+			<parameter name="loop" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Loop</label>
+				<description translate="true"><![CDATA[Infinity loop. Duplicate last and first items to get loop illusion.]]></description>
+			</parameter>
+			<parameter name="lazyload" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Lazy Load</label>
+			</parameter>
+			<parameter name="mousedrag" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Enable mouseDrag</label>
+				<description translate="true"><![CDATA[Mouse drag enabled.]]></description>
+			</parameter>
+			<parameter name="touchdrag" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Enable touchDrag</label>
+				<description translate="true"><![CDATA[Touch drag enabled.]]></description>
+			</parameter>
+			<parameter name="pulldrag" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Enable pullDrag</label>
+				<description translate="true"><![CDATA[Stage pull to edge.]]></description>
+			</parameter>
+			<parameter name="posts_heading" xsi:type="conditions" visible="true" class="Ves\Blog\Block\Adminhtml\System\Config\Form\Field\WidgetHeading">
+				<label translate="true">Post Settings</label>
+			</parameter>
+			<parameter name="show_image" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Image</label>
+			</parameter>
+			<parameter name="image_width" xsi:type="text" visible="true">
+				<label translate="true">Image Width</label>
+				<depends><parameter name="show_image" value="1" /></depends>
+			</parameter>
+			<parameter name="image_height" xsi:type="text" visible="true">
+				<label translate="true">Image Height</label>
+				<depends><parameter name="show_image" value="1" /></depends>
+			</parameter>
+			<parameter name="keep_ratio" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Keep Ratio</label>
+				<description translate="true">If the "keepAspectRatio" parameter is set to true, in this case the proportions of the image will not be modified.</description>
+				<depends><parameter name="show_image" value="1" /></depends>
+			</parameter>
+			<parameter name="keep_frame" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Keep Frame</label>
+				<description translate="true">The "keepFrame" parameter guarantees that the image will be not cropped. When "keepAspectRatio" is false the "keepFrame" will not work.</description>
+				<depends><parameter name="show_image" value="1" /></depends>
+			</parameter>
+			<parameter name="show_title" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Title</label>
+			</parameter>
+			<parameter name="show_shortdescription" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Short Description</label>
+			</parameter>
+			<parameter name="shortdescription_count" xsi:type="text" visible="true">
+				<label translate="true">Short Description Character Count</label>
+				<depends><parameter name="show_shortdescription" value="1" /></depends>
+			</parameter>
+			<parameter name="show_readmorelink" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Readmore Link</label>
+				<depends><parameter name="show_shortdescription" value="1" /></depends>
+			</parameter>
+			<parameter name="rebg_color" xsi:type="text" visible="true">
+				<label translate="true">Button Background Color</label>
+				<description translate="true"><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></description>
+				<depends><parameter name="show_readmorelink" value="1" /></depends>
+			</parameter>
+			<parameter name="re_color" xsi:type="text" visible="true">
+				<label translate="true">Button Color</label>
+				<description translate="true"><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></description>
+				<depends><parameter name="show_readmorelink" value="1" /></depends>
+			</parameter>
+			<parameter name="show_categories" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Categories</label>
+			</parameter>
+			<parameter name="show_author" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Author</label>
+			</parameter>
+			<parameter name="show_commentcount" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Comment Count</label>
+			</parameter>
+			<parameter name="show_updatedtime" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Updated Time</label>
+			</parameter>
+			<parameter name="show_createdtime" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Created Time</label>
+			</parameter>
+			<parameter name="show_hits" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Hits</label>
+			</parameter>
+			<parameter name="show_tags" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Tags</label>
+			</parameter>
+			<parameter name="show_socialnetwork" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Social Network</label>
+			</parameter>
+			<parameter name="margin" xsi:type="text" visible="true">
+				<label translate="true">Margin</label>
+				<description translate="true"><![CDATA[Input magrin . Example: 15px 10px 5px 10px]]></description>
+			</parameter>
+			<parameter name="apply" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\Allfirst">
+				<label translate="true">Apply</label>
+				<depends><parameter name="widget_style" value="tab" /></depends>
+			</parameter>
+		</parameters>
+	</widget>
+    <widget id="ves_blog_latest_posts" class="Ves\Blog\Block\Widget\LatestPosts">
+        <label translate="true">Ves Blog: filter latest post</label>
+        <description translate="true">Show Recent Posts as List layout</description>
+        <parameters>
+            <parameter name="widget_title" xsi:type="text" visible="true">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="title_color" xsi:type="text" visible="true">
+                <label translate="true">Title Color</label>
+            </parameter>
+            <parameter name="border_color" xsi:type="text" visible="true">
+                <label translate="true">Border Bottom Color</label>
+                <description translate="true"><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></description>
+            </parameter>
+            <parameter name="cmsblock" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\Staticblock">
+                <label translate="true">Select Static Block</label>
+            </parameter>
+            <parameter name="pretext_html" xsi:type="conditions" visible="true" class="Ves\Blog\Block\Adminhtml\Widget\Form\Field\WysiwygEditor">
+                <label translate="true">Pretext HTML</label>
+            </parameter>
+            <parameter name="addition_class" xsi:type="text" visible="true">
+                <label translate="true">Addition Class</label>
+            </parameter>
+            <parameter name="widget_style" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\WidgetStyle">
+                <label translate="true">Style</label>
+            </parameter>
+            <parameter name="tab" xsi:type="multiselect" visible="true" source_model="Ves\Blog\Model\Config\Source\Tab">
+                <label translate="true">Tab</label>
+                <depends>
+                    <parameter name="widget_style" value="tab" />
+                </depends>
+            </parameter>
+            <parameter name="types" xsi:type="multiselect" visible="true" source_model="Ves\Blog\Model\Config\Source\Types">
+                <label translate="true">Blog Types</label>
+                <depends>
+                    <parameter name="widget_style" value="tab" />
+                </depends>
+            </parameter>
+            <parameter name="categories" xsi:type="multiselect" visible="true" source_model="Ves\Blog\Model\Config\Source\Categories">
+                <label translate="true">Categories</label>
+            </parameter>
+            <parameter name="orderby" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\WidgetOrderBy">
+                <label translate="true">Order By</label>
+            </parameter>
+            <parameter name="number_post" xsi:type="text" visible="true">
+                <label translate="true">Number Post</label>
+                <value>6</value>
+            </parameter>
+            <parameter name="block_template" xsi:type="text" visible="true">
+                <label translate="true">Module Template</label>
+                <description translate="true"><![CDATA[Input custom module template file path. For example: <b>widget/posts.phtml</b>. Empty for default]]></description>
+            </parameter>
+            <parameter name="jssettings_heading" xsi:type="conditions" visible="true" class="Ves\Blog\Block\Adminhtml\System\Config\Form\Field\WidgetHeading">
+                <label translate="true">JS Settings</label>
+            </parameter>
+            <parameter name="filter_type" xsi:type="multiselect" visible="true" source_model="Ves\Blog\Model\Config\Source\FilterType">
+                <label translate="true">Filter type</label>
+            </parameter>
+            <parameter name="posts_heading" xsi:type="conditions" visible="true" class="Ves\Blog\Block\Adminhtml\System\Config\Form\Field\WidgetHeading">
+                <label translate="true">Post Settings</label>
+            </parameter>
+            <parameter name="show_image" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Image</label>
+            </parameter>
+            <parameter name="image_width" xsi:type="text" visible="true">
+                <label translate="true">Image Width</label>
+                <depends>
+                    <parameter name="show_image" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="image_height" xsi:type="text" visible="true">
+                <label translate="true">Image Height</label>
+                <depends>
+                    <parameter name="show_image" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="keep_ratio" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Keep Ratio</label>
+                <description translate="true">If the "keepAspectRatio" parameter is set to true, in this case the proportions of the image will not be modified.</description>
+                <depends>
+                    <parameter name="show_image" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="keep_frame" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Keep Frame</label>
+                <description translate="true">The "keepFrame" parameter guarantees that the image will be not cropped. When "keepAspectRatio" is false the "keepFrame" will not work.</description>
+                <depends>
+                    <parameter name="show_image" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="show_title" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Title</label>
+            </parameter>
+            <parameter name="show_shortdescription" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Short Description</label>
+            </parameter>
+            <parameter name="shortdescription_count" xsi:type="text" visible="true">
+                <label translate="true">Short Description Character Count</label>
+                <depends>
+                    <parameter name="show_shortdescription" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="show_readmorelink" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Readmore Link</label>
+                <depends>
+                    <parameter name="show_shortdescription" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="rebg_color" xsi:type="text" visible="true">
+                <label translate="true">Button Background Color</label>
+                <description translate="true"><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></description>
+                <depends>
+                    <parameter name="show_readmorelink" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="re_color" xsi:type="text" visible="true">
+                <label translate="true">Button Color</label>
+                <description translate="true"><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></description>
+                <depends>
+                    <parameter name="show_readmorelink" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="show_categories" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Categories</label>
+            </parameter>
+            <parameter name="show_author" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Author</label>
+            </parameter>
+            <parameter name="show_commentcount" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Comment Count</label>
+            </parameter>
+            <parameter name="show_updatedtime" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Updated Time</label>
+            </parameter>
+            <parameter name="show_createdtime" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Created Time</label>
+            </parameter>
+            <parameter name="show_hits" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Hits</label>
+            </parameter>
+            <parameter name="show_tags" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Tags</label>
+            </parameter>
+            <parameter name="show_socialnetwork" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Social Network</label>
+            </parameter>
+            <parameter name="margin" xsi:type="text" visible="true">
+                <label translate="true">Margin</label>
+                <description translate="true"><![CDATA[Input magrin . Example: 15px 10px 5px 10px]]></description>
+            </parameter>
+            <parameter name="apply" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\Allfirst">
+                <label translate="true">Apply</label>
+                <depends>
+                    <parameter name="widget_style" value="tab" />
+                </depends>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="ves_blog_grid_posts" class="Ves\Blog\Block\Widget\GridPosts">
+		<label translate="true">Ves Blog: Latest Blog Posts Grid Layout</label>
+		<description translate="true">Show Recent Posts as Grid layout and Paging</description>
+		<parameters>
+			<parameter name="widget_title" xsi:type="text" visible="true">
+				<label translate="true">Title</label>
+			</parameter>
+			<parameter name="title_color" xsi:type="text" visible="true">
+				<label translate="true">Title Color</label>
+			</parameter>
+			<parameter name="border_color" xsi:type="text" visible="true">
+				<label translate="true">Border Bottom Color</label>
+				<description translate="true"><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></description>
+			</parameter>
+			<parameter name="cmsblock" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\Staticblock">
+				<label translate="true">Select Static Block</label>
+			</parameter>
+			<parameter name="pretext_html" xsi:type="conditions" visible="true" class="Ves\Blog\Block\Adminhtml\Widget\Form\Field\WysiwygEditor">
+				<label translate="true">Pretext HTML</label>
+			</parameter>
+			<parameter name="addition_class" xsi:type="text" visible="true">
+				<label translate="true">Addition Class</label>
+			</parameter>
+			<parameter name="categories" xsi:type="multiselect" visible="true" source_model="Ves\Blog\Model\Config\Source\Categories">
+				<label translate="true">Categories</label>
+			</parameter>
+			<parameter name="orderby" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\WidgetOrderBy">
+				<label translate="true">Order By</label>
+			</parameter>
+			<parameter name="posts_count" xsi:type="text" required="true" visible="true">
+                <label translate="true">Number of Posts to Display</label>
+                <value>10</value>
+            </parameter>
+			<parameter name="number_post" xsi:type="text" visible="true">
+				<label translate="true">Number Posts Per Page</label>
+				<value>6</value>
+			</parameter>
+			<parameter name="block_template" xsi:type="text" visible="true">
+				<label translate="true">Module Template</label>
+				<description translate="true"><![CDATA[Input custom module template file path. For example: <b>widget/posts.phtml</b>. Empty for default]]></description>
+			</parameter>
+			<parameter name="gridsettings_heading" xsi:type="conditions" visible="true" class="Ves\Blog\Block\Adminhtml\System\Config\Form\Field\WidgetHeading">
+				<label translate="true">Grid Settings</label>
+			</parameter>
+			<parameter name="lg_column_item" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\Gridcolumns">
+				<label translate="true">Number Column on Large Desktop</label>
+				<description translate="true"><![CDATA[Large devices Desktops (≥1200px). Use in grid layout and masonry layout]]></description>
+			</parameter>
+			<parameter name="md_column_item" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\Gridcolumns">
+				<label translate="true">Number Column on Desktop</label>
+				<description translate="true"><![CDATA[Medium devices Desktops (≥992px)]]></description>
+			</parameter>
+			<parameter name="sm_column_item" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\Gridcolumns">
+				<label translate="true">Number Column on Tablets</label>
+				<description translate="true"><![CDATA[Small devices Tablets (≥768px)]]></description>
+			</parameter>
+			<parameter name="xs_column_item" xsi:type="select" visible="true" source_model="Ves\Blog\Model\Config\Source\Gridcolumns">
+				<label translate="true">Number Column on Phones</label>
+				<description translate="true"><![CDATA[Extra small devices Phones (<768px)]]></description>
+			</parameter>
+			<parameter name="posts_heading" xsi:type="conditions" visible="true" class="Ves\Blog\Block\Adminhtml\System\Config\Form\Field\WidgetHeading">
+				<label translate="true">Post Settings</label>
+			</parameter>
+			<parameter name="show_image" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Image</label>
+			</parameter>
+			<parameter name="image_width" xsi:type="text" visible="true">
+				<label translate="true">Image Width</label>
+				<depends><parameter name="show_image" value="1" /></depends>
+			</parameter>
+			<parameter name="image_height" xsi:type="text" visible="true">
+				<label translate="true">Image Height</label>
+				<depends><parameter name="show_image" value="1" /></depends>
+			</parameter>
+			<parameter name="keep_ratio" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Keep Ratio</label>
+				<description translate="true">If the "keepAspectRatio" parameter is set to true, in this case the proportions of the image will not be modified.</description>
+				<depends><parameter name="show_image" value="1" /></depends>
+			</parameter>
+			<parameter name="keep_frame" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Keep Frame</label>
+				<description translate="true">The "keepFrame" parameter guarantees that the image will be not cropped. When "keepAspectRatio" is false the "keepFrame" will not work.</description>
+				<depends><parameter name="show_image" value="1" /></depends>
+			</parameter>
+			<parameter name="show_title" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Title</label>
+			</parameter>
+			<parameter name="show_shortdescription" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Short Description</label>
+			</parameter>
+			<parameter name="shortdescription_count" xsi:type="text" visible="true">
+				<label translate="true">Short Description Character Count</label>
+				<depends><parameter name="show_shortdescription" value="1" /></depends>
+			</parameter>
+			<parameter name="show_readmorelink" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Readmore Link</label>
+				<depends><parameter name="show_shortdescription" value="1" /></depends>
+			</parameter>
+			<parameter name="rebg_color" xsi:type="text" visible="true">
+				<label translate="true">Button Background Color</label>
+				<description translate="true"><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></description>
+				<depends><parameter name="show_readmorelink" value="1" /></depends>
+			</parameter>
+			<parameter name="re_color" xsi:type="text" visible="true">
+				<label translate="true">Button Color</label>
+				<description translate="true"><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></description>
+				<depends><parameter name="show_readmorelink" value="1" /></depends>
+			</parameter>
+			<parameter name="show_categories" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Categories</label>
+			</parameter>
+			<parameter name="show_author" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Author</label>
+			</parameter>
+			<parameter name="show_commentcount" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Comment Count</label>
+			</parameter>
+			<parameter name="show_updatedtime" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Updated Time</label>
+			</parameter>
+			<parameter name="show_createdtime" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Created Time</label>
+			</parameter>
+			<parameter name="show_hits" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Hits</label>
+			</parameter>
+			<parameter name="show_tags" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Tags</label>
+			</parameter>
+			<parameter name="show_socialnetwork" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Social Network</label>
+			</parameter>
+			<parameter name="margin" xsi:type="text" visible="true">
+				<label translate="true">Margin</label>
+				<description translate="true"><![CDATA[Input magrin . Example: 15px 10px 5px 10px]]></description>
+			</parameter>
+			<parameter name="show_paging" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Paging</label>
+			</parameter>
+			<parameter name="show_toolbartop" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Tool Bar Top</label>
+				<depends><parameter name="show_paging" value="1" /></depends>
+			</parameter>
+			<parameter name="show_toolbarbottom" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+				<label translate="true">Show Tool Bar Bottom</label>
+				<depends><parameter name="show_paging" value="1" /></depends>
+			</parameter>
+		</parameters>
+	</widget>
+</widgets>

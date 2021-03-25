@@ -1,0 +1,7 @@
+<?php
+$helper = $this->helper('\Ves\Blog\Helper\Data');
+$canonicalUrl = $helper->getLatestPageUrl();
+?>
+<?php if($helper->getConfig('general_settings/enable')){ ?>
+<link rel="canonical" href="<?php echo $canonicalUrl ?>" />
+<?php } ?>

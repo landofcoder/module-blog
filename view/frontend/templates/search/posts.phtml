@@ -1,0 +1,110 @@
+<?php
+$collection  = $this->getCollection();
+$helper      = $this->helper("Ves\Blog\Helper\Data");
+$imageHelper = $this->helper("Ves\Blog\Helper\Image");
+
+/** General Settings **/
+$maincontainer_selector     = $this->getConfig("general_settings/maincontainer_selector");
+$maincontainer_selector = $maincontainer_selector?$maincontainer_selector:'.column.main';
+$dateFormat         = $this->getConfig("general_settings/dateformat");
+$twitterUsername    = $this->getConfig("general_settings/twitter_username");
+$enableNetworks     = $this->getConfig("general_settings/enable_networks");
+$networks           = array_flip(explode(",", $this->getConfig("general_settings/networks")));
+$layout             = $this->getConfig("blog_page/layout_type");
+$show_toolbartop    = $this->getConfig("blog_page/show_toolbartop");
+$show_toolbarbottom = $this->getConfig("blog_page/show_toolbarbottom");
+$postsStyles        = $this->getConfig('blog_page/posts_styles');
+
+$itemsperpage       = (int)$this->getConfig('blog_page/item_per_page',20);
+$lg_column_item     = (int)$this->getConfig('blog_page/lg_column_item',6);
+$md_column_item     = (int)$this->getConfig('blog_page/md_column_item',6);
+$sm_column_item     = (int)$this->getConfig('blog_page/sm_column_item',6);
+$xs_column_item     = (int)$this->getConfig('blog_page/xs_column_item',6);
+$lg_column          = 12/$lg_column_item;
+$md_column          = 12/$md_column_item;
+$sm_column          = 12/$sm_column_item;
+$xs_column          = 12/$xs_column_item;
+
+/** POST Settings **/
+$show_image             = $this->getConfig("blog_page/show_image");
+$image_width            = (int)$this->getConfig("blog_page/image_width");
+$image_height           = (int)$this->getConfig("blog_page/image_height");
+$show_title             = $this->getConfig("blog_page/show_title");
+$show_shortdescription  = $this->getConfig("blog_page/show_shortdescription");
+$shortdescription_count = $this->getConfig("blog_page/shortdescription_count");
+$show_readmorelink		= $this->getConfig("blog_page/show_readmorelink");
+$show_categories        = $this->getConfig("blog_page/show_categories");
+$show_author            = $this->getConfig("blog_page/show_author");
+$show_commentcount      = $this->getConfig("blog_page/show_commentcount");
+$disable_comment 		= $this->getConfig('general_settings/disable_comment');
+if($disable_comment) {
+	$show_commentcount = false;
+}
+$show_updatedtime       = $this->getConfig("blog_page/show_updatedtime");
+$show_createdtime       = $this->getConfig("blog_page/show_createdtime");
+$show_hits              = $this->getConfig("blog_page/show_hits");
+$show_image             = $this->getConfig("blog_page/show_image");
+$show_tags              = $this->getConfig("blog_page/show_tags");
+
+$blockId = 'blog-' . $layout . time();
+?>
+
+<?php if($collection->count()){ ?>
+<?php $total = count($collection->getItems()); ?>
+<div class="ves-blog post-list postsstyle-<?php echo $postsStyles; ?> block">
+	<?php if($show_toolbartop){ ?>
+	<div class="blog-toolbar">
+		<?php echo $block->getChildHtml('toolbar'); ?>
+	</div>
+	<?php } ?>
+	<div class="blog-<?php echo $layout ?> <?php echo $blockId; ?>  blog-posts">
+		<?php echo $this->getPostsBlock(); ?>
+	</div>
+	<?php if($show_toolbarbottom){ ?>
+	<div class="blog-toolbar">
+		<?php echo $block->getChildHtml('toolbar'); ?>
+	</div>
+	<?php } ?>
+</div>
+<?php if($layout=='masonry'){ ?>
+<script>
+	function initBlogMasonryLayout($, Masonry) {
+		var width = $(window).width();
+		var column = <?php echo $lg_column_item ?>;
+		if(width<480){
+			column = <?php echo $xs_column_item ?>;
+			w = w - 20;
+		}
+		if(width>=480){
+			column = <?php echo $sm_column_item ?>;
+		}
+		if(width>=992){
+			column = <?php echo $md_column_item ?>;
+		}
+		if(width>=1200){
+			column = <?php echo $lg_column_item ?>;
+		}
+		var w = $('<?php echo $maincontainer_selector ; ?>').width() + 20;
+		$('.<?php echo $blockId; ?>').css({"width":w+"px"});
+		var masoW = 100/column;
+		$('.blog-masonry .post-item').css({"width":masoW+"%","margin-bottom":"20px"});
+		new Masonry( '.blog-masonry', {
+			itemSelector: '.post-item'
+		});
+		$('.blog-masonry').css('visibility', 'visible');
+	}
+		require([
+			'jquery',
+			'Ves_Blog/js/masonry.pkgd.min'
+			], function($, Masonry){
+				jQuery(document).ready(function($) {
+					$(window).on("resize", function(){
+						initBlogMasonryLayout($, Masonry);
+					}).resize();
+				});
+			});
+	</script>
+	<?php } ?>
+	<?php }else{ ?>
+	<?php echo __('Sorry, but nothing matched your search criteria. Please try again with some different keywords.'); ?>
+	<?php } ?>

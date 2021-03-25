@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Venustheme
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Venustheme.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.venustheme.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Venustheme
+ * @package    Ves_Blog
+ * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
+ * @license    http://www.venustheme.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::blog_elements" title="Ves Blog">
+                    <resource id="Ves_Blog::post" title="Manage Posts" sortOrder="10">
+                        <resource id="Ves_Blog::post_new" title="New Post" sortOrder="10" />
+                        <resource id="Ves_Blog::post_edit" title="Edit Post" sortOrder="20" />
+                        <resource id="Ves_Blog::post_save" title="Save Post" sortOrder="30" />
+                        <resource id="Ves_Blog::post_delete" title="Delete Post" sortOrder="40" />
+                    </resource>
+                    <resource id="Ves_Blog::category" title="Manage Categories" sortOrder="30">
+                        <resource id="Ves_Blog::category_new" title="New Category" sortOrder="10" />
+                        <resource id="Ves_Blog::category_edit" title="Edit Category" sortOrder="20" />
+                        <resource id="Ves_Blog::category_save" title="Save Category" sortOrder="30" />
+                        <resource id="Ves_Blog::category_delete" title="Delete Category" sortOrder="40" />
+                    </resource>
+                    <resource id="Ves_Blog::tag" title="Manage Tags" sortOrder="30">
+                        <resource id="Ves_Blog::tag_new" title="New Tag" sortOrder="10" />
+                        <resource id="Ves_Blog::tag_edit" title="Edit Tag" sortOrder="20" />
+                        <resource id="Ves_Blog::tag_save" title="Save Tag" sortOrder="30" />
+                        <resource id="Ves_Blog::tag_delete" title="Delete Tag" sortOrder="40" />
+                    </resource>
+                    <resource id="Ves_Blog::comment" title="Manage Comments" sortOrder="40">
+                        <resource id="Ves_Blog::comment_edit" title="Edit Comment" sortOrder="10" />
+                        <resource id="Ves_Blog::comment_save" title="Save Comment" sortOrder="20" />
+                        <resource id="Ves_Blog::comment_delete" title="Delete Comment" sortOrder="30" />
+                    </resource>
+                    <resource id="Ves_Blog::author" title="Author Profile" sortOrder="40">
+                        <resource id="Ves_Blog::author_edit" title="Edit Author" sortOrder="10" />
+                        <resource id="Ves_Blog::author_save" title="Save Author" sortOrder="20" />
+                        <resource id="Ves_Blog::author_delete" title="Delete Author" sortOrder="30" />
+                        <resource id="Ves_Blog::author_myprofile" title="My Profile" sortOrder="40" />
+                        <resource id="Ves_Blog::author_import_user" title="Import Users" sortOrder="50" />
+                    </resource>
+                    <resource id="Ves_Blog::feed" title="Mirgrate Post From Feed" sortOrder="50">
+                        <resource id="Ves_Blog::feed_edit" title="Edit Feed Link" sortOrder="10" />
+                        <resource id="Ves_Blog::feed_save" title="Save Feed Link" sortOrder="20" />
+                        <resource id="Ves_Blog::feed_delete" title="Delete Feed Link" sortOrder="30" />
+                        <resource id="Ves_Blog::force_run_import" title="Force Run Import Feed" sortOrder="40" />
+                    </resource>
+                    <resource id="Ves_Blog::importer" title="Manage Importer" sortOrder="60">
+                        <resource id="Ves_Blog::importer_new" title="New Importer" sortOrder="10" />
+                        <resource id="Ves_Blog::importer_edit" title="Edit Importer" sortOrder="20" />
+                        <resource id="Ves_Blog::importer_save" title="Save Importer" sortOrder="30" />
+                        <resource id="Ves_Blog::importer_run" title="Run Importer" sortOrder="35" />
+                        <resource id="Ves_Blog::importer_delete" title="Delete Importer" sortOrder="40" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Ves_Blog::config_blog" title="Blog" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

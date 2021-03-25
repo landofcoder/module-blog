@@ -1,0 +1,67 @@
+.admin__menu .item-blog > a:before {
+    content: '\e631'!important;
+    font-size: 2.4rem!important;
+    position: relative!important;
+    top: -0.2rem!important;
+}
+
+.vesblog-post-edit .vesblog-fullwidth .admin__field-control.control {
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+.ves-import p {
+    font-size: 18px;
+    color: #F7F3EB;
+    background: #373330;
+    padding: 10px 0 0 0;
+    text-align: center;
+    font-weight: normal;
+    margin: 0
+}
+
+.ves-import .import-wordpress {
+    background: #1d8bbc;
+}
+
+.ves-import .import-item {
+    background: #373330;
+    padding: 20px !important;
+    border: 5px solid #FFF;
+}
+
+.ves-import .import-item .icon {
+    font-size: 150px;
+    text-align: center;
+    color: #FFF
+}
+
+.ves-import.row {
+    max-width: 1000px
+}
+
+.ves-import .import-item:hover, .ves-import .import-item:hover p {
+    background: #4a4542;
+    cursor: pointer
+}
+
+.vesblog-import-index .page-main-actions{
+    display: none
+}
+
+.vesblog-import-index .vesmodal .modal-footer{
+    display: none;
+}
+.btn-import{
+    background: #eb5202;
+    color: #FFF;
+    border: 0;
+    font-size: 18px;
+}
+.btn-import:hover{
+    background-color: #ba4000;
+    border-color: #b84002;
+    box-shadow: 0 0 0 1px #007bdb;
+    color: #fff;
+    text-decoration: none;
+}
