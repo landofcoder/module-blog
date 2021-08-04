@@ -31,8 +31,8 @@ class CommentType implements \Magento\Framework\Option\ArrayInterface
     {
         return [
             ['value' => 'default', 'label' => __('Default')],
-            ['value' => 'disqus', 'label' => __('Disqus')],
-            ['value' => 'facebook', 'label' => __('Facebook')]
+            ['value' => 'disqus', 'label' => __('Disqus')]
+            //['value' => 'facebook', 'label' => __('Facebook')]
         ];
     }
 
