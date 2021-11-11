@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -83,14 +83,14 @@ class Add extends \Magento\Framework\App\Action\Action
 
     /**
      * [__construct description]
-     * @param Context                                             $context              
-     * @param \Magento\Framework\View\Result\PageFactory          $resultPageFactory    
-     * @param \Ves\Blog\Helper\Data                               $blogHelper           
-     * @param \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory 
-     * @param \Magento\Framework\Translate\Inline\StateInterface  $inlineTranslation    
-     * @param \Magento\Framework\Mail\Template\TransportBuilder   $transportBuilder     
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface  $scopeConfig          
-     * @param \Magento\Store\Model\StoreManagerInterface          $storeManager         
+     * @param Context                                             $context
+     * @param \Magento\Framework\View\Result\PageFactory          $resultPageFactory
+     * @param \Ves\Blog\Helper\Data                               $blogHelper
+     * @param \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory
+     * @param \Magento\Framework\Translate\Inline\StateInterface  $inlineTranslation
+     * @param \Magento\Framework\Mail\Template\TransportBuilder   $transportBuilder
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface  $scopeConfig
+     * @param \Magento\Store\Model\StoreManagerInterface          $storeManager
      */
     public function __construct(
         Context $context,
@@ -148,6 +148,7 @@ class Add extends \Magento\Framework\App\Action\Action
             if (isset($data['content']) && $allowableTags) {
                 $data['content'] = strip_tags($data['content'], $allowableTags);
             }
+            $data['content'] = $this->_blogHelper->xss_clean($data['content']);
 
             $model = $this->_objectManager->create('Ves\Blog\Model\Comment');
             $store = $this->_storeManager->getStore();

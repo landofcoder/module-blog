@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -119,13 +119,14 @@ class Result extends \Magento\Framework\View\Element\Template
      * @return $this
      */
     protected function _prepareLayout()
-    {	
+    {
         $searchKey = $this->_request->getParam('s');
+        $searchKey = $this->_blogHelper->xss_clean($searchKey);
     	$page_title = __("Search result for: '%1'", $searchKey);
     	$this->pageConfig->addBodyClass('vesblog-page');
         $this->pageConfig->addBodyClass('blog-searchresult');
     	if($page_title){
-    		$this->pageConfig->getTitle()->set($page_title);   
+    		$this->pageConfig->getTitle()->set($page_title);
     	}
     	return parent::_prepareLayout();
     }
@@ -151,7 +152,7 @@ class Result extends \Magento\Framework\View\Element\Template
         $html = $block->toHtml();
         if ($html) {
             return $html;
-        }   
+        }
     }
 
     /**
@@ -178,6 +179,7 @@ class Result extends \Magento\Framework\View\Element\Template
 
         $store = $this->_storeManager->getStore();
         $searchKey = $this->_request->getParam('s');
+        $searchKey = $this->_blogHelper->xss_clean($searchKey);
         $itemsperpage = (int)$this->getConfig('blog_page/item_per_page');
         $orderby = $this->getConfig('blog_page/orderby');
         $orderby = $orderby?$orderby:"DESC";
