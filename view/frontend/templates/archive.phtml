@@ -8,7 +8,7 @@ $archiveblockTitle = $helper->getConfig('sidebar/archiveblock_title');
     <div class="ves-block block blog-archive">
         <?php if($archiveblockTitle){ ?>
             <div class="block-title">
-                <strong><?php echo __($archiveblockTitle) ?></strong>
+                <strong><?= __($archiveblockTitle) ?></strong>
             </div>
             <?php } ?>
             <div class="block-content blog-widget-content">
@@ -20,10 +20,10 @@ $archiveblockTitle = $helper->getConfig('sidebar/archiveblock_title');
                     $title = $block->escapeHtml($title, null, true);
                     ?>
                     <div class="item">
-                        <a title="<?php echo __('Archive ') . $title ?>" class="archive-item-link" href="<?php echo $block->getTimeUrl($time['time']) ?>">
-                            <i class="fa fa-angle-right"></i> <?php echo $title; ?>
+                        <a title="<?= __('Archive ') . $title ?>" class="archive-item-link" href="<?= $block->getTimeUrl($time['time']) ?>">
+                            <i class="fa fa-angle-right"></i> <?= $title; ?>
                         </a>
-                        <span>(<?php echo $time['count']; ?>)</span>
+                        <span>(<?= $time['count']; ?>)</span>
                     </div>
                     <?php } ?>
                 </div>

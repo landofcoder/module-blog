@@ -8,12 +8,12 @@ $html       = $block->drawItem($collection);
 <div class="ves-block block blog-cats">
 	<?php if($title){ ?>
 	<div class="block-title">
-		<strong><?php echo $title ?></strong>
+		<strong><?= $title ?></strong>
 	</div>
 	<?php } ?>
 	<div class="block-content blog-widget-content">
-		<ul id="blog-cats<?php echo $id ?>" class="blog-cats">
-		<?php echo $block->getCategoryHtml(); ?>
+		<ul id="blog-cats<?= $id ?>" class="blog-cats">
+		<?= $block->getCategoryHtml(); ?>
 		</ul>
 		<script type="text/javascript">
 		require([
@@ -23,7 +23,7 @@ $html       = $block->drawItem($collection);
              <?php endif; ?>
 			], function(){
 			jQuery(document).ready(function($){
-				$('#blog-cats<?php echo $id ?> .opener').on('click', function(e) {
+				$('#blog-cats<?= $id ?> .opener').on('click', function(e) {
 					e.preventDefault();
 					var parent = $(this).parents("li").eq(0);
 					$(this).toggleClass('item-active');
