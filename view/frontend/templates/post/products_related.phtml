@@ -55,7 +55,7 @@ if ($exist = ($block->getCollection() && $block->getCollection()->getSize())) {
         $carousel .= $dots?'true':'false';
         $carousel .= '" data-responsive-refresh-rate="false"';
         if($autoplay) {
-            $carousel .= 'data-autoplay="true" data-autoplay-pauonhover="true" data-autoplay-timeout="';    
+            $carousel .= 'data-autoplay="true" data-autoplay-pauonhover="true" data-autoplay-timeout="';
             $carousel .= $autoplay_timeout;
             $carousel .= '" ';
         }
@@ -75,24 +75,24 @@ if ($exist = ($block->getCollection() && $block->getCollection()->getSize())) {
 <?php if ($exist):?>
     <div class="block widget products-related blog-widget">
         <div class="block-title">
-            <h2><strong><?php echo __('Related Products'); ?></strong></h2>
+            <h2><strong><?= __('Related Products'); ?></strong></h2>
         </div>
         <div class="block-content">
             <div class="products-<?php /* @escapeNotVerified */ echo $mode; ?>" style="float: left; width: 100%">
-                <ol class="<?php if($layout == 'owl_carousel'){ ?>product-items products-related product-items<?php echo $blockId ?> owl-carousel <?php /* @escapeNotVerified */ echo $type; ?>" <?php echo $carousel; } ?>>
+                <ol class="<?php if($layout == 'owl_carousel'){ ?>product-items products-related product-items<?= $blockId ?> owl-carousel <?php /* @escapeNotVerified */ echo $type; ?>" <?= $carousel; } ?>>
                     <?php $iterator = 1; ?>
                     <?php foreach ($items as $_item): ?>
                         <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
                         <div class="product-item-info">
                             <a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>" class="product-item-photo">
-                                <?php echo $block->getImage($_item, $image)->toHtml(); ?>
+                                <?= $block->getImage($_item, $image)->toHtml(); ?>
                             </a>
                             <div class="product-item-details">
                                 <strong class="product-item-name">
-                                    <a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
+                                    <a title="<?= $block->escapeHtml($_item->getName()) ?>"
                                        href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>"
                                        class="product-item-link">
-                                       <?php echo $block->escapeHtml($_item->getName()) ?>
+                                       <?= $block->escapeHtml($_item->getName()) ?>
                                    </a>
                                </strong>
                                <?php
@@ -100,7 +100,7 @@ if ($exist = ($block->getCollection() && $block->getCollection()->getSize())) {
                                ?>
 
                                <?php if ($templateType): ?>
-                                <?php echo $block->getReviewsSummaryHtml($_item, $templateType, true) ?>
+                                <?= $block->getReviewsSummaryHtml($_item, $templateType, true) ?>
                             <?php endif; ?>
 
                             <?php if ($showWishlist || $showCompare || $showCart): ?>
@@ -158,7 +158,7 @@ if ($exist = ($block->getCollection() && $block->getCollection()->getSize())) {
             <?php endif; ?>
         </div>
     </div>
-    <?php echo($iterator == count($items)+1) ? '</li>' : '' ?>
+    <?=($iterator == count($items)+1) ? '</li>' : '' ?>
 <?php endforeach ?>
 </ol>
 </div>

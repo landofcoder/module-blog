@@ -1,19 +1,19 @@
-<?php  
+<?php
 $helper = $this->helper('Ves\Blog\Helper\Data');
 $limit_chars 		   = $helper->getConfig("post_page/limit_chars");
 $limit_chars 		   = $limit_chars?(int)$limit_chars:10;
 $enable = $block->isEnable();
-if($enable) { ?>  
+if($enable) { ?>
 <script>
 	require(['jquery',
-		'Ves_Blog/js/ajaxscroll'	
+		'Ves_Blog/js/ajaxscroll'
 		], function ($) {
 
-			$('<?php echo $helper->getConfig('ajaxscroll_selectors/toolbar') ?>').<?php echo $helper->getConfig('ajaxscroll_selectors/hide_toolbar') ? 'hide' : 'show' ?>();
+			$('<?= $helper->getConfig('ajaxscroll_selectors/toolbar') ?>').<?= $helper->getConfig('ajaxscroll_selectors/hide_toolbar') ? 'hide' : 'show' ?>();
 			windowLoadedFlag = false;
 			window.onload = function () {
 				windowLoadedFlag = true;
-			};   
+			};
 			var jQueryWaiter = function () {
 				var functions = [];
 				var timer = function() {
@@ -39,38 +39,38 @@ if($enable) { ?>
 
 			window.SgyIAS = {
 				debug: false,
-				_log: function(object) { 
-					//console.log(object); 
+				_log: function(object) {
+					//console.log(object);
 				},
-				init: function(){ 
+				init: function(){
 					jQuery(function($) {
 						var config = {
 							item: '.comments-list',
 							container : '.blog-comments',
-							next: '<?php echo $helper->getConfig('ajaxscroll_selectors/next') ?>',
-							pagination: '<?php echo $helper->getConfig('ajaxscroll_selectors/pagination') ?>',
-							parameter: '<?php echo $helper->getConfig('ajaxscroll_selectors/enable_parameter') ?>',
+							next: '<?= $helper->getConfig('ajaxscroll_selectors/next') ?>',
+							pagination: '<?= $helper->getConfig('ajaxscroll_selectors/pagination') ?>',
+							parameter: '<?= $helper->getConfig('ajaxscroll_selectors/enable_parameter') ?>',
 							delay: 600,
-							negativeMargin: <?php echo (int) $helper->getConfig('ajaxscroll_selectors/buffer') ?>,
+							negativeMargin: <?= (int) $helper->getConfig('ajaxscroll_selectors/buffer') ?>,
 							history: {
 								prev: '.prev'
 							},
 							noneleft: {
-								text: '<?php echo $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/done_text'))) ?>',
+								text: '<?= $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/done_text'))) ?>',
 								html: '<div class="ias-noneleft" style="text-align: center;">{text}</div>'
 							},
 							spinner: {
 								<?php if($block->getLoaderImage() !== false): ?>
-								src: '<?php echo $block->getLoaderImage(); ?>',
+								src: '<?= $block->getLoaderImage(); ?>',
 							<?php endif; ?>
-							html: '<div class="ias-spinner" style="text-align: center;"><img style="display:inline" src="{src}"/> <?php echo $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/loading_text'))); ?></div>'
-						},  
+							html: '<div class="ias-spinner" style="text-align: center;"><img style="display:inline" src="{src}"/> <?= $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/loading_text'))); ?></div>'
+						},
 						trigger: {
-							text: '<?php echo $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/load_more_text'))) ?>',
+							text: '<?= $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/load_more_text'))) ?>',
 							html: '<div class="ias-trigger ias-trigger-next" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
-							textPrev: '<?php echo $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/load_more_text'))) ?>',
+							textPrev: '<?= $helper->jsQuoteEscape(__($helper->getConfig('ajaxscroll_selectors/load_more_text'))) ?>',
 							htmlPrev: '<div class="ias-trigger ias-trigger-prev" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
-							offset: <?php echo (int) $helper->getConfig('ajaxscroll_selectors/load_more') ?>
+							offset: <?= (int) $helper->getConfig('ajaxscroll_selectors/load_more') ?>
 						}
 
 					};
@@ -94,7 +94,7 @@ if($enable) { ?>
 					window.ias.extension(new IASNoneLeftExtension(config.noneleft));
 
 					SgyIAS._log({extension: 'trigger'});
-					window.ias.extension(new IASTriggerExtension(config.trigger)); 	
+					window.ias.extension(new IASTriggerExtension(config.trigger));
 
 						// debug events
 						window.ias.on('scroll', function(scrollOffset, scrollThreshold){
@@ -132,7 +132,7 @@ if($enable) { ?>
 							<?php } ?>
 
 							initReplyComment($);
-						}); 
+						});
 						window.ias.on('noneLeft', function(){
 							SgyIAS._log({eventName: 'noneLeft'});
 						});

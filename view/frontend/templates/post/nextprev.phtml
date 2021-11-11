@@ -31,41 +31,41 @@ if($next_collection && $next_collection->getSize()){
 <div class="ves-block block block-row next-prev-block">
 	<?php if($hasPrev) { ?>
 	<?php  $prev_post = $prev_collection->getFirstItem(); ?>
-	<?php 
+	<?php
 	$prev_postUrl = $helper->getPostUrl($prev_post);
 	$prev_postLinkAttr = $helper->getPostUrlLinkAttr($prev_post);
 	?>
 	<div class="block-span6 post-prev-post">
 		<div class="post-next-prev-content">
 			<?php if($show_icon){ ?><i class="fa fa-angle-left" aria-hidden="true"></i><?php } ?>
-			<?php if($show_label) { ?><span><?php echo __("Previous Post") ?></span><?php } ?>
+			<?php if($show_label) { ?><span><?= __("Previous Post") ?></span><?php } ?>
 			<?php if($show_image) { ?>
 			<?php if( $prev_post->getThumbnailType() == 1 && $prev_post->getPostThumbnail()!=''){ ?>
-				<a href="<?php echo $prev_postUrl; ?>" <?php echo $prev_postLinkAttr;?>><img src="<?php echo $imageHelper->resizeImage($prev_post->getPostThumbnail(), $image_width, $image_height) ?>" height="<?php echo $image_height ?>" width="<?php echo $image_width ?>" alt="<?php echo $prev_post->getTitle(); ?>"/></a>
+				<a href="<?= $prev_postUrl; ?>" <?= $prev_postLinkAttr;?>><img src="<?= $imageHelper->resizeImage($prev_post->getPostThumbnail(), $image_width, $image_height) ?>" height="<?= $image_height ?>" width="<?= $image_width ?>" alt="<?= $prev_post->getTitle(); ?>"/></a>
 				<?php } ?>
-			<?php } ?> 
-			<?php if($show_title){ ?><a href="<?php echo $prev_postUrl; ?>" <?php echo $prev_postLinkAttr;?>><?php echo $prev_post->getTitle();?></a><?php } ?>
+			<?php } ?>
+			<?php if($show_title){ ?><a href="<?= $prev_postUrl; ?>" <?= $prev_postLinkAttr;?>><?= $prev_post->getTitle();?></a><?php } ?>
 		</div>
 	</div>
 	<div class="next-prev-separator"></div>
 	<?php } ?>
 	<?php if($hasNext) { ?>
 	<?php  $next_post = $next_collection->getFirstItem(); ?>
-	<?php 
+	<?php
 	$next_postUrl = $helper->getPostUrl($next_post);
 	$next_postLinkAttr = $helper->getPostUrlLinkAttr($next_post);
 	?>
 	<div class="block-span6 post-next-post">
 		<div class="post-next-prev-content">
-			<?php if($show_title){ ?><a href="<?php echo $next_postUrl; ?>" <?php echo $next_postLinkAttr;?>><?php echo $next_post->getTitle();?></a><?php } ?>
+			<?php if($show_title){ ?><a href="<?= $next_postUrl; ?>" <?= $next_postLinkAttr;?>><?= $next_post->getTitle();?></a><?php } ?>
 			<?php if($show_image) { ?>
 			<?php if( $next_post->getThumbnailType() == 1 && $next_post->getPostThumbnail()!=''){ ?>
-				<a href="<?php echo $next_postUrl; ?>" <?php echo $next_postLinkAttr;?>><img src="<?php echo $imageHelper->resizeImage($next_post->getPostThumbnail(), $image_width, $image_height) ?>" height="<?php echo $image_height ?>" width="<?php echo $image_width ?>" alt="<?php echo $next_post->getTitle(); ?>"/></a>
+				<a href="<?= $next_postUrl; ?>" <?= $next_postLinkAttr;?>><img src="<?= $imageHelper->resizeImage($next_post->getPostThumbnail(), $image_width, $image_height) ?>" height="<?= $image_height ?>" width="<?= $image_width ?>" alt="<?= $next_post->getTitle(); ?>"/></a>
 				<?php } ?>
-				<?php if($show_label) { ?><span><?php echo __("Next Post") ?></span><?php } ?>
+				<?php if($show_label) { ?><span><?= __("Next Post") ?></span><?php } ?>
 				<?php if($show_icon){ ?><i class="fa fa-angle-right" aria-hidden="true"></i><?php } ?>
-			<?php } ?> 
-			
+			<?php } ?>
+
 		</div>
 	</div>
 	<?php } ?>

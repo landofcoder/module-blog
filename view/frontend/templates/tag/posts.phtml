@@ -51,18 +51,18 @@ $blockId = 'blog-' . $layout . time();
 
 <?php if($collection->count()){ ?>
 <?php $total = count($collection->getItems()); ?>
-<div class="ves-blog post-list postsstyle-<?php echo $postsStyles ?>">
+<div class="ves-blog post-list postsstyle-<?= $postsStyles ?>">
 	<?php if($show_toolbartop){ ?>
 	<div class="blog-toolbar">
-		<?php echo $block->getChildHtml('toolbar'); ?>
+		<?= $block->getChildHtml('toolbar'); ?>
 	</div>
 	<?php } ?>
-	<div class="blog-<?php echo $layout ?> <?php echo $blockId; ?>  blog-posts">
-		<?php echo $this->getPostsBlock(); ?>
+	<div class="blog-<?= $layout ?> <?= $blockId; ?>  blog-posts">
+		<?= $this->getPostsBlock(); ?>
 	</div>
 	<?php if($show_toolbarbottom){ ?>
 	<div class="blog-toolbar">
-		<?php echo $block->getChildHtml('toolbar'); ?>
+		<?= $block->getChildHtml('toolbar'); ?>
 	</div>
 	<?php } ?>
 </div>
@@ -70,22 +70,22 @@ $blockId = 'blog-' . $layout . time();
 <script>
 	function initBlogMasonryLayout($, Masonry) {
 		var width = $(window).width();
-		var column = <?php echo $lg_column_item ?>;
+		var column = <?= $lg_column_item ?>;
 		if(width<480){
-			column = <?php echo $xs_column_item ?>;
+			column = <?= $xs_column_item ?>;
 			w = w - 20;
 		}
 		if(width>=480){
-			column = <?php echo $sm_column_item ?>;
+			column = <?= $sm_column_item ?>;
 		}
 		if(width>=992){
-			column = <?php echo $md_column_item ?>;
+			column = <?= $md_column_item ?>;
 		}
 		if(width>=1200){
-			column = <?php echo $lg_column_item ?>;
+			column = <?= $lg_column_item ?>;
 		}
-		var w = $('<?php echo $maincontainer_selector ; ?>').width() + 20;
-		$('.<?php echo $blockId; ?>').css({"width":w+"px"});
+		var w = $('<?= $maincontainer_selector ; ?>').width() + 20;
+		$('.<?= $blockId; ?>').css({"width":w+"px"});
 		var masoW = 100/column;
 		$('.blog-masonry .post-item').css({"width":masoW+"%","margin-bottom":"20px"});
 		new Masonry( '.blog-masonry', {

@@ -57,7 +57,7 @@ if($layout == 'owl_carousel') {
 	$carousel .= $dots?'true':'false';
 	$carousel .= '" data-responsive-refresh-rate="false"';
 	if($autoplay) {
-		$carousel .= 'data-autoplay="true" data-autoplay-pauonhover="true" data-autoplay-timeout="';	
+		$carousel .= 'data-autoplay="true" data-autoplay-pauonhover="true" data-autoplay-timeout="';
 		$carousel .= $autoplay_timeout;
 		$carousel .= '" ';
 	}
@@ -75,12 +75,12 @@ if($layout == 'owl_carousel') {
 <?php if($total>0){ ?>
 <div class="ves-block blog-posts post-list posts-related blog-widget">
 	<div class="block-title">
-		<h2><strong><?php echo __('Related Posts') ?></strong></h2>
+		<h2><strong><?= __('Related Posts') ?></strong></h2>
 	</div>
 	<div class="block-content">
-		<ul class="<?php if($layout == 'owl_carousel'){ ?>post-owl owl-carousel post-listing" <?php echo $carousel; } ?>>
+		<ul class="<?php if($layout == 'owl_carousel'){ ?>post-owl owl-carousel post-listing" <?= $carousel; } ?>>
 			<?php foreach ($collection as $_post) {  ?>
-			<?php  
+			<?php
 			$postUrl = $helper->getPostUrl($_post);
 			$postLinkAttr = $helper->getPostUrlLinkAttr($_post);
 			?>
@@ -91,8 +91,8 @@ if($layout == 'owl_carousel') {
 				<?php if($_post->getImageType() == 2 && $_post->getImageVideoId()!=''){
 					$imageClass = ' post-video';
 				} ?>
-			<div class="post-image <?php echo $imageClass; ?>">
-				<a href="<?php echo $postUrl ?>" <?php echo $postLinkAttr; ?> title="<?php echo $_post->getTitle(); ?>">
+			<div class="post-image <?= $imageClass; ?>">
+				<a href="<?= $postUrl ?>" <?= $postLinkAttr; ?> title="<?= $_post->getTitle(); ?>">
 					<?php if( $_post->getThumbnailType() == 1 && $_post->getPostThumbnail()!=''){ ?>
 						<?php if($_post->getImageType() == 2 && $_post->getImageVideoId()!=''){ ?>
 						<span class="fa overlay-icon"></span>
@@ -100,15 +100,15 @@ if($layout == 'owl_carousel') {
 						<span class="fa overlay-icon"></span>
 					<?php } ?>
 					<?php if($image_width>0){ ?>
-					<img src="<?php echo $imageHelper->resizeImage($_post->getPostThumbnail(), $image_width, $image_height) ?>" height="<?php echo $image_height ?>" width="<?php echo $image_width ?>" alt="<?php echo $_post->getTitle(); ?>"/>
+					<img src="<?= $imageHelper->resizeImage($_post->getPostThumbnail(), $image_width, $image_height) ?>" height="<?= $image_height ?>" width="<?= $image_width ?>" alt="<?= $_post->getTitle(); ?>"/>
 					<?php }else{ ?>
-					<img src="<?php echo $helper->getMediaUrl($_post->getPostThumbnail()) ?>" alt="<?php echo $_post->getTitle(); ?>"/>
+					<img src="<?= $helper->getMediaUrl($_post->getPostThumbnail()) ?>" alt="<?= $_post->getTitle(); ?>"/>
 					<?php } ?>
 					<?php }else if($_post->getThumbnailType() == 2){ ?>
 					<?php if($_post->getThumbnailVideoType()==1 && $_post->getThumbnailVideoId()!=''){ ?>
-					<iframe width="<?php echo $image_width ?>" height="<?php echo $image_height ?>" src="https://www.youtube.com/embed/<?php echo $_post->getThumbnailVideoId() ?>" frameborder="0" allowfullscreen></iframe>
+					<iframe width="<?= $image_width ?>" height="<?= $image_height ?>" src="https://www.youtube.com/embed/<?= $_post->getThumbnailVideoId() ?>" frameborder="0" allowfullscreen></iframe>
 					<?php }else if($_post->getThumbnailVideoType()==2 && $_post->getThumbnailVideoId()!=''){ ?>
-					<iframe src="https://player.vimeo.com/video/<?php echo $_post->getThumbnailVideoId() ?>?color=3498DB&title=0&byline=0&portrait=0" width="<?php echo $image_width ?>" height="<?php echo $image_height ?>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+					<iframe src="https://player.vimeo.com/video/<?= $_post->getThumbnailVideoId() ?>?color=3498DB&title=0&byline=0&portrait=0" width="<?= $image_width ?>" height="<?= $image_height ?>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 					<?php } ?>
 					<?php } ?>
 				</a>
@@ -119,58 +119,58 @@ if($layout == 'owl_carousel') {
 					<?php if($show_title){ ?>
 					<div class="post-title">
 						<?php if($layout == 'list'){ ?>
-						<a href="<?php echo $postUrl ?>"  <?php echo $postLinkAttr; ?> title="<?php echo $_post->getTitle(); ?>"><?php echo $i .') ' . $_post->getTitle(); ?></a>
+						<a href="<?= $postUrl ?>"  <?= $postLinkAttr; ?> title="<?= $_post->getTitle(); ?>"><?= $i .') ' . $_post->getTitle(); ?></a>
 						<?php }else{ ?>
-						<a href="<?php echo $postUrl ?>"  <?php echo $postLinkAttr; ?> title="<?php echo $_post->getTitle(); ?>"><?php echo $_post->getTitle(); ?></a>
+						<a href="<?= $postUrl ?>"  <?= $postLinkAttr; ?> title="<?= $_post->getTitle(); ?>"><?= $_post->getTitle(); ?></a>
 						<?php } ?>
 					</div>
 					<?php } ?>
 					<?php if($show_author){ ?>
 				<div class="post-author">
 					<?php $author = $helper->getPostAuthor($_post);?>
-					<i class="fa fa-user"></i> <a href="<?php echo $helper->getAuthorUrl($author); ?>" title="<?php echo $author->getNickName() ?>"><?php echo $author->getNickName() ?></a>
+					<i class="fa fa-user"></i> <a href="<?= $helper->getAuthorUrl($author); ?>" title="<?= $author->getNickName() ?>"><?= $author->getNickName() ?></a>
 				</div>
 				<?php } ?>
 					<?php if($show_createdtime || $show_updatedtime){ ?>
 					<div class="post-date">
 						<?php if($show_createdtime){ ?>
 						<?php $createdTime = $helper->getFormatDate($_post->getCreationTime(), $dateFormat); ?>
-						<span><?php echo __('Created on %1', $createdTime); ?></span>
+						<span><?= __('Created on %1', $createdTime); ?></span>
 						<?php } ?>
 						<?php if($show_updatedtime){ ?>
 						<?php $updateTime = $helper->getFormatDate($_post->getUpdateTime(), $dateFormat); ?>
-						<span><?php echo __('Updated on %1', $updateTime); ?></span>
+						<span><?= __('Updated on %1', $updateTime); ?></span>
 						<?php } ?>
 					</div>
 					<?php } ?>
 					<?php if($show_commentcount){ ?>
 					<div class="post-comment">
-						<?php echo __('%1 comments', $_post->getCommentCount()); ?>
+						<?= __('%1 comments', $_post->getCommentCount()); ?>
 					</div>
 					<?php } ?>
 					<?php if($show_categories){ ?>
 					<div class="post-categories">
-						<?php echo __('Pubslished In: ') ?>
+						<?= __('Pubslished In: ') ?>
 						<?php
 						$categories = $_post->getData('categories');
 						$count = count($categories);
 						?>
 						<?php foreach ($categories as $k => $v) { ?>
-						<a href="<?php echo $helper->getCategoryUrl($v['identifier'])  ?>" title="<?php echo $v['name'] ?>"><?php echo $v['name'] ?></a>
+						<a href="<?= $helper->getCategoryUrl($v['identifier'])  ?>" title="<?= $v['name'] ?>"><?= $v['name'] ?></a>
 						<?php if(isset($categories[$k+1])) echo __(', '); ?>
 						<?php } ?>
 					</div>
 					<?php } ?>
 					<?php if($show_hits){ ?>
-					<div class="post-hits"><span><?php echo __("Read");?></span> <strong><?php echo (int)$_post->getHits(); ?></strong> <?php echo __("Times"); ?></div>
+					<div class="post-hits"><span><?= __("Read");?></span> <strong><?= (int)$_post->getHits(); ?></strong> <?= __("Times"); ?></div>
 					<?php } ?>
 					<?php if($show_tags){ ?>
 					<?php $tags = $_post->getTags(); ?>
 					<?php if(!empty($tags)){ ?>
 					<div class="post-tag">
-						<span><?php echo __('Tags:'); ?></span>
+						<span><?= __('Tags:'); ?></span>
 						<?php foreach ($tags as $k => $v) { ?>
-						<a href="<?php echo $helper->getTagUrl($v['alias']) ?>"><?php echo $v['name'] ?></a>
+						<a href="<?= $helper->getTagUrl($v['alias']) ?>"><?= $v['name'] ?></a>
 						<?php if(isset($tags[$k+1])) echo __(', '); ?>
 						<?php } ?>
 					</div>
@@ -179,10 +179,10 @@ if($layout == 'owl_carousel') {
 					<?php if($show_shortdescription){ ?>
 					<div class="post-summary">
 						<?php $shortContent = $_post->getShortContent(); ?>
-						<?php echo $helper->subString($shortContent, (int)$shortdescription_count); ?>
+						<?= $helper->subString($shortContent, (int)$shortdescription_count); ?>
 						<?php if($show_readmorelink){ ?>
-						<a href="<?php echo $postUrl ?>" <?php echo $postLinkAttr; ?> title="<?php echo $_post->getTitle(); ?>"><?php echo __('Read more') ?></a>
-						<?php } ?>	
+						<a href="<?= $postUrl ?>" <?= $postLinkAttr; ?> title="<?= $_post->getTitle(); ?>"><?= __('Read more') ?></a>
+						<?php } ?>
 					</div>
 					<?php } ?>
 				</div>

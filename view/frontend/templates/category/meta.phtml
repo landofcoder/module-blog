@@ -6,8 +6,8 @@ $description = $category->getDescription();
 ?>
 <?php if($image!='' && $category->getIsActive()){ ?>
 <?php $imgUrl = $helper->getMediaUrl($image); ?>
-<img src="<?php echo $imgUrl ?>" alt="<?php echo $category->getName() ?>"/>
+<img src="<?= $imgUrl ?>" alt="<?= $category->getName() ?>"/>
 <?php } ?>
 <?php if($description && $category->getIsActive()){ ?>
-<div class="blogcat-description"><?php echo $description ?></div>
+<div class="blogcat-description"><?= $description ?></div>
 <?php } ?>

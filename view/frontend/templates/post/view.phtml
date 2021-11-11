@@ -38,15 +38,15 @@ $_post->setData('categories', $_post->getPostCategories());
 	<div class="post-image">
 		<?php if( $_post->getImageType() == 1 && $_post->getImage()!=''){ ?>
 		<?php if($image_width>0 && $_post->getThumbnail()){ ?>
-		<img src="<?php echo $imageHelper->resizeImage($_post->getImage(), $image_width, $image_height) ?>" height="<?php echo $image_height ?>" width="<?php echo $image_width ?>" alt="<?php echo $_post->getTitle(); ?>"/>
+		<img src="<?= $imageHelper->resizeImage($_post->getImage(), $image_width, $image_height) ?>" height="<?= $image_height ?>" width="<?= $image_width ?>" alt="<?= $_post->getTitle(); ?>"/>
 		<?php }else{ ?>
-		<img src="<?php echo $helper->getMediaUrl($_post->getImage()) ?>" alt="<?php echo $_post->getTitle(); ?>"/>
+		<img src="<?= $helper->getMediaUrl($_post->getImage()) ?>" alt="<?= $_post->getTitle(); ?>"/>
 		<?php } ?>
 		<?php }else if($_post->getImageType() == 2){ ?>
 		<?php if($_post->getImageVideoType()==1 && $_post->getImageVideoId()!=''){ ?>
-		<iframe src="https://www.youtube.com/embed/<?php echo $_post->getImageVideoId() ?>" frameborder="0" allowfullscreen height="<?php echo $image_height?$image_height:'500' ?>" width="<?php echo $image_width?$image_width:'100%' ?>"></iframe>
+		<iframe src="https://www.youtube.com/embed/<?= $_post->getImageVideoId() ?>" frameborder="0" allowfullscreen height="<?= $image_height?$image_height:'500' ?>" width="<?= $image_width?$image_width:'100%' ?>"></iframe>
 		<?php }else if($_post->getImageVideoType()==2 && $_post->getImageVideoId()!=''){ ?>
-		<iframe src="https://player.vimeo.com/video/<?php echo $_post->getImageVideoId() ?>?color=3498DB&title=0&byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen height="<?php echo $image_height?$image_height:'500' ?>" width="<?php echo $image_width?$image_width:'100%' ?>"></iframe>
+		<iframe src="https://player.vimeo.com/video/<?= $_post->getImageVideoId() ?>?color=3498DB&title=0&byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen height="<?= $image_height?$image_height:'500' ?>" width="<?= $image_width?$image_width:'100%' ?>"></iframe>
 		<?php } ?>
 		<?php } ?>
 	</div>
@@ -55,14 +55,14 @@ $_post->setData('categories', $_post->getPostCategories());
 		<div class="post-meta">
 			<?php if($show_title){ ?>
 			<div class="post-title">
-				<h1><?php echo $_post->getTitle(); ?></h1>
+				<h1><?= $_post->getTitle(); ?></h1>
 			</div>
 			<?php } ?>
 			<?php if($show_author){ ?>
 			<div class="post-author">
 				<?php $author = $helper->getPostAuthor($_post); ?>
 				<?php if($author) { ?>
-				<i class="fa fa-user"></i> <a href="<?php echo $helper->getAuthorUrl($author); ?>" title="<?php echo $author->getNickName() ?>"><?php echo $author->getNickName() ?></a>
+				<i class="fa fa-user"></i> <a href="<?= $helper->getAuthorUrl($author); ?>" title="<?= $author->getNickName() ?>"><?= $author->getNickName() ?></a>
 				<?php } ?>
 			</div>
 			<?php } ?>
@@ -70,11 +70,11 @@ $_post->setData('categories', $_post->getPostCategories());
 			<div class="post-date">
 				<?php if($show_createdtime){ ?>
 				<?php $createdTime = $helper->getFormatDate($_post->getCreationTime(), $dateFormat); ?>
-				<i class="fa fa-clock-o"></i> <span><?php echo $createdTime; ?></span>
+				<i class="fa fa-clock-o"></i> <span><?= $createdTime; ?></span>
 				<?php } ?>
 				<?php if($show_updatedtime){ ?>
 				<?php $updateTime = $helper->getFormatDate($_post->getUpdateTime(), $dateFormat); ?>
-				<i class="fa fa-clock-o"></i> <span><?php echo $createdTime; ?></span>
+				<i class="fa fa-clock-o"></i> <span><?= $createdTime; ?></span>
 				<?php } ?>
 			</div>
 			<?php } ?>
@@ -86,29 +86,29 @@ $_post->setData('categories', $_post->getPostCategories());
 				$count = count($categories);
 				?>
 				<?php foreach ($categories as $k => $v) { ?>
-				<a href="<?php echo $helper->getCategoryUrl($v['identifier'])  ?>" title="<?php echo $v['name'] ?>"><?php echo $v['name'] ?></a>
+				<a href="<?= $helper->getCategoryUrl($v['identifier'])  ?>" title="<?= $v['name'] ?>"><?= $v['name'] ?></a>
 				<?php if(isset($categories[$k+1])) echo __(', '); ?>
 				<?php } ?>
 			</div>
 			<?php } ?>
 			<?php if($show_commentcount){ ?>
 			<div class="post-comment">
-				<i class="fa fa-comments"></i> <a href="<?php echo $postUrl ?>#comments"><?php echo $_post->getCommentCount(); ?></a>
+				<i class="fa fa-comments"></i> <a href="<?= $postUrl ?>#comments"><?= $_post->getCommentCount(); ?></a>
 			</div>
 			<?php } ?>
 			<?php if($show_hits){ ?>
-			<div class="post-hits"><i class="fa fa-eye"></i> <span><?php echo (int)$_post->getHits(); ?></span></div>
+			<div class="post-hits"><i class="fa fa-eye"></i> <span><?= (int)$_post->getHits(); ?></span></div>
 			<?php } ?>
 		</div>
 		<div class="post-content">
-			<?php echo $helper->filter($_post->getContent()) ?>
+			<?= $helper->filter($_post->getContent()) ?>
 		</div>
 	</div>
 </div>
 <?php if($show_likedisklike){ ?>
 <div id="post-like" class="post-like">
-	<a href="#" class="vbtn-like"><?php echo __('Like <span>(%1)</span>', (int)$_post->getLike()); ?></a>
-	<a href="#" class="vbtn-disklike"><?php echo __('Disklike <span>(%1)</span>', (int)$_post->getDisklike()); ?></a>
+	<a href="#" class="vbtn-like"><?= __('Like <span>(%1)</span>', (int)$_post->getLike()); ?></a>
+	<a href="#" class="vbtn-disklike"><?= __('Disklike <span>(%1)</span>', (int)$_post->getDisklike()); ?></a>
 	<div class="post-message"></div>
 	<script type="text/javascript">
 	require(['jquery'], function($){
@@ -121,9 +121,9 @@ $_post->setData('categories', $_post->getPostCategories());
 				}
 				var tmp = '';
 				$.ajax({
-					url: '<?php echo $block->getUrl('vesblog/vote/post') ?>',
+					url: '<?= $block->getUrl('vesblog/vote/post') ?>',
 					type: 'post',
-					data: { like: like, postId: <?php echo $_post->getId() ?> },
+					data: { like: like, postId: <?= $_post->getId() ?> },
 					dataType: 'json',
 					beforeSend: function() {
 						tmp = $(self).find('span').html();
@@ -144,7 +144,7 @@ $_post->setData('categories', $_post->getPostCategories());
 						$('.post-like .post-message').html(result.message);
 						setTimeout(function(){
 							$('.post-like .post-message').html('');
-							$('.post-like .post-message').removeClass('post-success').removeClass('post-error');							
+							$('.post-like .post-message').removeClass('post-success').removeClass('post-error');
 						},2000);
 					}
 				});
@@ -160,10 +160,10 @@ $_post->setData('categories', $_post->getPostCategories());
 	<?php $tags = $_post->getPostTags(); ?>
 	<?php if(!empty($tags)){ ?>
 	<div class="post-tag">
-		<span><?php echo __('Tags:'); ?></span>
+		<span><?= __('Tags:'); ?></span>
 		<?php foreach ($tags as $k => $v) { ?>
 		<?php if(trim($v['name'])!=''){ ?>
-		<a href="<?php echo $helper->getTagUrl($v['alias']) ?>"><?php echo $v['name'] ?></a>
+		<a href="<?= $helper->getTagUrl($v['alias']) ?>"><?= $v['name'] ?></a>
 		<?php } ?>
 		<?php } ?>
 	</div>
@@ -171,7 +171,7 @@ $_post->setData('categories', $_post->getPostCategories());
 	<?php } ?>
 	<?php if($show_socialnetworks && $networks){ ?>
 	<div class="post-social post-bottom">
-		<span class="td-post-share-title"><?php echo __('SHARE'); ?></span>
+		<span class="td-post-share-title"><?= __('SHARE'); ?></span>
 		<!-- Go to www.addthis.com/dashboard to customize your tools -->
 		<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
 			<?php if(isset($networks['facebook'])){ ?>
@@ -197,23 +197,23 @@ $_post->setData('categories', $_post->getPostCategories());
 	<?php } ?>
 </div>
 <?php if($show_socialnetworks && $networks){ ?>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=<?php echo $addthis_pubid; ?>"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=<?= $addthis_pubid; ?>"></script>
 <?php } ?>
 
 <?php if($show_authorprofile && isset($author) && $author){ ?>
 <div id="author-box">
-	<div class="block-title"><h2><strong><?php echo __('Author'); ?></strong></h2></div>
+	<div class="block-title"><h2><strong><?= __('Author'); ?></strong></h2></div>
 	<div class="block-content">
 		<?php if($avatar = $author->getAvatar()){ ?>
 		<div class="author-avatar">
-		<a href="<?php echo $helper->getAuthorUrl($author); ?>" title="<?php echo $author->getNickName() ?>">
-			<img src="<?php echo $imageHelper->resizeImage($avatar, 125, 125) ?>" alt="" height="125" width="125">
+		<a href="<?= $helper->getAuthorUrl($author); ?>" title="<?= $author->getNickName() ?>">
+			<img src="<?= $imageHelper->resizeImage($avatar, 125, 125) ?>" alt="" height="125" width="125">
 		</a>
 		</div>
 		<?php } ?>
-		<h3 style="margin-top: 0;"><?php echo $author->getNickName(); ?></h3>
+		<h3 style="margin-top: 0;"><?= $author->getNickName(); ?></h3>
 		<?php if($bio = $author->getDescription()){ ?>
-		<div class="author-description"><?php echo $helper->filter($bio) ?></div>
+		<div class="author-description"><?= $helper->filter($bio) ?></div>
 		<?php } ?>
 
 		<?php $authorSocials = unserialize($author->getSocialNetworks()); ?>
@@ -221,7 +221,7 @@ $_post->setData('categories', $_post->getPostCategories());
 		<div class="author-social flat-social">
 			<?php foreach ($authorSocials as $k => $v) { ?>
 				<?php if(trim($v)!=''){ ?>
-				<a class="social-<?php echo $k ?>" href="<?php echo $v; ?>"><i class="fa fa-<?php echo $k ?>"></i></a>
+				<a class="social-<?= $k ?>" href="<?= $v; ?>"><i class="fa fa-<?= $k ?>"></i></a>
 				<?php } ?>
 			<?php } ?>
 		</div>
@@ -229,9 +229,9 @@ $_post->setData('categories', $_post->getPostCategories());
 	</div>
 </div>
 <?php } ?>
-<?php echo $this->getChildHtml("posts_related"); ?>
-<?php echo $this->getChildHtml("posts_nextprev"); ?>
-<?php echo $this->getChildHtml("products_related"); ?>
+<?= $this->getChildHtml("posts_related"); ?>
+<?= $this->getChildHtml("posts_nextprev"); ?>
+<?= $this->getChildHtml("products_related"); ?>
 <?php if($_post->getEnableComment()){ ?>
-<?php echo $this->getChildHtml("post_comment"); ?>
+<?= $this->getChildHtml("post_comment"); ?>
 <?php } ?>

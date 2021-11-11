@@ -7,30 +7,30 @@ $blockId = 'blog-list'. time();
 <?php if($collection->count()){ ?>
 <?php $total = count($collection->getItems()); ?>
 <div class="ves-blog authors-list">
-	<div class="blog-list <?php echo $blockId; ?>  blog-authors">
+	<div class="blog-list <?= $blockId; ?>  blog-authors">
 		<!-- List author: name with link, avatar, number posts, social, website -->
 		<ul class="authors-listing">
 		<?php $i = 1; ?>
 		<?php foreach($collection as $author) { ?>
 		<?php $class = (($i/2)==0)?'list-obb':''; $i++; ?>
-		<li <?php echo $class?('class="'.$class.'"'):''; ?>>
+		<li <?= $class?('class="'.$class.'"'):''; ?>>
 			<div id="author-box">
-				<div class="block-title"><h2><a href="<?php echo $helper->getAuthorUrl($author); ?>" title="<?php echo $author->getNickName() ?>"><?php echo $author->getNickName(); ?></a></h2></div>
+				<div class="block-title"><h2><a href="<?= $helper->getAuthorUrl($author); ?>" title="<?= $author->getNickName() ?>"><?= $author->getNickName(); ?></a></h2></div>
 				<div class="block-content">
 					<?php if($avatar = $author->getAvatar()){ ?>
 					<div class="author-avatar">
-					<a href="<?php echo $helper->getAuthorUrl($author); ?>" title="<?php echo $author->getNickName() ?>">
-						<img src="<?php echo $imageHelper->resizeImage($avatar, 125, 125) ?>" alt="" height="125" width="125">
+					<a href="<?= $helper->getAuthorUrl($author); ?>" title="<?= $author->getNickName() ?>">
+						<img src="<?= $imageHelper->resizeImage($avatar, 125, 125) ?>" alt="" height="125" width="125">
 					</a>
 					</div>
 					<?php } ?>
 
 					<?php if($number_posts = $author->getTotalPosts()){ ?>
-					<div class="author-posts"><a href="<?php echo $helper->getAuthorUrl($author); ?>" title="<?php echo __("View all posts") ?>"><?php echo __("%1 posts", $number_posts); ?></a></div>
+					<div class="author-posts"><a href="<?= $helper->getAuthorUrl($author); ?>" title="<?= __("View all posts") ?>"><?= __("%1 posts", $number_posts); ?></a></div>
 					<?php } ?>
 
 					<?php if($bio = $author->getDescription()){ ?>
-					<div class="author-description"><?php echo $helper->filter($bio) ?></div>
+					<div class="author-description"><?= $helper->filter($bio) ?></div>
 					<?php } ?>
 
 					<?php $authorSocials = unserialize($author->getSocialNetworks()); ?>
@@ -38,7 +38,7 @@ $blockId = 'blog-list'. time();
 					<div class="author-social flat-social">
 						<?php foreach ($authorSocials as $k => $v) { ?>
 							<?php if(trim($v)!=''){ ?>
-							<a class="social-<?php echo $k ?>" href="<?php echo $v; ?>"><i class="fa fa-<?php echo $k ?>"></i></a>
+							<a class="social-<?= $k ?>" href="<?= $v; ?>"><i class="fa fa-<?= $k ?>"></i></a>
 							<?php } ?>
 						<?php } ?>
 					</div>
@@ -50,7 +50,7 @@ $blockId = 'blog-list'. time();
 		</ul>
 	</div>
 	<div class="blog-toolbar">
-		<?php echo $block->getChildHtml('toolbar'); ?>
+		<?= $block->getChildHtml('toolbar'); ?>
 	</div>
 </div>
 <?php } ?>
