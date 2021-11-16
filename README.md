@@ -31,4 +31,4 @@ Moreover, you can also improve your marketing efforts and smoothly transfer prom
 
 ## PWA Studio Support
 - Blog GraphQl Module: https://github.com/landofcoder/module-blog-graph-ql
-- PWA Addon: https://github.com/landofcoder/blog-pwa-addon
+- PWA Blog Add-on: https://github.com/landofcoder/blog-pwa-addon
