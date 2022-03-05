@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -167,7 +167,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
         } else {
             return $this->getBaseMediaUrl().$image;
         }
-        
+
     }
 
     /**
@@ -180,7 +180,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
      * @param mixed                             $file           Specific file
      * @return string
      */
-    public function getImg($product, $w=300, $h, $imgVersion='image', $file=NULL)
+    public function getImg($product, $w = 300, $h = 300, $imgVersion='image', $file=NULL)
     {
         if ($h <= 0){
             $image = $this->_imageHelper
