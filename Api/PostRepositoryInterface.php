@@ -71,7 +71,7 @@ interface PostRepositoryInterface
 
     /**
      * Delete Post by ID
-     * @param string $postd
+     * @param string $postId
      * @return bool true on success
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException
