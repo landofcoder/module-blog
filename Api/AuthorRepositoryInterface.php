@@ -70,7 +70,7 @@ interface AuthorRepositoryInterface
 
     /**
      * Delete Author by ID
-     * @param string $authord
+     * @param string $authorId
      * @return bool true on success
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException

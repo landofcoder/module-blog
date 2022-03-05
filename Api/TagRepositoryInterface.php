@@ -60,7 +60,7 @@ interface TagRepositoryInterface
 
     /**
      * Delete Tag by ID
-     * @param string $tagd
+     * @param string $tagId
      * @return bool true on success
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException

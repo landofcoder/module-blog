@@ -71,7 +71,7 @@ interface CategoryRepositoryInterface
 
     /**
      * Delete Category by ID
-     * @param string $categoryd
+     * @param string $categoryId
      * @return bool true on success
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException

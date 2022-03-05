@@ -74,7 +74,7 @@ interface CommentRepositoryInterface
 
     /**
      * Delete Comment by ID
-     * @param string $commentd
+     * @param string $commentId
      * @return bool true on success
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException
