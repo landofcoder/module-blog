@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -25,10 +25,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 {
     protected function _prepareForm()
     {
-       $this->_eventManager->dispatch(
-        'ves_check_license',
-        ['obj' => $this,'ex'=>'Ves_Blog']
-        );
         /**
          * Checking if user have permission to save information
          */
@@ -37,10 +33,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         }else {
             $isElementDisabled = true;
         }
-        if (!$this->getData('is_valid') && !$this->getData('local_valid')) {
-            $isElementDisabled = true;
-        }
-
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create(
             [

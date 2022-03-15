@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -53,10 +53,7 @@ class Content extends \Magento\Backend\Block\Widget\Form\Generic implements
      */
     protected function _prepareForm()
     {
-        $this->_eventManager->dispatch(
-            'ves_check_license',
-            ['obj' => $this,'ex'=>'Ves_Blog']
-            );
+
         /** @var $model \Magento\Cms\Model\Page */
         $model = $this->_coreRegistry->registry('current_post');
 
@@ -69,11 +66,6 @@ class Content extends \Magento\Backend\Block\Widget\Form\Generic implements
             $isElementDisabled = true;
         }
         $wysiwygConfig = $this->_wysiwygConfig->getConfig(['tab_id' => $this->getTabId().time()]);
-        if (!$this->getData('is_valid') && !$this->getData('local_valid')) {
-            $isElementDisabled = true;
-            $wysiwygConfig['enabled'] = $wysiwygConfig['add_variables'] = $wysiwygConfig['add_widgets'] = $wysiwygConfig['add_images'] = 0;
-            $wysiwygConfig['plugins'] = [];
-        }
 
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
@@ -89,7 +81,7 @@ class Content extends \Magento\Backend\Block\Widget\Form\Generic implements
             ]
         );
 
-        
+
 
         $contentField = $fieldset->addField(
             'short_content',

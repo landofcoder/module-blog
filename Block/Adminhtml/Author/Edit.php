@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -71,14 +71,6 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
         if ($this->_coreRegistry->registry('current_author')->getId()) {
             return __("Edit Comment '%1'", $this->escapeHtml($this->_coreRegistry->registry('current_author')->getNickName()));
         }
-    }
-
-    protected function _toHtml(){
-        $this->_eventManager->dispatch(
-            'ves_check_license',
-            ['obj' => $this,'ex'=>'Ves_Blog']
-        );
-        return parent::_toHtml();
     }
 
     /**
