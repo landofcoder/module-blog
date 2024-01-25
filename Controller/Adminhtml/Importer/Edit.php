@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -37,6 +37,11 @@ class Edit extends \Magento\Backend\App\Action
     protected $resultPageFactory;
 
     /**
+     * @var \Ves\Blog\Model\ImporterFactory
+     */
+    protected $importerFactory;
+
+    /**
      * @param Action\Context
      * @param \Magento\Framework\View\Result\PageFactory
      * @param \Magento\Framework\Registry
@@ -44,9 +49,11 @@ class Edit extends \Magento\Backend\App\Action
     public function __construct(
         Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Framework\Registry $registry
+        \Magento\Framework\Registry $registry,
+        \Ves\Blog\Model\ImporterFactory $importerFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
+        $this->importerFactory = $importerFactory;
         $this->_coreRegistry = $registry;
         parent::__construct($context);
     }
@@ -85,7 +92,7 @@ class Edit extends \Magento\Backend\App\Action
     {
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('importer_id');
-        $model = $this->_objectManager->create('Ves\Blog\Model\Importer');
+        $model = $this->importerFactory->create();
 
         // 2. Initial checking
         if ($id) {
