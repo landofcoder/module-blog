@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -35,6 +35,8 @@ class Run extends \Magento\Backend\App\Action
      */
     protected $resultPageFactory;
 
+    protected $_wordpress;
+
     /**
      * @param Context
      * @param \Magento\Framework\View\Result\PageFactory
@@ -45,7 +47,7 @@ class Run extends \Magento\Backend\App\Action
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Ves\Blog\Model\Import\Wordpress $wordpress,
         \Magento\Framework\Registry $registry
-        ) {
+    ) {
         $this->_wordpress = $wordpress;
         $this->resultPageFactory = $resultPageFactory;
         $this->_coreRegistry = $registry;
@@ -70,5 +72,5 @@ class Run extends \Magento\Backend\App\Action
 
         return $resultRedirect->setPath('*/*/index');
     }
-    
+
 }

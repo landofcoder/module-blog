@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -24,7 +24,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 
 class Save extends \Magento\Backend\App\Action
 {
-    
+
     /**
      * @var \Magento\Framework\Filesystem
      */
@@ -44,11 +44,11 @@ class Save extends \Magento\Backend\App\Action
      * @param \Magento\Backend\Helper\Js
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context, 
+        \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Filesystem $filesystem,
         \Magento\Backend\Helper\Js $jsHelper,
         \Magento\Backend\Model\Auth\Session $authSession
-        ) {
+    ) {
         $this->_fileSystem = $filesystem;
         $this->jsHelper = $jsHelper;
         $this->authSession = $authSession;
@@ -80,7 +80,7 @@ class Save extends \Magento\Backend\App\Action
 
         $links = $this->getRequest()->getPost('links');
         $links = is_array($links) ? $links : [];
-        
+
         if(!empty($links)){
             $posts = $this->jsHelper->decodeGridSerializedInput($links['posts']);
             $data['posts'] = $posts;

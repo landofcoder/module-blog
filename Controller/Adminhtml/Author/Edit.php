@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -36,17 +36,20 @@ class Edit extends \Magento\Backend\App\Action
      */
     protected $resultPageFactory;
 
+    protected $authSession;
+
     /**
-     * @param Action\Context                             $context           
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory 
-     * @param \Magento\Backend\Model\Auth\Session        $authSession       
-     * @param \Magento\Framework\Registry                $registry          
+     * @param Action\Context                             $context
+     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param \Magento\Backend\Model\Auth\Session        $authSession
+     * @param \Magento\Framework\Registry                $registry
      */
     public function __construct(
         Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Backend\Model\Auth\Session $authSession,
         \Magento\Framework\Registry $registry
+
         ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->authSession       = $authSession;
@@ -78,8 +81,8 @@ class Edit extends \Magento\Backend\App\Action
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Ves_Blog::blog')
-        ->addBreadcrumb(__('Blog'), __('Blog'))
-        ->addBreadcrumb(__('My Profile'), __('My Profile'));
+            ->addBreadcrumb(__('Blog'), __('Blog'))
+            ->addBreadcrumb(__('My Profile'), __('My Profile'));
         return $resultPage;
     }
 

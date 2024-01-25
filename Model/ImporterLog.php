@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2019 Venustheme (http://www.venustheme.com/)
@@ -49,13 +49,13 @@ class ImporterLog extends \Magento\Framework\Model\AbstractModel
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
-        \Ves\Blog\Model\ResourceModel\ImporterLog $resource = null,
-        \Ves\Blog\Model\ResourceModel\ImporterLog\Collection $resourceCollection = null,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\UrlInterface $url,
         \Ves\Blog\Model\Import\Wordpress $wordpress,
+        \Ves\Blog\Model\ResourceModel\ImporterLog $resource = null,
+        \Ves\Blog\Model\ResourceModel\ImporterLog\Collection $resourceCollection = null,
         array $data = []
-        ) {
+    ) {
         $this->_storeManager = $storeManager;
         $this->_url = $url;
         $this->_wordpress = $wordpress;

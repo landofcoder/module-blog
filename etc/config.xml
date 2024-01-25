@@ -32,7 +32,7 @@
 				<twitter_username></twitter_username>
 				<menu_title>Blog</menu_title>
 				<enable_networks>1</enable_networks>
-				<networks>twitter,facebook,googleplus,email,compact,pinterest</networks>
+				<networks></networks>
 				<disable_comment>0</disable_comment>
 				<enable_rss>1</enable_rss>
 				<rssposts_show>12</rssposts_show>

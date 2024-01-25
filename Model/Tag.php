@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -63,14 +63,14 @@ class Tag extends \Magento\Framework\Model\AbstractModel implements TagInterface
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
-        \Ves\Blog\Model\ResourceModel\Tag $resource = null,
-        \Ves\Blog\Model\ResourceModel\Tag\Collection $resourceCollection = null,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\UrlInterface $url,
         TagInterfaceFactory $tagDataFactory,
         DataObjectHelper $dataObjectHelper,
+        \Ves\Blog\Model\ResourceModel\Tag $resource = null,
+        \Ves\Blog\Model\ResourceModel\Tag\Collection $resourceCollection = null,
         array $data = []
-        ) {
+    ) {
         $this->_storeManager = $storeManager;
         $this->_url = $url;
         $this->tagDataFactory = $tagDataFactory;
@@ -85,7 +85,7 @@ class Tag extends \Magento\Framework\Model\AbstractModel implements TagInterface
      */
     protected function _construct()
     {
-        $this->_init('Ves\Blog\Model\ResourceModel\Tag');
+        $this->_init(\Ves\Blog\Model\ResourceModel\Tag::class);
     }
 
     /**
@@ -98,17 +98,24 @@ class Tag extends \Magento\Framework\Model\AbstractModel implements TagInterface
     {
         return [self::STATUS_ENABLED => __('Enabled'), self::STATUS_DISABLED => __('Disabled')];
     }
-    
-    public function getUrl($base_url = true){
+
+    /**
+     * get url
+     *
+     * @param bool $base_url
+     * @return string
+     */
+    public function getUrl($base_url = true)
+    {
         if(!$this->hasData('blog_item_url')){
             if($base_url){
                 $url = $this->_storeManager->getStore()->getBaseUrl();
             } else {
                 $url = "";
             }
-        
+
             $url_prefix = $this->getConfig('general_settings/url_prefix');
-            $url_suffix = $this->getConfig('general_settings/url_suffix');
+            //$url_suffix = $this->getConfig('general_settings/url_suffix');
             $urlPrefix = '';
             if($url_prefix){
                 $urlPrefix = $url_prefix.'/';
@@ -126,14 +133,14 @@ class Tag extends \Magento\Framework\Model\AbstractModel implements TagInterface
     public function getDataModel()
     {
         $tagData = $this->getData();
-        
+
         $tagDataObject = $this->tagDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $tagDataObject,
             $tagData,
             TagInterface::class
         );
-        
+
         return $tagDataObject;
     }
 

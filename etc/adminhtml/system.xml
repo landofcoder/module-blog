@@ -100,14 +100,14 @@
 					<label>Comment</label>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
-				<field id="enable_networks" translate="label comment" type="select" sortOrder="375" showInDefault="1" showInWebsite="1" showInStore="1">
+				<!-- <field id="enable_networks" translate="label comment" type="select" sortOrder="375" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Enable Social Share Buttons</label>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 				<field id="networks" type="text" translate="label comment" sortOrder="380" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Social Networks Availables</label>
 					<comment><![CDATA[Enter list social networks. Comma-separated. Default: twitter,facebook,googleplus,linkedin,pinterest]]></comment>
-				</field>
+				</field> -->
 			</group>
 			<group id="blog_latest_page" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
 				<label>Latest Posts Page</label>

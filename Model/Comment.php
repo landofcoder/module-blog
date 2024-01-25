@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -46,12 +46,12 @@ class Comment extends \Magento\Framework\Model\AbstractModel implements CommentI
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
-        \Ves\Blog\Model\ResourceModel\Comment $resource = null,
-        \Ves\Blog\Model\ResourceModel\Comment\Collection $resourceCollection = null,
         CommentInterfaceFactory $commentDataFactory,
         DataObjectHelper $dataObjectHelper,
+        \Ves\Blog\Model\ResourceModel\Comment $resource = null,
+        \Ves\Blog\Model\ResourceModel\Comment\Collection $resourceCollection = null,
         array $data = []
-        ) {
+    ) {
         $this->commentDataFactory = $commentDataFactory;
         $this->dataObjectHelper = $dataObjectHelper;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
@@ -64,7 +64,7 @@ class Comment extends \Magento\Framework\Model\AbstractModel implements CommentI
      */
     protected function _construct()
     {
-        $this->_init('Ves\Blog\Model\ResourceModel\Comment');
+        $this->_init(\Ves\Blog\Model\ResourceModel\Comment::class);
     }
 
     /**
@@ -74,14 +74,14 @@ class Comment extends \Magento\Framework\Model\AbstractModel implements CommentI
     public function getDataModel()
     {
         $commentData = $this->getData();
-        
+
         $commentDataObject = $this->commentDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $commentDataObject,
             $commentData,
             CommentInterface::class
         );
-        
+
         return $commentDataObject;
     }
 
@@ -180,7 +180,7 @@ class Comment extends \Magento\Framework\Model\AbstractModel implements CommentI
         return $this->setData(self::USER_NAME, $value);
     }
 
-    
+
     /**
      * {@inheritdoc}
      */
@@ -253,5 +253,5 @@ class Comment extends \Magento\Framework\Model\AbstractModel implements CommentI
     ) {
         return $this->_setExtensionAttributes($extensionAttributes);
     }
-    
+
 }
