@@ -44,7 +44,7 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
         $connectionName = null
-        ) {
+    ) {
         parent::__construct($context, $connectionName);
         $this->_storeManager = $storeManager;
         $this->_date = $date;
@@ -480,11 +480,14 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 
             return $connection->fetchCol($select, $binds);
     }
-    public function getDate(){
+
+    public function getDate()
+    {
         return $this->_date;
     }
 
-    public function getPostTags($post_id) {
+    public function getPostTags($post_id)
+    {
         $select = $this->getConnection()->select()->from(
             ['tag' => $this->getTable('ves_blog_post_tag')]
             )->where(
@@ -494,7 +497,8 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         return $this->getConnection()->fetchAll($select);
     }
 
-    public function getPostCategories($post_id) {
+    public function getPostCategories($post_id)
+    {
         $select = $this->getConnection()->select()->from(
             ['cat' => $this->getTable('ves_blog_category')]
             )->join(

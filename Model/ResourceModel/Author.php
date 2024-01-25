@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -46,7 +46,7 @@ class Author extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
         $connectionName = null
-        ) {
+    ) {
         parent::__construct($context, $connectionName);
         $this->_storeManager = $storeManager;
         $this->_date = $date;
@@ -61,16 +61,7 @@ class Author extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     {
         $this->_init('ves_blog_post_author', 'author_id');
     }
-    /*
-    public function load(AbstractModel $object, $value, $field = null)
-    {
-        $field = 'user_id';
-        if (!is_numeric($value)) {
-            $field = 'user_name';
-        }
-        return parent::load($object, $value, $field);
-    }
-    */
+
     public function getIsUniqueIdentifier(AbstractModel $object)
     {
         $select = $this->getConnection()->select()->from(
@@ -89,6 +80,9 @@ class Author extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
             return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function _beforeSave(AbstractModel $object)
     {
         if (!$this->getIsUniqueIdentifier($object)) {
@@ -98,7 +92,9 @@ class Author extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         }
         return $this;
     }
-    public function getDate(){
+
+    public function getDate()
+    {
         return $this->_date;
     }
 }

@@ -60,6 +60,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     protected $_request;
 
+    protected $_resource;
+
+    protected $_frontendUrlBuilder;
+    protected $_userFactory;
+    protected $_authorFactory;
+
     const XML_PATH_AJAXSCROLL_ENABLED = 'ajaxscroll_selectors/enable_ajaxscroll';
     const XML_PATH_BLOG_ENABLED = 'general_settings/enable';
 
@@ -85,7 +91,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         \Ves\Blog\Model\Post $postFactory,
         \Ves\Blog\Model\Author $authorFactory,
         \Magento\Framework\Registry $registry
-        ) {
+    ) {
         parent::__construct($context);
         $this->_request            = $context->getRequest();
         $this->_filterProvider     = $filterProvider;

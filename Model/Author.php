@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -39,16 +39,17 @@ class Author extends \Magento\Framework\Model\AbstractModel implements AuthorInt
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
-        \Ves\Blog\Model\ResourceModel\Author $resource = null,
-        \Ves\Blog\Model\ResourceModel\Author\Collection $resourceCollection = null,
         AuthorInterfaceFactory $authorDataFactory,
         DataObjectHelper $dataObjectHelper,
+        \Ves\Blog\Model\ResourceModel\Author $resource = null,
+        \Ves\Blog\Model\ResourceModel\Author\Collection $resourceCollection = null,
         array $data = []
-        ) {
+    ) {
         $this->authorDataFactory = $authorDataFactory;
         $this->dataObjectHelper = $dataObjectHelper;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
+
     /**
      * Initialize resource model
      *
@@ -56,7 +57,7 @@ class Author extends \Magento\Framework\Model\AbstractModel implements AuthorInt
      */
     protected function _construct()
     {
-        $this->_init('Ves\Blog\Model\ResourceModel\Author');
+        $this->_init(\Ves\Blog\Model\ResourceModel\Author::class);
     }
 
     /**
@@ -66,14 +67,14 @@ class Author extends \Magento\Framework\Model\AbstractModel implements AuthorInt
     public function getDataModel()
     {
         $authorData = $this->getData();
-        
+
         $authorDataObject = $this->authorDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $authorDataObject,
             $authorData,
             AuthorInterface::class
         );
-        
+
         return $authorDataObject;
     }
 

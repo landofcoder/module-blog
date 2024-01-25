@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -43,11 +43,11 @@ class View extends \Magento\Framework\View\Element\Template
     protected $_collection;
 
     /**
-     * @param \Magento\Framework\View\Element\Template\Context $context     
-     * @param \Magento\Framework\Registry                      $registry    
-     * @param \Ves\Blog\Model\Post                             $postFactory 
-     * @param \Ves\Blog\Helper\Data                            $blogHelper  
-     * @param array                                            $data        
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\Registry                      $registry
+     * @param \Ves\Blog\Model\Post                             $postFactory
+     * @param \Ves\Blog\Helper\Data                            $blogHelper
+     * @param array                                            $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
@@ -55,7 +55,7 @@ class View extends \Magento\Framework\View\Element\Template
         \Ves\Blog\Model\Post $postFactory,
         \Ves\Blog\Helper\Data $blogHelper,
         array $data = []
-        ) {
+    ) {
         $this->_blogHelper = $blogHelper;
         $this->_coreRegistry = $registry;
         $this->_postFactory = $postFactory;
@@ -136,19 +136,19 @@ class View extends \Magento\Framework\View\Element\Template
         echo '<pre>';
         print_r($time);
         echo '</pre>';
-        //die('test'); 
-       
+        //die('test');
+
         echo $this->formatDate($time[0] . '-' . $time[1] . '-01 00:00:00', \IntlDateFormatter::LONG) . '|999';
 
         echo '<pre>';
         print_r(get_class_methods($this));
         echo '</pre>';
-        die('test'); 
+        die('test');
          */
         if(isset($time[1]) && $time[1]) {
-            $month = date("F", mktime(0, 0, 0, $time[1], 1, $time[0]));   
+            $month = date("F", mktime(0, 0, 0, $time[1], 1, $time[0]));
         }
-        
+
 
         $year = $time[0];
         $latest_page_title = $this->getConfig('blog_latest_page/page_title');
@@ -188,7 +188,7 @@ class View extends \Magento\Framework\View\Element\Template
                 ]
                 );
             }
-            
+
         }
     }
 
@@ -214,7 +214,7 @@ class View extends \Magento\Framework\View\Element\Template
      * @return $this
      */
     protected function _prepareLayout()
-    {   
+    {
         $time = $this->getRequest()->getParam('date');
         $time = explode('-', $time);
         $month = "";
@@ -228,12 +228,12 @@ class View extends \Magento\Framework\View\Element\Template
         } else {
             $page_title = __('Yearly Archives: %1', $year);
         }
-        
+
         $this->_addBreadcrumbs();
         $this->pageConfig->addBodyClass('vesblog-page');
         $this->pageConfig->addBodyClass('ves-archiveblog');
         if($page_title){
-            $this->pageConfig->getTitle()->set($page_title);   
+            $this->pageConfig->getTitle()->set($page_title);
         }
         return parent::_prepareLayout();
     }
@@ -254,12 +254,12 @@ class View extends \Magento\Framework\View\Element\Template
     public function getPostsBlock()
     {
         $collection = $this->getCollection();
-        $block = $this->_postsBlock; 
+        $block = $this->_postsBlock;
         $block->setData($this->getData())->setCollection($collection);
         $html = $block->toHtml();
         if ($html) {
             return $html;
-        }   
+        }
     }
 
     /**
@@ -303,7 +303,7 @@ class View extends \Magento\Framework\View\Element\Template
         if($month) {
             $postCollection->getSelect()->where('MONTH(creation_time) = ?', (int)$month);
         }
-        
+
         $postCollection->getSelect()->order("post_id " . $orderby);
         $this->setCollection($postCollection);
         $toolbar = $this->getToolbarBlock();

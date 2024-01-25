@@ -30,6 +30,8 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_imageFactory;
     protected $_storeManager;
 
+    protected $_keepAspectRatio = true;
+
     protected $_keepFrame = true;
 
     protected $_keepTransparency = true;
@@ -53,7 +55,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Framework\Image\Factory $imageFactory,
         \Magento\Catalog\Helper\Image $imageHelper
-        ){
+    ) {
         $this->_storeManager = $storeManager;
         $this->_filesystem = $filesystem;
         $this->_imageFactory = $imageFactory;
@@ -136,7 +138,8 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->_processor;
     }
 
-     public function resizeImage($image, $width = 100, $height = 0, $qualtity = 100, $keep_ratio = true, $keep_frame = false){
+    public function resizeImage($image, $width = 100, $height = 0, $qualtity = 100, $keep_ratio = true, $keep_frame = false)
+    {
         if($image=='') return;
         $tmp_image = $image;
         $media_base_url = $this->getBaseMediaUrl();
@@ -158,7 +161,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
                     $imageObj->resize($width, $height);
                 }
                 $imageObj->save($_imageResized);
-            } catch(Exception $e) {
+            } catch(\Exception $e) {
 
             }
         }
@@ -203,6 +206,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
             return $image;
         }
     }
+
     /**
      * Get alternative image HTML of the given product
      *

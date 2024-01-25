@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -70,31 +70,31 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
     protected $dataObjectHelper;
 
     /**
-     * @param \Magento\Framework\Model\Context                          $context                  
-     * @param \Magento\Framework\Registry                               $registry                 
-     * @param \Magento\Store\Model\StoreManagerInterface                $storeManager             
-     * @param \Ves\Blog\Model\ResourceModel\Blog|null                      $resource                 
-     * @param \Ves\Blog\Model\ResourceModel\Blog\Collection|null           $resourceCollection       
-     * @param \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory 
-     * @param \Magento\Store\Model\StoreManagerInterface                $storeManager             
-     * @param \Magento\Framework\UrlInterface                           $url                      
-     * @param \Ves\Blog\Helper\Data                                    $brandHelper   
+     * @param \Magento\Framework\Model\Context                          $context
+     * @param \Magento\Framework\Registry                               $registry
+     * @param \Magento\Store\Model\StoreManagerInterface                $storeManager
+     * @param \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
+     * @param \Magento\Store\Model\StoreManagerInterface                $storeManager
+     * @param \Magento\Framework\UrlInterface                           $url
+     * @param \Ves\Blog\Helper\Data                                    $brandHelper
      * @param CategoryInterfaceFactory $categoryDataFactory
-     * @param  DataObjectHelper $dataObjectHelper           
-     * @param array                                                     $data                     
+     * @param  DataObjectHelper $dataObjectHelper
+     * @param \Ves\Blog\Model\ResourceModel\Blog|null                      $resource
+     * @param \Ves\Blog\Model\ResourceModel\Blog\Collection|null           $resourceCollection
+     * @param array                                                     $data
      */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
-        \Ves\Blog\Model\ResourceModel\Category $resource = null,
-        \Ves\Blog\Model\ResourceModel\Category\Collection $resourceCollection = null,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\UrlInterface $url,
         \Ves\Blog\Helper\Data $blogHelper,
         CategoryInterfaceFactory $categoryDataFactory,
         DataObjectHelper $dataObjectHelper,
+        \Ves\Blog\Model\ResourceModel\Category $resource = null,
+        \Ves\Blog\Model\ResourceModel\Category\Collection $resourceCollection = null,
         array $data = []
-        ) {
+    ) {
         $this->_storeManager = $storeManager;
         $this->_url = $url;
         $this->categoryDataFactory = $categoryDataFactory;
@@ -109,7 +109,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      */
     protected function _construct()
     {
-        $this->_init('Ves\Blog\Model\ResourceModel\Category');
+        $this->_init(\Ves\Blog\Model\ResourceModel\Category::class);
     }
 
     /**
@@ -119,14 +119,14 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
     public function getDataModel()
     {
         $categoryData = $this->getData();
-        
+
         $categoryDataObject = $this->categoryDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $categoryDataObject,
             $categoryData,
             CategoryInterface::class
         );
-        
+
         return $categoryDataObject;
     }
 
@@ -139,7 +139,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
     public function beforeSave()
     {
         $needle = 'category_id="' . $this->getId() . '"';
-        if (false == strstr($this->getContent(), $needle)) {
+        if (!$this->getDescription() || (false == @strstr($this->getDescription(), $needle))) {
             return parent::beforeSave();
         }
         throw new \Magento\Framework\Exception\LocalizedException(
@@ -349,7 +349,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
         }else {
             return $this;
         }
-        
+
     }
 
     /**
@@ -422,7 +422,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getMdColumnItem(){
-        return $this->getData(self::MD_COLUMN_ITEM); 
+        return $this->getData(self::MD_COLUMN_ITEM);
     }
 
     /**
@@ -436,7 +436,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getSmColumnItem(){
-        return $this->getData(self::SM_COLUMN_ITEM); 
+        return $this->getData(self::SM_COLUMN_ITEM);
     }
 
     /**
@@ -450,7 +450,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getXsColumnItem(){
-        return $this->getData(self::XS_COLUMN_ITEM); 
+        return $this->getData(self::XS_COLUMN_ITEM);
     }
 
     /**
@@ -464,7 +464,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getPageLayout(){
-        return $this->getData(self::PAGE_LAYOUT); 
+        return $this->getData(self::PAGE_LAYOUT);
     }
 
     /**
@@ -478,7 +478,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getPageTitle(){
-        return $this->getData(self::PAGE_TITLE); 
+        return $this->getData(self::PAGE_TITLE);
     }
 
     /**
@@ -492,7 +492,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getCanonicalUrl(){
-        return $this->getData(self::CANONICAL_URL); 
+        return $this->getData(self::CANONICAL_URL);
     }
 
     /**
@@ -506,7 +506,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getLayoutUpdateXml(){
-        return $this->getData(self::LAYOUT_UPDATE_XML); 
+        return $this->getData(self::LAYOUT_UPDATE_XML);
     }
 
     /**
@@ -520,7 +520,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getMetaKeywords(){
-        return $this->getData(self::META_KEYWORDS); 
+        return $this->getData(self::META_KEYWORDS);
     }
 
     /**
@@ -534,7 +534,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getMetaDescription(){
-        return $this->getData(self::META_DESCRIPTION); 
+        return $this->getData(self::META_DESCRIPTION);
     }
 
     /**
@@ -548,7 +548,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getCreationTime(){
-        return $this->getData(self::CREATION_TIME); 
+        return $this->getData(self::CREATION_TIME);
     }
 
     /**
@@ -562,7 +562,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      * {@inheritdoc}
      */
     public function getUpdateTime(){
-        return $this->getData(self::UPDATE_TIME); 
+        return $this->getData(self::UPDATE_TIME);
     }
 
     /**
@@ -636,7 +636,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
         }else {
             return $this;
         }
-        
+
     }
 
     /**

@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -80,7 +80,7 @@ class Comment extends \Magento\Framework\View\Element\Template
         \Ves\Blog\Model\Comment $comment,
         \Magento\Framework\App\ResourceConnection $resource,
         array $data = []
-        ) {
+    ) {
         $this->_blogHelper = $blogHelper;
         $this->_coreRegistry = $registry;
         $this->_comment = $comment;
@@ -104,7 +104,7 @@ class Comment extends \Magento\Framework\View\Element\Template
     public function _toHtml(){
         if(!$this->getConfig('general_settings/enable') || !$this->getConfig('post_page/enable_commentblock')) return;
         if($this->getConfig('general_settings/disable_comment')) return;
-        
+
         return parent::_toHtml();
     }
 
@@ -117,7 +117,7 @@ class Comment extends \Magento\Framework\View\Element\Template
         ->addFieldToFilter("main_table.parent_id", $parent_id)
         ->addStoreFilter($store)
         ->setOrder("main_table.creation_time", "DESC");
-        
+
         return $collection;
     }
     protected function _beforeToHtml()

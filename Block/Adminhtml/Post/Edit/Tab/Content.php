@@ -81,8 +81,6 @@ class Content extends \Magento\Backend\Block\Widget\Form\Generic implements
             ]
         );
 
-
-
         $contentField = $fieldset->addField(
             'short_content',
             'editor',
@@ -101,10 +99,10 @@ class Content extends \Magento\Backend\Block\Widget\Form\Generic implements
         );
 
         $wysiwygConfig = $this->_wysiwygConfig->getConfig(['tab_id' => $this->getTabId().time()]);
-        if (!$this->getData('is_valid') && !$this->getData('local_valid')) {
+        /* if (!$this->getData('is_valid') && !$this->getData('local_valid')) {
             $wysiwygConfig['enabled'] = $wysiwygConfig['add_variables'] = $wysiwygConfig['add_widgets'] = $wysiwygConfig['add_images'] = 0;
             $wysiwygConfig['plugins'] = [];
-        }
+        } */
 
         $contentField = $fieldset->addField(
             'content',

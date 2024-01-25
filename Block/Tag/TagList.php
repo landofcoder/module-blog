@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -48,13 +48,14 @@ class TagList extends \Magento\Framework\View\Element\Template
 		\Ves\Blog\Helper\Data $blogHelper,
 		\Ves\Blog\Model\Tag $tag,
 		array $data = []
-		) {
+	) {
 		parent::__construct($context, $data);
 		$this->_blogHelper = $blogHelper;
 		$this->_tag = $tag;
 	}
 
-	public function _toHtml(){
+	public function _toHtml()
+    {
 		$itemPerPage = $this->_blogHelper->getConfig('sidebar/tags_per_page');
 		if($this->getConfig('item_per_page')){
 			$itemPerPage = $this->getConfig('item_per_page');
@@ -86,7 +87,7 @@ class TagList extends \Magento\Framework\View\Element\Template
 	}
 
 	public function getConfig($key, $default = '')
-	{   
+	{
 		$c = explode("/", $key);
 		if(count($c)==2){
 			if($this->hasData($c[1])){

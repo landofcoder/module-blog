@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -62,7 +62,7 @@ class View extends \Magento\Framework\View\Element\Template
         \Ves\Blog\Model\Author $authorFactory,
         \Ves\Blog\Model\Url $url,
         array $data = []
-        ) {
+    ) {
         $this->_url = $url;
         $this->_blogHelper       = $blogHelper;
         $this->_coreRegistry     = $registry;
@@ -175,7 +175,7 @@ class View extends \Magento\Framework\View\Element\Template
      * @return $this
      */
     protected function _prepareLayout()
-    {   
+    {
         $post = $this->getPost();
         if($post){
             $page_title = $post->getPageTitle();
@@ -189,13 +189,13 @@ class View extends \Magento\Framework\View\Element\Template
             $this->pageConfig->addBodyClass('vesblog-page');
             $this->pageConfig->addBodyClass('blog-post-' . $post->getIdentifier());
             if($page_title && $show_title){
-                $this->pageConfig->getTitle()->set($page_title);   
+                $this->pageConfig->getTitle()->set($page_title);
             }
             if($meta_keywords){
-                $this->pageConfig->setKeywords($meta_keywords);   
+                $this->pageConfig->setKeywords($meta_keywords);
             }
             if($meta_description){
-                $this->pageConfig->setDescription($meta_description);   
+                $this->pageConfig->setDescription($meta_description);
             }
         }
         return parent::_prepareLayout();

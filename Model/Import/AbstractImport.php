@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -65,6 +65,8 @@ abstract class AbstractImport extends \Magento\Framework\Model\AbstractModel
      * @param \Magento\Framework\App\ResourceConnection\ConnectionFactory $connectionFactory
      * @param \Magento\Framework\Filesystem\Io\File $file
      * @param \Magento\Framework\Filesystem\DirectoryList $dir
+     * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null
+     * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null
      * @param array $data
      */
     public function __construct(
@@ -78,13 +80,13 @@ abstract class AbstractImport extends \Magento\Framework\Model\AbstractModel
         \Magento\Framework\ObjectManagerInterface $objectManager,
         \Magento\Backend\Model\Auth\Session $authSession,
         \Ves\Blog\Helper\Data $helper,
-        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
-        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         \Magento\Framework\App\ResourceConnection\ConnectionFactory $connectionFactory,
         \Magento\Framework\Filesystem\Io\File $file,
         \Magento\Framework\Filesystem\DirectoryList $dir,
+        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
-        ) {
+    ) {
         $this->_postFactory     = $postFactory;
         $this->_categoryFactory = $categoryFactory;
         $this->_commentFactory  = $commentFactory;
@@ -99,6 +101,9 @@ abstract class AbstractImport extends \Magento\Framework\Model\AbstractModel
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function _connect()
     {
         $con = '';
@@ -109,7 +114,7 @@ abstract class AbstractImport extends \Magento\Framework\Model\AbstractModel
             $dbhost = $this->getData('dbhost');
             $charset = $this->getData('connect_charset');
             $charset = $charset?$charset:'utf8mb4';
-            
+
             if($dbname=='' || $uname=='' || $pwd=='' || $dbhost==''){
                 throw new \Exception(__("Some fields are required"));
             }
@@ -118,7 +123,7 @@ abstract class AbstractImport extends \Magento\Framework\Model\AbstractModel
                 'dbname' => $dbname,
                 'username' => $uname,
                 'password' => $pwd,
-                'active' => '1',    
+                'active' => '1',
             ));
             $con->query("SET character_set_results = '".$charset."', character_set_client = '".$charset."', character_set_connection = '".$charset."', character_set_database = '".$charset."', character_set_server = '".$charset."'");
         } catch (\Exception $e) {
@@ -138,7 +143,8 @@ abstract class AbstractImport extends \Magento\Framework\Model\AbstractModel
         return $images . '/';
     }
 
-    public function getConnection(){
+    public function getConnection()
+    {
         if(!$this->_connect){
             $this->_connect();
         }

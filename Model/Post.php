@@ -109,8 +109,6 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
      * Post constructor.
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
-     * @param ResourceModel\Post|null $resource
-     * @param ResourceModel\Post\Collection|null $resourceCollection
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Framework\UrlInterface $url
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
@@ -118,13 +116,14 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
      * @param PostInterfaceFactory $postDataFactory
      * @param DataObjectHelper $dataObjectHelper
      * @param CollectionFactory $collectionFactory
+     * @param ResourceModel\Post|null $resource
+     * @param ResourceModel\Post\Collection|null $resourceCollection
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
-        \Ves\Blog\Model\ResourceModel\Post $resource = null,
-        \Ves\Blog\Model\ResourceModel\Post\Collection $resourceCollection = null,
+
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\UrlInterface $url,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
@@ -132,8 +131,10 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
         PostInterfaceFactory $postDataFactory,
         DataObjectHelper $dataObjectHelper,
         CollectionFactory $collectionFactory,
+        \Ves\Blog\Model\ResourceModel\Post $resource = null,
+        \Ves\Blog\Model\ResourceModel\Post\Collection $resourceCollection = null,
         array $data = []
-        ) {
+    ) {
         $this->_storeManager = $storeManager;
         $this->_url = $url;
         $this->filterProvider = $filterProvider;

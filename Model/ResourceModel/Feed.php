@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -43,7 +43,7 @@ class Feed extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
         $connectionName = null
-        ) {
+    ) {
         parent::__construct($context, $connectionName);
         $this->_storeManager = $storeManager;
         $this->_date = $date;
@@ -58,7 +58,9 @@ class Feed extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     {
         $this->_init('ves_blog_feed', 'entity_id');
     }
-    public function getDate(){
+
+    public function getDate()
+    {
         return $this->_date;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -42,11 +42,11 @@ class Archive extends \Magento\Framework\View\Element\Template
     protected $_collection;
 
     /**
-     * @param \Magento\Framework\View\Element\Template\Context $context     
-     * @param \Magento\Framework\Registry                      $registry    
-     * @param \Ves\Blog\Model\Post                             $postFactory 
-     * @param \Ves\Blog\Helper\Data                            $blogHelper  
-     * @param array                                            $data        
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\Registry                      $registry
+     * @param \Ves\Blog\Model\Post                             $postFactory
+     * @param \Ves\Blog\Helper\Data                            $blogHelper
+     * @param array                                            $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
@@ -55,7 +55,7 @@ class Archive extends \Magento\Framework\View\Element\Template
         \Ves\Blog\Helper\Data $blogHelper,
         \Magento\Framework\Url $url,
         array $data = []
-        ) {
+    ) {
         $this->_blogHelper = $blogHelper;
         $this->_coreRegistry = $registry;
         $this->_postFactory = $postFactory;
@@ -87,7 +87,7 @@ class Archive extends \Magento\Framework\View\Element\Template
         ->addFieldToFilter('is_active',1)
         ->addStoreFilter($store)
         ->setCurPage(1);
-        
+
         $this->_postCollection->getSelect()->group(
             'MONTH(main_table.creation_time)',
             'DESC'

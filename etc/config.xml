@@ -2,18 +2,18 @@
 <!--
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -32,8 +32,7 @@
 				<twitter_username></twitter_username>
 				<menu_title>Blog</menu_title>
 				<enable_networks>1</enable_networks>
-				<networks>twitter,facebook,googleplus,email,compact,pinterest</networks>
-				<addthis_pubid>ra-56ceab198f4f2e81</addthis_pubid>
+				<networks></networks>
 				<disable_comment>0</disable_comment>
 				<enable_rss>1</enable_rss>
 				<rssposts_show>12</rssposts_show>
@@ -208,18 +207,18 @@
 			    <enable_comment>1</enable_comment>
 			    <content>.main</content>
 			    <pagination>.blog-toolbar .pages</pagination>
-			    <toolbar>.blog-toolbar</toolbar> 
+			    <toolbar>.blog-toolbar</toolbar>
 			    <next>.next</next>
 			    <grid_mode>.blog-posts</grid_mode>
 			    <loading_image></loading_image>
 			    <loading_text><![CDATA[<em>Loading - please wait...</em>]]></loading_text>
 			    <done_text><![CDATA[<em>Congratulations, you've reached the end of the internet.</em>]]></done_text>
-			    <hide_toolbar>1</hide_toolbar> 
+			    <hide_toolbar>1</hide_toolbar>
 			    <buffer>150</buffer>
 			    <load_more>5</load_more>
 			    <load_more_text>Load more items</load_more_text>
-			    <local_mode>0</local_mode> 
-			</ajaxscroll_selectors> 
+			    <local_mode>0</local_mode>
+			</ajaxscroll_selectors>
 			<other_settings>
 				<enable_authors_list>1</enable_authors_list>
 				<authors_url>authors</authors_url>

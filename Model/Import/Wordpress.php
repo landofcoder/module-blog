@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -25,6 +25,9 @@ class Wordpress extends AbstractImport
 	protected $_oldCategories = [];
 	protected $_catCount = 0;
 
+    /**
+     * @inheritdoc
+     */
 	public function execute()
 	{
 		$importPosts      = $this->getData('import_posts');
@@ -65,7 +68,7 @@ class Wordpress extends AbstractImport
 							$data[$i]['name']        = $cat['name'];
 							$data[$i]['parent_id']   = $cat['parent'];
 							$data[$i]['stores']      = [$this->_storeManager->getDefaultStoreView()->getStoreId()];
-							$i++;	
+							$i++;
 						}
 					}
 					if($data){
@@ -79,7 +82,7 @@ class Wordpress extends AbstractImport
 									$_cat['category_id'] = $category->getId();
 									$_cat['image'] = $_cat['layout_type'] = $_cat['orderby'] = $_cat['comments'] = $_cat['item_per_page'] = $_cat['lg_column_item'] = $_cat['md_column_item'] = $_cat['sm_column_item'] = $_cat['xs_column_item'] = $_cat['page_layout'] = $_cat['page_title'] = $_cat['canonical_url'] = $_cat['layout_update_xml'] = $_cat['meta_keywords'] = $_cat['meta_description'] = $_cat['posts_style'] = $_cat['posts_template'] = $_cat['post_template'] = '';
 								}
-								$_cat['importing'] = true; 
+								$_cat['importing'] = true;
 								$category->setData($_cat)->save();
 								$cats[] = $this->drawItems($data, $_cat, 0, $category->getId());
 								$oldCategories = $this->_oldCategories;
@@ -126,12 +129,12 @@ class Wordpress extends AbstractImport
 							// Image
 							$image = '';
 							$real_image_url = '';
-							$sql = "SELECT  ( SELECT guid FROM " . $prefix . "posts WHERE id = m.meta_value ) AS url 
+							$sql = "SELECT  ( SELECT guid FROM " . $prefix . "posts WHERE id = m.meta_value ) AS url
 							FROM " . $prefix . "posts p, " . $prefix . "postmeta m
 							WHERE p.post_type =  'post'
 							AND p.post_status =  'publish'
 							AND p.id = m.post_id
-							AND m.meta_key =  '_thumbnail_id' 
+							AND m.meta_key =  '_thumbnail_id'
 							AND p.id = '" . $data['ID'] . "'" ;
 							$result3 = $this->_mysqliQuery($sql);
 							if($result3){
@@ -146,8 +149,8 @@ class Wordpress extends AbstractImport
 									}
 								}
 							}
-							
-							
+
+
 							// Tags
 							$postTags = [];
 							if($importTags){
@@ -257,7 +260,11 @@ class Wordpress extends AbstractImport
 		}
 	}
 
-	public function decodeImg($str){
+	public function decodeImg($str)
+    {
+        if (!$str) {
+            return $str;
+        }
 		$count = substr_count($str, "<img");
 		$tmpImg = '';
 		for ($i=0; $i < $count; $i++) {
@@ -276,12 +283,14 @@ class Wordpress extends AbstractImport
 		return $str;
 	}
 
-	public function getCategory($cat_id = 0){
+	public function getCategory($cat_id = 0)
+    {
 		$category = $this->_categoryFactory->create();
 		return $category->load((int)$cat_id);
 	}
 
-	public function drawItems($collection, $cat, $level = 0, $parentId = ''){
+	public function drawItems($collection, $cat, $level = 0, $parentId = '')
+    {
 		$overwrite	   = $this->getData('overwrite');
 		$oldCategories = $this->_oldCategories;
 		foreach ($collection as $_cat) {

@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -24,7 +24,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 
 class Save extends \Magento\Backend\App\Action
 {
-    
+
     /**
      * @var \Magento\Framework\Filesystem
      */
@@ -42,10 +42,10 @@ class Save extends \Magento\Backend\App\Action
      * @param \Magento\Backend\Helper\Js
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context, 
+        \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Filesystem $filesystem,
         \Magento\Backend\Helper\Js $jsHelper
-        ) {
+    ) {
         $this->_fileSystem = $filesystem;
         $this->jsHelper = $jsHelper;
         parent::__construct($context);
@@ -66,7 +66,7 @@ class Save extends \Magento\Backend\App\Action
      */
     public function execute()
     {
-        $data = $this->getRequest()->getPostValue(); 
+        $data = $this->getRequest()->getPostValue();
 
         $links = $this->getRequest()->getPost('links');
         $links = is_array($links) ? $links : [];
@@ -101,7 +101,7 @@ class Save extends \Magento\Backend\App\Action
                     unset($data['image']);
                 }
                 if($image = $this->uploadImage('image')){
-                    
+
                     $data['image'] = $image;
                 }
             }
@@ -111,7 +111,7 @@ class Save extends \Magento\Backend\App\Action
             $identifier = strtolower($identifier);
             $identifier = str_replace(" ","-",$identifier);
             $data['identifier'] = $identifier;
-            
+
             $model->setData($data);
             try {
                 $model->save();
@@ -139,7 +139,7 @@ class Save extends \Magento\Backend\App\Action
     {
         $resultRedirect = $this->resultRedirectFactory->create();
 
-        if (isset($_FILES[$fieldId]) && $_FILES[$fieldId]['name']!='') 
+        if (isset($_FILES[$fieldId]) && $_FILES[$fieldId]['name']!='')
         {
             $uploader = $this->_objectManager->create(
                 'Magento\Framework\File\Uploader',
@@ -150,7 +150,7 @@ class Save extends \Magento\Backend\App\Action
             ->getDirectoryRead(DirectoryList::MEDIA);
             $mediaFolder = 'ves/blog/';
             try {
-                $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png')); 
+                $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
                 $uploader->setAllowRenameFiles(true);
                 $uploader->setFilesDispersion(false);
                 $file_name = $uploader->getUploadedFileName();

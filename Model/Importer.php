@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2019 Venustheme (http://www.venustheme.com/)
@@ -55,13 +55,13 @@ class Importer extends \Magento\Framework\Model\AbstractModel
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
-        \Ves\Blog\Model\ResourceModel\Importer $resource = null,
-        \Ves\Blog\Model\ResourceModel\Importer\Collection $resourceCollection = null,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\UrlInterface $url,
         \Ves\Blog\Model\Import\Wordpress $wordpress,
+        \Ves\Blog\Model\ResourceModel\Importer $resource = null,
+        \Ves\Blog\Model\ResourceModel\Importer\Collection $resourceCollection = null,
         array $data = []
-        ) {
+    ) {
         $this->_storeManager = $storeManager;
         $this->_url = $url;
         $this->_wordpress = $wordpress;
@@ -75,18 +75,24 @@ class Importer extends \Magento\Framework\Model\AbstractModel
      */
     protected function _construct()
     {
-        $this->_init('Ves\Blog\Model\ResourceModel\Importer');
+        $this->_init(\Ves\Blog\Model\ResourceModel\Importer::class);
     }
 
-    public function runImport(){
+    /**
+     * run import
+     *
+     * @return bool
+     */
+    public function runImport()
+    {
         if($this->getId()){
             $data = $this->getData();
             $this->_wordpress->setData($data)->execute();
             $current_datetime = date("Y-m-d H:i:s");
-            try{
+            try {
                 $this->setData("last_import_time", $current_datetime);
                 $this->save();
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 throw new \Exception("Can not update importer.");
             }
             return true;
