@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -55,7 +55,7 @@ class View extends \Magento\Framework\View\Element\Template
         \Ves\Blog\Model\Author $authorFactory,
         \Ves\Blog\Helper\Data $blogHelper,
         array $data = []
-        ) {
+    ) {
         $this->_blogHelper = $blogHelper;
         $this->_coreRegistry = $registry;
         $this->_authorFactory = $authorFactory;
@@ -138,7 +138,7 @@ class View extends \Magento\Framework\View\Element\Template
      * @return $this
      */
     protected function _prepareLayout()
-    {   
+    {
         $page_title = __('All Blog Authors');
         $this->_addBreadcrumbs();
         $this->pageConfig->addBodyClass('vesblog-page blogauthor-list');
@@ -147,13 +147,13 @@ class View extends \Magento\Framework\View\Element\Template
         $meta_keywords = __("all blog authors");
 
         if($page_title){
-            $this->pageConfig->getTitle()->set($page_title);   
+            $this->pageConfig->getTitle()->set($page_title);
         }
         if($meta_keywords){
-            $this->pageConfig->setKeywords($meta_keywords);   
+            $this->pageConfig->setKeywords($meta_keywords);
         }
         if($meta_description){
-            $this->pageConfig->setDescription($meta_description);   
+            $this->pageConfig->setDescription($meta_description);
         }
         return parent::_prepareLayout();
     }
@@ -192,7 +192,7 @@ class View extends \Magento\Framework\View\Element\Template
         $show_toolbarbottom = $this->_blogHelper->getConfig("blog_page/show_toolbartop");
         $layout_type = $this->_blogHelper->getConfig("blog_page/layout_type");
         $show_posts_count = $this->_blogHelper->getConfig("other_settings/show_posts_count");
-        
+
         $this->setData('show_toolbartop', $show_toolbartop);
         $this->setData('show_toolbarbottom', $show_toolbarbottom);
         $this->setData('layout_type', $layout_type);

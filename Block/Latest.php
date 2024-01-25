@@ -70,7 +70,7 @@ class Latest extends \Magento\Framework\View\Element\Template
     	\Ves\Blog\Helper\Data $blogHelper,
         \Magento\Framework\App\ResourceConnection $resource,
     	array $data = []
-    	) {
+    ) {
         $this->_blogHelper   = $blogHelper;
         $this->_coreRegistry = $registry;
         $this->_postFactory  = $postFactory;

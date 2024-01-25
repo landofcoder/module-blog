@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -56,7 +56,7 @@ class View extends \Magento\Framework\View\Element\Template
         \Ves\Blog\Model\Post $postFactory,
         \Ves\Blog\Helper\Data $blogHelper,
         array $data = []
-        ) {
+    ) {
         $this->_blogHelper = $blogHelper;
         $this->_coreRegistry = $registry;
         $this->_postFactory = $postFactory;
@@ -159,7 +159,7 @@ class View extends \Magento\Framework\View\Element\Template
      * @return $this
      */
     protected function _prepareLayout()
-    {   
+    {
         $author = $this->getAuthor();
         $page_title = __('Author: ') . $author->getNickName();
         $this->_addBreadcrumbs();
@@ -171,13 +171,13 @@ class View extends \Magento\Framework\View\Element\Template
 
         $page_title = $author_page_title?$author_page_title:$page_title;
         if($page_title){
-            $this->pageConfig->getTitle()->set($page_title);   
+            $this->pageConfig->getTitle()->set($page_title);
         }
         if($meta_keywords){
-            $this->pageConfig->setKeywords($meta_keywords);   
+            $this->pageConfig->setKeywords($meta_keywords);
         }
         if($meta_description){
-            $this->pageConfig->setDescription($meta_description);   
+            $this->pageConfig->setDescription($meta_description);
         }
         return parent::_prepareLayout();
     }
@@ -208,13 +208,13 @@ class View extends \Magento\Framework\View\Element\Template
     public function getPostsBlock()
     {
         $collection = $this->getCollection();
-        $block = $this->_postsBlock; 
+        $block = $this->_postsBlock;
 
         $block->setData($this->getData())->setCollection($collection);
         $html = $block->toHtml();
         if ($html) {
             return $html;
-        }   
+        }
     }
 
     /**
@@ -230,7 +230,7 @@ class View extends \Magento\Framework\View\Element\Template
         $this->setData('show_toolbartop', $show_toolbartop);
         $this->setData('show_toolbarbottom', $show_toolbarbottom);
         $this->setData('layout_type', $layout_type);
-        
+
         $postsStyles = $this->getConfig('blog_page/posts_styles');
         $postsStyles = $postsStyles?$postsStyles:'style1';
         $postsBlock  = $this->getLayout()->getBlock('blog.posts.list');

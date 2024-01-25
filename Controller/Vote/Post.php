@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -29,7 +29,7 @@ use Magento\Framework\View\Result\PageFactory;
  * Display Hello on screen
  */
 class Post extends \Magento\Framework\App\Action\Action
-{   
+{
     protected $_cacheTypeList;
 	/**
      * @var \Magento\Framework\App\RequestInterface
@@ -61,34 +61,38 @@ class Post extends \Magento\Framework\App\Action\Action
      */
     protected $resultForwardFactory;
 
+    protected $resultPageFactory;
+    protected $_coreRegistry;
+
+    protected $_post;
+    protected $_vote;
+    protected $_customerSession;
+
     /**
-     * @param Context                                             $context              
-     * @param \Magento\Store\Model\StoreManager                   $storeManager         
-     * @param \Magento\Framework\View\Result\PageFactory          $resultPageFactory    
-     * @param \Ves\Blog\Helper\Data                               $blogHelper           
-     * @param \Ves\Blog\Model\Vote                               $vote                 
-     * @param \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory 
-     * @param \Magento\Framework\Registry                         $registry             
+     * @param Context                                             $context
+     * @param \Magento\Framework\View\Result\PageFactory          $resultPageFactory
+     * @param \Ves\Blog\Helper\Data                               $blogHelper
+     * @param \Ves\Blog\Model\Vote                               $vote
+     * @param \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory
+     * @param \Magento\Framework\Registry                         $registry
      */
     public function __construct(
         Context $context,
-        \Magento\Store\Model\StoreManager $storeManager,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Ves\Blog\Helper\Data $blogHelper,
         \Ves\Blog\Model\Post $post,
         \Ves\Blog\Model\Vote $vote,
         \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory,
-        \Magento\Framework\Registry $registry, 
-        \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList, 
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
         \Magento\Customer\Model\Session $customerSession
-        ) {
+    ) {
         $this->resultPageFactory    = $resultPageFactory;
         $this->_blogHelper          = $blogHelper;
         $this->_post                = $post;
         $this->_vote                = $vote;
         $this->resultForwardFactory = $resultForwardFactory;
         $this->_coreRegistry        = $registry;
-
         $this->_cacheTypeList       = $cacheTypeList;
         $this->_customerSession     = $customerSession;
         $this->_request             = $context->getRequest();
@@ -126,7 +130,7 @@ class Post extends \Magento\Framework\App\Action\Action
             ->addFieldToFilter('post_id', $params['postId']);
             $vote = $this->_vote->load($this->getUserIP(), 'ip');
             $post = $this->_post->load($params['postId']);
-            $postData = $responseData = []; 
+            $postData = $responseData = [];
             if(empty($collection->getData())){
                 $like = (int)$post->getLike() + $like;
                 $disllike = (int)$post->getDisklike() + $disllike;
@@ -140,7 +144,7 @@ class Post extends \Magento\Framework\App\Action\Action
                     $status = 1;
                     $vote->setData($data)->save();
                     $post->save();
-                    //$this->_cacheTypeList->cleanType('full_page'); 
+                    //$this->_cacheTypeList->cleanType('full_page');
                 }catch(\Exception $e){
                     $this->messageManager->addError(
                         __('We can\'t process your request right now. Sorry, that\'s all we know.')
@@ -177,7 +181,7 @@ class Post extends \Magento\Framework\App\Action\Action
         else
         {
             $ip = $remote;
-        } 
+        }
         return $ip;
     }
 

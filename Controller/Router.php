@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -87,6 +87,10 @@ class Router implements RouterInterface
      */
     protected $_user;
 
+    protected $_blogHelper;
+
+    protected $_author;
+
     /**
      * @param ActionFactory
      * @param ResponseInterface
@@ -112,8 +116,7 @@ class Router implements RouterInterface
         \Ves\Blog\Model\Author $author,
         \Magento\User\Model\UserFactory $userFactory,
         \Magento\Framework\Registry $registry
-        )
-    {
+    ) {
         $this->actionFactory = $actionFactory;
         $this->eventManager  = $eventManager;
         $this->response      = $response;
@@ -196,7 +199,7 @@ class Router implements RouterInterface
                     $urlKeys[1] = $urlKeysOrgin[0];
                     $urlKeys[0] = '';
                 }
-               
+
 
             // LATEST PAGE
                 if(count($urlKeys) == 1 && $urlPrefix != '' && (str_replace($urlSuffix, "", $urlKeys[0]) == $urlPrefix)){
@@ -214,7 +217,7 @@ class Router implements RouterInterface
 
             // CATEGORY PAGE
                 if(count($urlKeys)==2 && $urlPrefix == $urlKeys[0] && $urlKeys[1]!='' && $this->endsWith($urlKeys[1], $urlSuffix)){
-                    $alias = str_replace($urlSuffix, "", $urlKeys[1]);              
+                    $alias = str_replace($urlSuffix, "", $urlKeys[1]);
                     $category = $this->_category->getCollection()
                     ->addFieldToFilter('identifier', $alias)
                     ->addFieldToFilter('is_active', 1)
@@ -237,7 +240,7 @@ class Router implements RouterInterface
 
                 // AUTHORS PAGE
                 if(($orig_list_authors_url == $urlKey) || (count($urlKeys)==2 && $urlPrefix == $urlKeys[0] && $urlKeys[1]!='')){
-                  
+
                     $authors_route = str_replace($urlSuffix, "", $urlKeys[1]);
                     if($authors_route && ($authors_route == $authorsUrlPrefix)){
                         $request->setModuleName('vesblog')
@@ -405,7 +408,7 @@ class Router implements RouterInterface
                 if (count($urlKeys)==3 && $urlPrefix == $urlKeys[0] && $urlKeys[2]!='' && $this->endsWith($urlKeys[2], $urlSuffix)) {
                     $is_post_uri = ($urlKeys[1] == $post_uri_key)?true:false;
                     if(!$is_post_uri && $categoriesUrls && $urlKeys[1]){
-                        $category_alias = $urlKeys[1];          
+                        $category_alias = $urlKeys[1];
                         $total_category = $this->_category->getCollection()
                         ->addFieldToFilter('identifier', $category_alias)
                         ->addFieldToFilter('is_active', 1)
@@ -468,7 +471,7 @@ class Router implements RouterInterface
                     ->addStoreFilter($store)
                     ->getFirstItem();
 
-                    if(!empty($post->getData()) && empty($post->getPostCategories())) { 
+                    if(!empty($post->getData()) && empty($post->getPostCategories())) {
                         $this->_coreRegistry->register("current_post", $post);
                         $request->setModuleName('vesblog')
                         ->setControllerName('post')

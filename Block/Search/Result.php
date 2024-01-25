@@ -65,7 +65,7 @@ class Result extends \Magento\Framework\View\Element\Template
     	\Ves\Blog\Model\Post $postFactory,
     	\Ves\Blog\Helper\Data $blogHelper,
     	array $data = []
-    	) {
+    ) {
         $this->_blogHelper   = $blogHelper;
         $this->_coreRegistry = $registry;
         $this->_postFactory  = $postFactory;

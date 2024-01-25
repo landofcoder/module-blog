@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -48,11 +48,11 @@ class View extends \Magento\Framework\View\Element\Template
     protected $_resource;
 
     /**
-     * @param \Magento\Framework\View\Element\Template\Context $context      
-     * @param \Magento\Framework\Registry                      $registry     
-     * @param \Ves\Blog\Model\Post                             $postFactory  
-     * @param \Ves\Blog\Helper\Data                            $blogHelper   
-     * @param array                                            $data         
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\Registry                      $registry
+     * @param \Ves\Blog\Model\Post                             $postFactory
+     * @param \Ves\Blog\Helper\Data                            $blogHelper
+     * @param array                                            $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
@@ -61,7 +61,7 @@ class View extends \Magento\Framework\View\Element\Template
         \Magento\Framework\App\ResourceConnection $resource,
         \Ves\Blog\Helper\Data $blogHelper,
         array $data = []
-        ) {
+    ) {
         $this->_blogHelper   = $blogHelper;
         $this->_coreRegistry = $registry;
         $this->_postFactory  = $postFactory;
@@ -161,7 +161,7 @@ class View extends \Magento\Framework\View\Element\Template
      * @return $this
      */
     protected function _prepareLayout()
-    {   
+    {
         $category = $this->getCategory();
         if($category) {
             $page_title = $category->getPageTitle();
@@ -173,13 +173,13 @@ class View extends \Magento\Framework\View\Element\Template
             $this->pageConfig->addBodyClass('vesblog-page');
             $this->pageConfig->addBodyClass('blog-cat-' . $category->getIdentifier());
             if($page_title){
-                $this->pageConfig->getTitle()->set($page_title);   
+                $this->pageConfig->getTitle()->set($page_title);
             }
             if($meta_keywords){
-                $this->pageConfig->setKeywords($meta_keywords);   
+                $this->pageConfig->setKeywords($meta_keywords);
             }
             if($meta_description){
-                $this->pageConfig->setDescription($meta_description);   
+                $this->pageConfig->setDescription($meta_description);
             }
         }
         return parent::_prepareLayout();
@@ -211,7 +211,7 @@ class View extends \Magento\Framework\View\Element\Template
         $html = $block->toHtml();
         if ($html) {
             return $html;
-        }   
+        }
     }
 
     /**
@@ -236,7 +236,7 @@ class View extends \Magento\Framework\View\Element\Template
         $data = $postsBlock->getData();
         unset($data['type']);
         $this->addData($data);
-        
+
         $store = $this->_storeManager->getStore();
         $itemsperpage = (int)$category->getData('item_per_page');
         $orderby = $category->getOrderby();

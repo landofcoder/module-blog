@@ -2,18 +2,18 @@
 <!--
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -46,7 +46,7 @@
 					<label>Use Categories Identifier in Posts URLs</label>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
-				
+
 				<field id="dateformat" translate="label comment" type="select" sortOrder="34" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Date Format</label>
 					<source_model>Ves\Blog\Model\Config\Source\DateFormat</source_model>
@@ -107,10 +107,6 @@
 				<field id="networks" type="text" translate="label comment" sortOrder="380" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Social Networks Availables</label>
 					<comment><![CDATA[Enter list social networks. Comma-separated. Default: twitter,facebook,googleplus,linkedin,pinterest]]></comment>
-				</field>
-				<field id="addthis_pubid" type="text" translate="label comment" sortOrder="380" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Addthis Pubid</label>
-					<comment><![CDATA[Enter addthis widget pubid. Default: ra-56ceab198f4f2e81]]></comment>
 				</field>
 			</group>
 			<group id="blog_latest_page" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -274,10 +270,6 @@
 				</field>
 				<field id="show_createdtime" translate="label comment" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Show Created Time</label>
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-				</field>
-				<field id="show_socialblock" translate="label comment" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Show Social Block</label>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 				<field id="show_hits" translate="label comment" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -955,93 +947,93 @@
 				</field>
 			</group>
 			<group id="ajaxscroll_selectors" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
-				<label>Ajax Scroll Paging</label> 
+				<label>Ajax Scroll Paging</label>
 				<field id="enable_ajaxscroll" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Enabled Ajax Scroll For Paging</label> 
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<label>Enabled Ajax Scroll For Paging</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 					<comment><![CDATA[Enable/disable ajax infinite scroll to load more posts.]]></comment>
 				</field>
 				<field id="enable_latest" translate="label comment" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Enabled in Latest Page</label> 
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<label>Enabled in Latest Page</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 				<field id="enable_category" translate="label comment" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Enabled in Category Page</label> 
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<label>Enabled in Category Page</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 				<field id="enable_search" translate="label comment" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Enabled in Search Page</label> 
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<label>Enabled in Search Page</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 				<field id="enable_archive" translate="label comment" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Enabled in Archive Page</label> 
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<label>Enabled in Archive Page</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 				<field id="enable_tag" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Enabled in Tag Page</label> 
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<label>Enabled in Tag Page</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 				<field id="enable_author" translate="label comment" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Enabled in Author Page</label> 
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<label>Enabled in Author Page</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 				<field id="enable_comment" translate="label comment" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Enabled in Comments Of Post Page</label> 
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<label>Enabled in Comments Of Post Page</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 				<field id="content" translate="label comment" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Content Selector</label>
 					<comment><![CDATA[Selector for the element that surrounds the items you will be loading more of.]]></comment>
 				</field>
 				<field id="pagination" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Pagination Selector</label> 
-					<comment><![CDATA[Selector for pagination]]></comment> 
-				</field> 
+					<label>Pagination Selector</label>
+					<comment><![CDATA[Selector for pagination]]></comment>
+				</field>
 				<field id="toolbar" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Toolbar Selector</label>  
+					<label>Toolbar Selector</label>
 					<comment><![CDATA[Selector for the toolbar (normally pagination, sort-by and display type are inside here)]]></comment>
-				</field> 
+				</field>
 				<field id="next" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Next Selector</label>  
+					<label>Next Selector</label>
 					<comment><![CDATA[Selector for the link to the next page. Default: .main]]></comment>
-				</field> 
+				</field>
 				<field id="grid_mode" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Items Selector</label>  
+					<label>Items Selector</label>
 					<comment><![CDATA[Selector for all items you'll retrieve.. Default: .blog-posts]]></comment>
-				</field> 
+				</field>
 				<field id="loading_image" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Loading Image</label>
 					<comment><![CDATA[Use absolute URL or relative path to skin path. Leave empty for default.]]></comment>
 				</field>
 				<field id="loading_text" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Loading Text</label>  
-				</field> 
+					<label>Loading Text</label>
+				</field>
 				<field id="done_text" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Done Text</label>   
-				</field> 
+					<label>Done Text</label>
+				</field>
 				<field id="hide_toolbar" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Hide Toolbar</label> 
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>  
+					<label>Hide Toolbar</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 					<comment><![CDATA[Make sure you have the right css selector for the toolbar]]></comment>
-				</field> 
+				</field>
 				<field id="local_mode" translate="label comment" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Local Mode</label>   
+					<label>Local Mode</label>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 					<comment><![CDATA[Instead of watching the entire window scrolling, watch only the element this plugin was called on (set in Selectors->Content).]]></comment>
-				</field> 
+				</field>
 				<field id="buffer" translate="label comment" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Buffer (px)</label>  
+					<label>Buffer (px)</label>
 					<comment><![CDATA[Set an offset before page end from which the content will start to load. A high number will load the next page a long time before the user reaches the bottom of the screen.]]></comment>
-				</field> 
+				</field>
 				<field id="load_more" translate="label comment" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Load More threshold</label>  
+					<label>Load More threshold</label>
 					<comment><![CDATA[When this page number is reached, a button to load more products will be shown instead of continue loading products automatically with the scroll (this could be useful to help the user to reach the footer). TIP: use a high number to disable this feature.]]></comment>
 				</field>
 				<field id="load_more_text" translate="label comment" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Load More button text</label>  
+					<label>Load More button text</label>
 					<comment><![CDATA[Set an offset before page end from which the content will start to load. A high number will load the next page a long time before the user reaches the bottom of the screen.]]></comment>
 				</field>
-			</group> 
+			</group>
 			<group id="other_settings" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
 				<label>Other Settings</label>
 				<field id="enable_authors_list" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">

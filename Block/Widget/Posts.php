@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://www.venustheme.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Venustheme
  * @package    Ves_Blog
  * @copyright  Copyright (c) 2016 Venustheme (http://www.venustheme.com/)
@@ -66,7 +66,7 @@ class Posts extends \Magento\Framework\View\Element\Template implements \Magento
 		\Magento\Framework\App\ResourceConnection $resource,
 		\Magento\Cms\Model\Block $blockModel,
 		array $data = []
-		) {
+	) {
 		$this->_blogHelper = $blogHelper;
 		$this->_post       = $post;
 		$this->_cat        = $cat;
@@ -109,7 +109,7 @@ class Posts extends \Magento\Framework\View\Element\Template implements \Magento
 				]
 				)
 			->where('cat.category_id in (?)', $categories);
-		} 
+		}
 		$collection->getSelect()->limit($itemPerPage)
 		->group('main_table.post_id');
 		$orderBy = $this->getConfig("orderby");
@@ -176,11 +176,11 @@ class Posts extends \Magento\Framework\View\Element\Template implements \Magento
 			)
 		->where('cat.category_id in (?)', $categories);
 		if($type == 'popular') {
-			$typeCollection->getSelect()->order("main_table.hits DESC");	
+			$typeCollection->getSelect()->order("main_table.hits DESC");
 		}elseif($type == 'random') {
 			$typeCollection->getSelect()->order('RAND()');
 		}elseif($type == 'recents') {
-			$typeCollection->getSelect()->order("main_table.creation_time DESC");	
+			$typeCollection->getSelect()->order("main_table.creation_time DESC");
 		}elseif ($type == 'rate') {
 			$typeCollection->getSelect()->order("main_table.like DESC");
 		}

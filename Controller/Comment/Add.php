@@ -81,6 +81,9 @@ class Add extends \Magento\Framework\App\Action\Action
      */
     protected $scopeConfig;
 
+    protected $resultPageFactory;
+    protected $_coreRegistry;
+
     /**
      * [__construct description]
      * @param Context                                             $context
