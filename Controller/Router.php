@@ -192,7 +192,7 @@ class Router implements RouterInterface
                 $urlKeys = explode("/", $urlKey);
                 $latestPageRoute = $_blogHelper->getConfig('blog_latest_page/route');
                 $urlKeysOrgin = $urlKeys;
-                $urlKeysOrgin = str_replace($urlSuffix, "", $urlKeysOrgin);
+                $urlKeysOrgin = $urlSuffix ? str_replace($urlSuffix, "", $urlKeysOrgin) : $urlKeysOrgin;
                 $orig_list_authors_url = $urlPrefix."/author/list";
 
                 if($urlPrefix == '') {
@@ -202,7 +202,7 @@ class Router implements RouterInterface
 
 
             // LATEST PAGE
-                if(count($urlKeys) == 1 && $urlPrefix != '' && (str_replace($urlSuffix, "", $urlKeys[0]) == $urlPrefix)){
+                if(count($urlKeys) == 1 && $urlPrefix != '' && (@str_replace($urlSuffix, "", $urlKeys[0]) == $urlPrefix)){
                     $request->setModuleName('vesblog')
                     ->setControllerName('latest')
                     ->setActionName('view');
@@ -217,7 +217,7 @@ class Router implements RouterInterface
 
             // CATEGORY PAGE
                 if(count($urlKeys)==2 && $urlPrefix == $urlKeys[0] && $urlKeys[1]!='' && $this->endsWith($urlKeys[1], $urlSuffix)){
-                    $alias = str_replace($urlSuffix, "", $urlKeys[1]);
+                    $alias = @str_replace($urlSuffix, "", $urlKeys[1]);
                     $category = $this->_category->getCollection()
                     ->addFieldToFilter('identifier', $alias)
                     ->addFieldToFilter('is_active', 1)
@@ -241,7 +241,7 @@ class Router implements RouterInterface
                 // AUTHORS PAGE
                 if(($orig_list_authors_url == $urlKey) || (count($urlKeys)==2 && $urlPrefix == $urlKeys[0] && $urlKeys[1]!='')){
 
-                    $authors_route = str_replace($urlSuffix, "", $urlKeys[1]);
+                    $authors_route = @str_replace($urlSuffix, "", $urlKeys[1]);
                     if($authors_route && ($authors_route == $authorsUrlPrefix)){
                         $request->setModuleName('vesblog')
                             ->setControllerName('authors')
@@ -263,7 +263,7 @@ class Router implements RouterInterface
                     $urlKeys[0] = '';
                 }
                 if(count($urlKeys)==3 && $urlPrefix == $urlKeys[0] && $urlKeys[1]=='archive'){
-                    $alias = str_replace($urlSuffix, "", $urlKeys[2]);
+                    $alias = @str_replace($urlSuffix, "", $urlKeys[2]);
                     $date = explode('-', $alias);
                     $date[2] = '01';
                     $time = strtotime(implode('-', $date));
@@ -290,7 +290,7 @@ class Router implements RouterInterface
                     $urlKeys[0] = '';
                 }
                 if(count($urlKeys)==3 && $urlPrefix == $urlKeys[0] && $urlKeys[1]=='tag'){
-                    $alias = str_replace($urlSuffix, "", $urlKeys[2]);
+                    $alias = @str_replace($urlSuffix, "", $urlKeys[2]);
                     $tagCollection = $this->_tag->getCollection()
                     ->addFieldToFilter("alias", $alias);
                     if(!empty($tagCollection)){
@@ -323,7 +323,7 @@ class Router implements RouterInterface
 
             // AUTHOR PAGE
                 if(count($urlKeys)==3 && $urlPrefix == $urlKeys[0] && $urlKeys[1]=='author') {
-                    $alias = str_replace($urlSuffix, "", $urlKeys[2]);
+                    $alias = @str_replace($urlSuffix, "", $urlKeys[2]);
                     $author = $this->_author->loadByUserName($alias);
                     $is_view = null;
                     if($author) {
@@ -418,8 +418,8 @@ class Router implements RouterInterface
                             $is_post_uri = true;
                         }
                     }
-                    if($is_post_uri){
-                        $alias = str_replace($urlSuffix, "", $urlKeys[2]);
+                    if($is_post_uri) {
+                        $alias = @str_replace($urlSuffix, "", $urlKeys[2]);
                         if ($storeCode = $request->getParam(\Magento\Store\Api\StoreResolverInterface::PARAM_NAME)) {
                             $store = $this->storeManager->getStore($storeCode);
                             if ($store->getId()) {
@@ -464,7 +464,7 @@ class Router implements RouterInterface
 
                 /** ENABLE CATEGORY IN POST URL */
                 if ($categoriesUrls && count($urlKeys)==2 && $urlPrefix == $urlKeys[0] && $urlKeys[1]!='' && $this->endsWith($urlKeys[1], $urlSuffix)) {
-                    $alias = str_replace($urlSuffix, "", $urlKeys[1]);
+                    $alias = @str_replace($urlSuffix, "", $urlKeys[1]);
                     $post = $this->_post->getCollection()
                     ->addFieldToFilter("is_active", 1)
                     ->addFieldToFilter("identifier", $alias)

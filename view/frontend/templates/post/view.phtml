@@ -30,6 +30,7 @@ $show_createdtime    = $helper->getConfig("post_page/show_createdtime");
 $show_hits           = $helper->getConfig("post_page/show_hits");
 $show_tags           = $helper->getConfig("post_page/show_tags");
 $show_socialnetworks           = $helper->getConfig("post_page/show_socialblock");
+$show_socialnetworks = false;
 $_post->setData('categories', $_post->getPostCategories());
 ?>
 <?php $postUrl = $helper->getPostUrl($_post); ?>
@@ -169,7 +170,7 @@ $_post->setData('categories', $_post->getPostCategories());
 	</div>
 	<?php } ?>
 	<?php } ?>
-	<?php if($show_socialnetworks && $networks){ ?>
+	<?php if($show_socialnetworks && $networks) { ?>
 	<div class="post-social post-bottom">
 		<span class="td-post-share-title"><?= __('SHARE'); ?></span>
 		<!-- Go to www.addthis.com/dashboard to customize your tools -->
